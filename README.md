@@ -13,7 +13,7 @@ const f = x => x < 100 * 100;
 
 const check = and(a, f, or(c, d, e, not(b)));
 
-check(1000)
+check(1000); // returns bool
 
 const dataVersion = toData(check);
 const fnVersion = fromData(dataVersion)
