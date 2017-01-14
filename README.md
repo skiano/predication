@@ -1,21 +1,32 @@
 # and-or-not
 
+#### example
+
+The following prints numbers that are divisible by 2, and divisible by either 3 or 4, and not less than 20.
+
 ```javascript
 
-import {and, or, not, toData, fromData} from 'and-or-not';
+import { and, or, not } from './';
 
-const a = x => x > 100;
-const b = x => x % 2 === 0;
-const c = x => x % 3 === 0;
-const d = x => x % 4 === 0;
-const e = x => x % 5 === 0;
-const f = x => x < 100 * 100;
+// individual predicates
 
-const check = and(a, f, or(c, d, e, not(b)));
+const isEven = x => x % 2 === 0;
+const isTriple = x => x % 3 === 0;
+const isQuadrupal = x => x % 4 === 0;
+const isLessThanTwenty = x => x < 20;
 
-check(1000); // returns bool
+// combine predicates with logic
+// they can nest however you want
 
-const dataVersion = toData(check);
-const fnVersion = fromData(dataVersion)
+const predicate = and(isEven,
+                      not(isLessThanTwenty),
+                      or(isTriple, 
+                         isQuadrupal));
+
+let i = 0;
+while (i < 50) {
+  if (predicate(i)) console.log(i);
+  i += 1;
+}
 
 ```
