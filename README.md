@@ -2,7 +2,7 @@
 
 ```javascript
 
-import {and, or, not, toData, fromData} from 'and-or-not}
+import {and, or, not, toData, fromData} from 'and-or-not';
 
 const a = x => x > 100;
 const b = x => x % 2 === 0;
