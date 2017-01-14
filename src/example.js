@@ -1,19 +1,25 @@
 
-import { and, or, not, createAndOrNot } from './';
 
-const a = x => x % 2 === 0;
-const b = x => x % 3 === 0;
-const c = x => x > 20;
+const logic = ['&&', x => x > 50, 
+                     x => x < 150,
+                     ['||', x => x % 2 === 0,
+                            x => x % 3 === 0]]
 
-const check1 = and(a, b, c);
-const check2 = or(a, b, c);
+const predicate = makePredicate(logic);
 
-console.log("AND");
+console.log(predicate(60));
 
-console.log(check1(24)); // true
-console.log(check1(6));  // false
 
-console.log("OR");
+function logicToJs(logic) {
+  const chunk = logic.slice(1)
+                     .map(term => Array.isArray(term) ? 
+                        logicToJs(term) : `(${term.toString()})(v)`)
+                     .join(` ${logic[0]} `);
+  return `(${chunk})`;
+}
 
-console.log(check2(8));  // true
-console.log(check2(7));  // false
+function makePredicate(logic) {
+  return (v) => {
+    return eval(logicToJs(logic));
+  };
+}
