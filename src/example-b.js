@@ -1,16 +1,42 @@
 
 import { and, or, not, createAndOrNot } from './';
 
-const a = x => x % 2 === 0;
-const b = x => x % 3 === 0;
-const c = x => x % 4 === 0;
-const d = x => x < 20;
+var def = ["OR", {x: 2}, {y: 3}, ["AND", {foo: true}, {bar: false}]];
 
-const check = and(a, or(b, c), not(d));
+const opperators = {
+  AND: and,
+  OR: or,
+  NOT: not
+};
 
-let i = 0;
-while (i < 50) {
-  if (check(i)) console.log(i);
-  i += 1;
+function dataToPredicate(def) {
+  console.log(def);
+  return function checkFunction(model) {
+    for (let key in def) {
+      if (def.hasOwnProperty(key)) {
+        return def[key] === model[key];
+      }
+    }
+  }
 }
 
+function compilePredicate(def, interpreter) {
+  return (value) => {
+    return opperators[def[0]](...def.slice(1).map(term => {
+      if (Array.isArray(term)) {
+        return compilePredicate(term);
+      } else {
+        return interpreter(term);
+      }
+    }))(value);
+  }
+}
+
+
+const predicate = compilePredicate(def, dataToPredicate);
+
+console.log(predicate({x: 1, y: 3}));
+
+// .forEach(fn => {
+//   console.log(fn({x: 1, y: 3});
+// }));

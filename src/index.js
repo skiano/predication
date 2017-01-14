@@ -7,6 +7,7 @@
 
 // TODO: Add unit tests
 // TODO: make sure in unit tests that extra functions are not called
+// TODO: 'check' should be called predicate
 
 const CHECK_ERR = 'checks must be functions';
 const NOT_ERROR = 'not() requires exactly one argument';
