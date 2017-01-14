@@ -1,13 +1,18 @@
 import test from 'tape';
+import aon from './';
 
-test('timing test', t => {
-  t.plan(2);
+test('And Operator', t => {
+  t.plan(4);
 
-  t.equal(typeof Date.now, 'function');
+  const interpreter = {
+    bool(model, value) {
+      return value;
+    }
+  }
 
-  const start = Date.now();
+  const bool = aon(
+    ['&&', ['bool', true], ['bool', true], ['bool', true]],
+    interpreter)();
 
-  setTimeout(function () {
-    t.equal(Date.now() - start, 100);
-  }, 100);
+  t.equal(bool, true, 'And: (true, true, true) => true');
 });
