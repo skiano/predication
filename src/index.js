@@ -33,7 +33,7 @@ function dataToJs(statement, interpreter, commands) {
   }
 }
 
-export default function makeAonPredicate(statement, interpreter) {
+export default function makeAONPredicate(statement, interpreter) {
   const c = []; // var name is important because it relates to the generated code
   return (v) => eval(dataToJs(statement, interpreter, c));
 }

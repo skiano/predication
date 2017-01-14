@@ -9,5 +9,5 @@ test('timing test', t => {
 
   setTimeout(function () {
     t.equal(Date.now() - start, 100);
-  }, 1000);
+  }, 100);
 });
