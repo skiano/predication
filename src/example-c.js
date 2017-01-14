@@ -1,5 +1,5 @@
 
-import { and, or, not, createAndOrNot } from './';
+import { and, or, not } from './';
 
 const a = x => x % 2 === 0;
 const b = x => x % 3 === 0;
