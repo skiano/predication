@@ -7,9 +7,9 @@ The following code creates a predicate that returns true for numbers _less than 
 ```javascript
 
 const data = ['&&', ['lessThan', 'v', 15],
-                      ['!', ['lessThan', 'v', 5]],
-                      ['||', ['divisibleBy', 'v', 2],
-                             ['divisibleBy', 'v', 3]]];
+                    ['!',  ['lessThan', 'v', 5]],
+                    ['||', ['divisibleBy', 'v', 2],
+                           ['divisibleBy', 'v', 3]]];
 
 const interpreter = {
   lessThan: (model, key, threshold) => {
