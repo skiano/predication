@@ -4,13 +4,14 @@
   "description": "Complex filters as functions and data",
   "main": "index.js",
   "scripts": {
-    "test": "test",
+    "test": "npm build && tape dist/*spec.js",
     "start": "babel src --watch -d dist",
     "build": "babel src -d dist"
   },
   "devDependencies": {
     "babel-cli": "^6.18.0",
-    "babel-preset-latest": "^6.16.0"
+    "babel-preset-latest": "^6.16.0",
+    "tape": "^4.6.3"
   },
   "repository": {
     "type": "git",
