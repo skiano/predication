@@ -1,41 +1,25 @@
 # and-or-not
 
-_NOTE: Build is not ready for npm module_
-
-_NOTE: Tests are missing_
-
 #### Example
 
-The following prints all the numbers between 1 and 50 that are divisible by 2, and divisible by either 3 or 4, and not less than 20.
+The following code creates a predicate that returns true for numbers _less than 15, and not less than 5, and divisible by either 2 or 3_.
 
 ```javascript
 
-import { and, or, not } from 'and-or-not';
+import aon from 'and-or-not';
 
-// individual predicates
+const data = ['&&', ['lessThan', 'v', 15],
+                      ['!', ['lessThan', 'v', 5]],
+                      ['||', ['divisibleBy', 'v', 2],
+                             ['divisibleBy', 'v', 3]]];
 
-const isEven = x => x % 2 === 0;
-const isTriple = x => x % 3 === 0;
-const isQuadrupal = x => x % 4 === 0;
-const isLessThanTwenty = x => x < 20;
+const predicate = aon(data, interpreter);
 
-// combine predicates with logic
-// they can nest however you want
-
-const predicate = and(isEven,
-                      not(isLessThanTwenty),
-                      or(isTriple, 
-                         isQuadrupal));
-
-// The range of numbers from 1 to 50
-
-const range = Array.from(Array(50).keys()).map(v => v + 1);
-
-// Pass the predicate to filter()
-
-const filtered = range.filter(predicate);
-
-// filtered = [ 20, 24, 28, 30, 32, 36, 40, 42, 44, 48 ]
-
+predicate(({v: 6}); // true
+predicate(({v: 8}); // true
+predicate(({v: 9}); // true
+predicate(({v: 7}); // false
+predicate(({v: 3}); // false
+predicate(({v: 17}); // false
 
 ```
