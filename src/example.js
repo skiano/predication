@@ -1,21 +1,29 @@
 
-function logicToJs(logic, commands) {
-  const chunk = logic.slice(1)
-                     .map(opperand => {
-                        if (Array.isArray(opperand)) {
-                          return logicToJs(opperand, commands);
-                        } else {
-                         return `(x[${commands.push(opperand)}])(v)`;
-                        }
-                      })
-                     .join(` ${logic[0]} `);
-  return `(${chunk})`;
+function dataToJs(data, commands) {
+  if (data[0] === '!') {
+    /*
+     * Handle Not
+     */
+    return `!x[${commands.push(data[1]) - 1}](v)`;
+  } else {
+    /*
+     * Handle And / Or
+     */
+    return `(${data.slice(1)
+      .map(opperand => {
+        if (Array.isArray(opperand)) {
+          return dataToJs(opperand, commands);
+        } else {
+         return `x[${commands.push(opperand) - 1}](v)`;
+        }
+      }).join(` ${data[0]} `)})`;
+  }
 }
 
-function makePredicate(logic) {
+function makePredicate(data) {
   const x = [];
   return (v) => {
-    return eval(logicToJs(logic, x));
+    return eval(dataToJs(data, x));
   };
 }
 
@@ -28,12 +36,15 @@ function makePredicate(logic) {
 // maybe it is safe though because this creates the string
 // its not as if it accepts a string as an arg and executes it
 
-const logic = ['&&', x => x > 50,
-                     x => x < 150,
-                     ['||', x => x % 2 === 0,
-                            x => x % 3 === 0]]
 
-const predicate = makePredicate(logic);
+const data = ['&&', ['!', () => false], ['||', () => false, () => true]];
+
+const dataData = ['&&', ['GREATER_THAN', 'cost', 50],
+                        ['LESS_THAN', 'cost', 150],
+                        ['||', ['DIVISIBLE_BY', 'cost', 2],
+                               ['DIVISIBLE_BY', 'cost', 3]]]
+
+const predicate = makePredicate(data);
 
 console.log(predicate(60));
-console.log(predicate(61));
+// console.log(predicate(61));
