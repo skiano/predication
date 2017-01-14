@@ -1,16 +1,29 @@
 
 import { and, or, not } from './';
 
-const a = x => x % 2 === 0;
-const b = x => x % 3 === 0;
-const c = x => x % 4 === 0;
-const d = x => x < 20;
+// individual predicates
 
-const check = and(a, or(b, c), not(d));
+const isEven = x => x % 2 === 0;
+const isTriple = x => x % 3 === 0;
+const isQuadrupal = x => x % 4 === 0;
+const isLessThanTwenty = x => x < 20;
 
-let i = 0;
-while (i < 50) {
-  if (check(i)) console.log(i);
-  i += 1;
-}
+// combine predicates with logic
+// they can nest however you want
+
+const predicate = and(isEven,
+                      not(isLessThanTwenty),
+                      or(isTriple, 
+                         isQuadrupal));
+
+// The range of numbers from 1 to 50
+
+const range = Array.from(Array(50).keys()).map(v => v + 1);
+
+// Pass the predicate to filter()
+
+const filtered = range.filter(predicate);
+
+// filtered = [ 20, 24, 28, 30, 32, 36, 40, 42, 44, 48 ]
+
 
