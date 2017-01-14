@@ -4,14 +4,16 @@
   "description": "Complex filters as functions and data",
   "main": "dist/index.js",
   "scripts": {
-    "test": "babel src -d dist && tape dist/*spec.js",
-    "start": "babel src --watch -d dist",
+    "start": "babel src --watch -d dist && ",
+    "test": "babel src -d dist && tape dist/*spec.js | tap-notify | tap-spec",
     "build": "babel src -d dist",
     "prepublish": "npm run build"
   },
   "devDependencies": {
     "babel-cli": "^6.18.0",
     "babel-preset-latest": "^6.16.0",
+    "tap-notify": "^1.0.0",
+    "tap-spec": "^4.1.1",
     "tape": "^4.6.3"
   },
   "repository": {
