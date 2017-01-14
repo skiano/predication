@@ -9,8 +9,3 @@ src
 # Test Files
 
 *.spec.js
-
-# Configuration
-
-.bablerc
-.eslintrc
