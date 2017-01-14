@@ -8,7 +8,7 @@
 
 // TODO: Add unit tests
 // TODO: make sure in unit tests that extra functions are not called
-// TODO: 'predicate' should be called predicate
+// TODO: async? observables?
 
 const PREDICATE_ERROR = 'predicates must be functions';
 const NOT_ERROR = 'not() requires exactly one argument';
@@ -32,34 +32,58 @@ function createAndOrNot(errorHandler) {
     }
   }
 
-  return {
-    and(...predicates) {
-      return value => {
-        for (let predicate of predicates) {
-          if (!callSafely(predicate, value)) return false;
-        }
-        return true;
-      };
-    },
-
-    or(...predicates) {
-      return value => {
-        for (let predicate of predicates) {
-          if (callSafely(predicate, value)) return true;
-        }
-        return false;
-      };
-    },
-
-    not(...predicates) {
-      if (predicates.length > 1) throw new Error(NOT_ERROR);
-      return value => {
-        return !callSafely(predicates[0], value);
+  function and (...predicates) {
+    return value => {
+      for (let predicate of predicates) {
+        if (!callSafely(predicate, value)) return false;
       }
-    },
+      return true;
+    };
+  }
+
+  function or(...predicates) {
+    return value => {
+      for (let predicate of predicates) {
+        if (callSafely(predicate, value)) return true;
+      }
+      return false;
+    };
+  }
+
+  function not(...predicates) {
+    if (predicates.length > 1) throw new Error(NOT_ERROR);
+    return value => {
+      return !callSafely(predicates[0], value);
+    }
+  }
+
+  const opperators = {
+    AND: and,
+    OR: or,
+    NOT: not
   };
+
+  function predicateFromArray(config, interpreter) {
+    return value => {
+      return opperators[config[0]](...config.slice(1).map(term => {
+        if (Array.isArray(term)) {
+          return predicateFromArray(term, interpreter);
+        } else {
+          return interpreter(term);
+        }
+      }))(value);
+    }
+  }
+
+  return { and, or, not, predicateFromArray };
 }
 
-const { and, or, not } = createAndOrNot();
+const { and, or, not, predicateFromArray } = createAndOrNot();
 
-export { createAndOrNot, and, or, not };
+export {
+  createAndOrNot,
+  predicateFromArray,
+  and,
+  or,
+  not
+};

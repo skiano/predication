@@ -1,11 +1,5 @@
 
-import { and, or, not, createAndOrNot } from './';
-
-const opperators = {
-  AND: and,
-  OR: or,
-  NOT: not
-};
+import { and, or, not, predicateFromArray } from './';
 
 function dataToPredicate(term) {
   return function predicate(model) {
@@ -17,24 +11,12 @@ function dataToPredicate(term) {
   }
 }
 
-function compilePredicate(config, interpreter) {
-  return function predicate(value) {
-    return opperators[config[0]](...config.slice(1).map(term => {
-      if (Array.isArray(term)) {
-        return compilePredicate(term, interpreter);
-      } else {
-        return interpreter(term);
-      }
-    }))(value);
-  }
-}
-
 var config = [ "AND", { x: 2 }, 
                       { y: 3 }, 
                       [ "OR", { foo: true }, 
                               { bar: true }]];
 
-const predicate = compilePredicate(config, dataToPredicate);
+const predicate = predicateFromArray(config, dataToPredicate);
 
-console.log(predicate({x: 2, y: 3, bar: true})); // true
+console.log(predicate({x: 2, y: 3, bar: false})); // true
 
