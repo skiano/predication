@@ -12,15 +12,17 @@ const CHECK_ERR = 'checks must be functions';
 const NOT_ERROR = 'not() requires exactly one argument';
 
 function createAndOrNot(errorHandler) {
-  const handleError = (fn, x) => {
+  const handleError = (fn, value) => {
     if (typeof fn !== 'function') {
       throw new Error(CHECK_ERR);
     } else {
       try {
-        return fn(x);
+        return fn(value);
       } catch (e) {
         if (typeof errorHandler === 'function') {
-          return errorHandler(e);
+          // allow user to handle the error
+          // and pass them the original value
+          return errorHandler(e, value);
         }
         return false;
       } 
