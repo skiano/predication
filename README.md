@@ -1,7 +1,8 @@
 # and-or-not
 
-NOTE: Build is not ready for npm module
-NOTE: Tests are missing
+_NOTE: Build is not ready for npm module_
+
+_NOTE: Tests are missing_
 
 #### Example
 
