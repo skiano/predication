@@ -1,93 +1,75 @@
 
-/*
- * Relevant Links
- * http://stackoverflow.com/questions/20737045/representing-logic-as-data-in-json
- * https://hacks.mozilla.org/2015/04/es6-in-depth-iterators-and-the-for-of-loop/
- * https://en.wikipedia.org/wiki/Predicate_(mathematical_logic)
- */
+// look into boolean algebra
+// https://en.wikipedia.org/wiki/Boolean_algebra#Values
+// might be useful to implement XOR and equivilence etc
 
-// TODO: Add unit tests
-// TODO: make sure in unit tests that extra functions are not called
-// TODO: async? observables?
-
-const PREDICATE_ERROR = 'predicates must be functions';
-const NOT_ERROR = 'not() requires exactly one argument';
-const OPPERATOR_ERROR = 'Invalid opperator: ';
-
-function createAndOrNot(errorHandler) {
-  const callSafely = (fn, value) => {
-    if (typeof fn !== 'function') {
-      throw new Error(PREDICATE_ERROR);
-    } else {
-      try {
-        return fn(value);
-      } catch (err) {
-        if (typeof errorHandler === 'function') {
-          // allow user to handle the error
-          // and pass them the original value
-          return errorHandler(err, value);
-        }
-        return false;
-      } 
-    }
-  }
-
-  function and (...predicates) {
-    return value => {
-      for (let predicate of predicates) {
-        if (!callSafely(predicate, value)) return false;
-      }
-      return true;
-    };
-  }
-
-  function or(...predicates) {
-    return value => {
-      for (let predicate of predicates) {
-        if (callSafely(predicate, value)) return true;
-      }
-      return false;
-    };
-  }
-
-  function not(...predicates) {
-    if (predicates.length > 1) throw new Error(NOT_ERROR);
-    return value => {
-      return !callSafely(predicates[0], value);
-    }
-  }
-
-  const opperators = {
-    AND: and,
-    OR: or,
-    NOT: not
-  };
-
-  function predicateFromArray(config, interpreter) {
-    if (!Array.isArray(config) || !opperators[config[0]]) {
-      throw new Error(OPPERATOR_ERROR + config[0]);
-    }
-
-    return value => {
-      return opperators[config[0]](...config.slice(1).map(term => {
-        if (Array.isArray(term)) {
-          return predicateFromArray(term, interpreter);
-        } else {
-          return interpreter(term);
-        }
-      }))(value);
-    }
-  }
-
-  return { and, or, not, predicateFromArray };
+function useInterpreter(operand, interpreter) {
+  return v => interpreter[operand[0]](v, ...operand.slice(1));
 }
 
-const { and, or, not, predicateFromArray } = createAndOrNot();
+const LOGICAL_OPPERATORS = /^(!|&&|\|\|)$/;
 
-export {
-  createAndOrNot,
-  predicateFromArray,
-  and,
-  or,
-  not
-};
+function dataToJs(statement, interpreter, commands) {
+  const opperator = statement[0];
+  const opperands = statement.slice(1);
+
+  switch (true) {
+    case (opperator === '!'):
+      return `!c[${commands.push(useInterpreter(opperands[0], interpreter)) - 1}](v)`;
+
+    case (opperator === '&&' || opperator === '||'):
+      return `(${opperands
+        .map(statement => {
+          if (LOGICAL_OPPERATORS.test(statement[0])) {
+            return dataToJs(statement, interpreter, commands);
+          } else {
+           return `c[${commands.push(useInterpreter(statement, interpreter)) - 1}](v)`;
+          }
+        }).join(` ${opperator} `)})`;
+
+    default:
+      throw new Error('unrecognized opperator: ' + opperator);
+
+  }
+}
+
+function makePredicate(statement, interpreter) {
+  const c = []; // commands
+  return (v) => {
+    console.log(dataToJs(statement, interpreter, c));
+    return eval(dataToJs(statement, interpreter, c));
+  };
+}
+
+// TODO: handle ! not opperator
+// change opperand to opperand
+// how to take care of security
+// right now this executes arbitrary functions
+// i supose it needs to go al the way to the level of taking a data object??
+// maybe even then it cant be safe
+// maybe it is safe though because this creates the string
+// its not as if it accepts a string as an arg and executes it
+
+
+// const data = ['&&', ['!', () => false], ['||', () => false, () => true]];
+
+// const dataData = ['&&', ['GREATER_THAN', 'cost', 50],
+//                         ['LESS_THAN', 'cost', 150],
+//                         ['||', ['DIVISIBLE_BY', 'cost', 2],
+//                                ['DIVISIBLE_BY', 'cost', 3]]]
+
+
+// const data = ['!', ['greaterThan', 'value', 50]];
+const data = ['||', ['greaterThan', 'value', 80], ['greaterThan', 'value', 60]];
+
+const interpreter = {
+  greaterThan(model, key, value) {
+    return model[key] > value;
+  },
+  lessThan(model, key, value) {
+    return model[key] < value;
+  }
+}
+
+const predicate = makePredicate(data, interpreter);
+console.log(predicate({value: 70}));
