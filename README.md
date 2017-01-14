@@ -1,8 +1,8 @@
 # and-or-not
 
-#### example
+#### Combining Predicates
 
-The following prints numbers that are divisible by 2, and divisible by either 3 or 4, and not less than 20.
+The following prints all the numbers between 1 and 50 that are divisible by 2, and divisible by either 3 or 4, and not less than 20.
 
 ```javascript
 
