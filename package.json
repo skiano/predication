@@ -1,0 +1,22 @@
+{
+  "name": "and-or-not",
+  "version": "1.0.0",
+  "description": "Complex filters as functions and data",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/skiano/and-or-not.git"
+  },
+  "keywords": [
+    "Filter"
+  ],
+  "author": "Greg Skiano",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/skiano/and-or-not/issues"
+  },
+  "homepage": "https://github.com/skiano/and-or-not#readme"
+}
