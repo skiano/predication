@@ -18,9 +18,10 @@ const isLessThanTwenty = x => x < 20;
 // combine predicates with logic
 // they can nest however you want
 
-const predicate = and(isEven, 
-                      or(isTriple, isQuadrupal),
-                      not(isLessThanTwenty));
+const predicate = and(isEven,
+                      not(isLessThanTwenty),
+                      or(isTriple, 
+                         isQuadrupal));
 
 let i = 0;
 while (i < 50) {
