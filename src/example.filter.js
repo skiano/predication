@@ -1,10 +1,4 @@
-# and-or-not
-
-#### Example
-
-The following code creates a predicate that returns true for numbers _less than 15, and not less than 5, and divisible by either 2 or 3_.
-
-```javascript
+import aon from './';
 
 const data = ['&&', ['lessThan', 'v', 15],
                       ['!', ['lessThan', 'v', 5]],
@@ -28,5 +22,3 @@ console.log(predicate({v: 9})); // true
 console.log(predicate({v: 7})); // false
 console.log(predicate({v: 3})); // false
 console.log(predicate({v: 17})); // false
-
-```
