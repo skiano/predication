@@ -12,6 +12,7 @@
 
 const PREDICATE_ERROR = 'predicates must be functions';
 const NOT_ERROR = 'not() requires exactly one argument';
+const OPPERATOR_ERROR = 'Invalid opperator: ';
 
 function createAndOrNot(errorHandler) {
   const callSafely = (fn, value) => {
@@ -21,7 +22,6 @@ function createAndOrNot(errorHandler) {
       try {
         return fn(value);
       } catch (err) {
-        console.log(err)
         if (typeof errorHandler === 'function') {
           // allow user to handle the error
           // and pass them the original value
@@ -64,6 +64,10 @@ function createAndOrNot(errorHandler) {
   };
 
   function predicateFromArray(config, interpreter) {
+    if (!Array.isArray(config) || !opperators[config[0]]) {
+      throw new Error(OPPERATOR_ERROR + config[0]);
+    }
+
     return value => {
       return opperators[config[0]](...config.slice(1).map(term => {
         if (Array.isArray(term)) {

@@ -1,5 +1,9 @@
 
-import { and, or, not, predicateFromArray } from './';
+import { createAndOrNot } from './';
+
+const { predicateFromArray } = createAndOrNot(err => {
+  console.log(err)
+});
 
 function dataToPredicate(term) {
   return function predicate(model) {
@@ -18,5 +22,7 @@ var config = [ "AND", { x: 2 },
 
 const predicate = predicateFromArray(config, dataToPredicate);
 
-console.log(predicate({x: 2, y: 3, bar: false})); // true
+console.log(predicate({x: 2, y: 3, bar: true})); // true
+console.log(predicate({x: 2, y: 3, foo: true})); // true
+console.log(predicate({x: 2, y: 3, bar: false})); // false
 
