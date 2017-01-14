@@ -6,7 +6,7 @@ The following prints all the numbers between 1 and 50 that are divisible by 2, a
 
 ```javascript
 
-import { and, or, not } from './';
+import { and, or, not } from 'and-or-not';
 
 // individual predicates
 
