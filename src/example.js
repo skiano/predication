@@ -1,9 +1,6 @@
 
 import { and, or, not, createAndOrNot } from './';
 
-
-
-
 const a = x => x % 2 === 0;
 const b = x => x % 3 === 0;
 const c = x => x > 20;

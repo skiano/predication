@@ -1,6 +1,4 @@
 
-// Note: for of loop allows breaks
-
 /*
  * Relevant Links
  * http://stackoverflow.com/questions/20737045/representing-logic-as-data-in-json
@@ -10,10 +8,13 @@
 // TODO: Add unit tests
 // TODO: make sure in unit tests that extra functions are not called
 
+const CHECK_ERR = 'checks must be functions';
+const NOT_ERROR = 'not() requires exactly one argument';
+
 function createAndOrNot(errorHandler) {
   const handleError = (fn, x) => {
     if (typeof fn !== 'function') {
-      throw new Error('checks must be functions');
+      throw new Error(CHECK_ERR);
     } else {
       try {
         return fn(x);
@@ -27,7 +28,6 @@ function createAndOrNot(errorHandler) {
   }
 
   return {
-
     and(...checks) {
       return value => {
         for (let check of checks) {
@@ -48,22 +48,14 @@ function createAndOrNot(errorHandler) {
 
     not(...checks) {
       if (checks.length > 1) {
-        throw new Error('not() requires exactly one argument');
+        throw new Error(NOT_ERROR);
       } else {
         return !handleError(checks[0](x));  
       }
     },
-
   };
 }
 
-function test() {
-
-}
-
-const a = {
-  b: 2
-}
-const {and, or, not} = createAndOrNot();
+const { and, or, not } = createAndOrNot();
 
 export { createAndOrNot, and, or, not };
