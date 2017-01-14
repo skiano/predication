@@ -1,9 +1,9 @@
 import aon from './';
 
 const data = ['&&', ['lessThan', 'v', 15],
-                      ['!', ['lessThan', 'v', 5]],
-                      ['||', ['divisibleBy', 'v', 2],
-                             ['divisibleBy', 'v', 3]]];
+                    ['!', ['lessThan', 'v', 5]],
+                    ['||', ['divisibleBy', 'v', 2],
+                           ['divisibleBy', 'v', 3]]];
 
 const interpreter = {
   lessThan: (model, key, threshold) => {
@@ -16,9 +16,9 @@ const interpreter = {
 
 const predicate = aon(data, interpreter);
 
-console.log(predicate({v: 6})); // true
-console.log(predicate({v: 8})); // true
-console.log(predicate({v: 9})); // true
-console.log(predicate({v: 7})); // false
-console.log(predicate({v: 3})); // false
-console.log(predicate({v: 17})); // false
+const oneToFifteen = Array.from(Array(15).keys()).map(v => ({v: v + 1}));
+
+const matches = oneToFifteen.filter(predicate);
+
+// matches = [ { v: 6 }, { v: 8 }, { v: 9 }, { v: 10 }, { v: 12 }, { v: 14 } ]
+console.log(matches);
