@@ -3,19 +3,20 @@
  * Relevant Links
  * http://stackoverflow.com/questions/20737045/representing-logic-as-data-in-json
  * https://hacks.mozilla.org/2015/04/es6-in-depth-iterators-and-the-for-of-loop/
+ * https://en.wikipedia.org/wiki/Predicate_(mathematical_logic)
  */
 
 // TODO: Add unit tests
 // TODO: make sure in unit tests that extra functions are not called
-// TODO: 'check' should be called predicate
+// TODO: 'predicate' should be called predicate
 
-const CHECK_ERR = 'checks must be functions';
+const PREDICATE_ERROR = 'predicates must be functions';
 const NOT_ERROR = 'not() requires exactly one argument';
 
 function createAndOrNot(errorHandler) {
   const callSafely = (fn, value) => {
     if (typeof fn !== 'function') {
-      throw new Error(CHECK_ERR);
+      throw new Error(PREDICATE_ERROR);
     } else {
       try {
         return fn(value);
@@ -32,28 +33,28 @@ function createAndOrNot(errorHandler) {
   }
 
   return {
-    and(...checks) {
+    and(...predicates) {
       return value => {
-        for (let check of checks) {
-          if (!callSafely(check, value)) return false;
+        for (let predicate of predicates) {
+          if (!callSafely(predicate, value)) return false;
         }
         return true;
       };
     },
 
-    or(...checks) {
+    or(...predicates) {
       return value => {
-        for (let check of checks) {
-          if (callSafely(check, value)) return true;
+        for (let predicate of predicates) {
+          if (callSafely(predicate, value)) return true;
         }
         return false;
       };
     },
 
-    not(...checks) {
-      if (checks.length > 1) throw new Error(NOT_ERROR);
+    not(...predicates) {
+      if (predicates.length > 1) throw new Error(NOT_ERROR);
       return value => {
-        return !callSafely(checks[0], value);
+        return !callSafely(predicates[0], value);
       }
     },
   };
