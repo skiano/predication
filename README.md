@@ -23,10 +23,15 @@ const predicate = and(isEven,
                       or(isTriple, 
                          isQuadrupal));
 
-let i = 0;
-while (i < 50) {
-  if (predicate(i)) console.log(i);
-  i += 1;
-}
+// The range of numbers from 1 to 50
+
+const range = Array.from(Array(50).keys()).map(v => v + 1);
+
+// Pass the predicate to filter()
+
+const filtered = range.filter(predicate);
+
+// filtered = [ 20, 24, 28, 30, 32, 36, 40, 42, 44, 48 ]
+
 
 ```
