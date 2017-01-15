@@ -104,8 +104,8 @@ test('Interpreter', t => {
 
   const interpreter = {
     test: (model, a, b, c, d) => {
-      t.deepLooseEqual([a, b, c, d], [1, 2, 3, 4], 'should pass through operands as arguments');
-      t.deepLooseEqual(model, {model: true}, 'should pass the model to the predicate');
+      t.deepLooseEqual([a, b, c, d], [1, 2, 3, 4], 'Should pass through operands as arguments');
+      t.deepLooseEqual(model, {model: true}, 'Should pass the model to the predicate');
       return true;
     }
   }
@@ -114,8 +114,8 @@ test('Interpreter', t => {
 
   const notInterpreter = {
     test: (model, a, b, c, d) => {
-      t.deepLooseEqual([a, b, c, d], [1, 2, 3, 4], 'should pass through operands as arguments');
-      t.deepLooseEqual(model, {model: true}, 'should pass the model to the predicate');
+      t.deepLooseEqual([a, b, c, d], [1, 2, 3, 4], 'Should pass through operands as arguments');
+      t.deepLooseEqual(model, {model: true}, 'Should pass the model to the predicate');
       return true;
     }
   }
@@ -124,7 +124,7 @@ test('Interpreter', t => {
 });
 
 test('Composition', t => {
-  t.plan(6);
+  t.plan(1);
 
   const interpreter = {
     lessThan: (model, key, threshold) => {
@@ -138,25 +138,15 @@ test('Composition', t => {
   const data = ['&&', ['lessThan', 'v', 15],
                       ['!', ['lessThan', 'v', 5]],
                       ['||', ['divisibleBy', 'v', 2],
-                             ['divisibleBy', 'v', 3]]]
+                             ['divisibleBy', 'v', 3]]];
 
-  t.equal(aon(data, interpreter)({v: 6}), true,
-    '6 is: less than 15, and not less than 5, and divisible by either 2 or 3');
+  const predicate = aon(data, interpreter);
+  const oneToFifteen = Array.from(Array(20).keys()).map(v => ({v: v + 1}));
+  const matches = oneToFifteen.filter(predicate);
 
-  t.equal(aon(data, interpreter)({v: 8}), true,
-    '8 is: less than 15, and not less than 5, and divisible by either 2 or 3');
-
-  t.equal(aon(data, interpreter)({v: 9}), true,
-    '9 is: less than 15, and not less than 5, and divisible by either 2 or 3');
-
-  t.equal(aon(data, interpreter)({v: 7}), false,
-    '7 is not: less than 15, and not less than 5, and divisible by either 2 or 3');
-
-  t.equal(aon(data, interpreter)({v: 3}), false,
-    '3 is not: less than 15, and not less than 5, and divisible by either 2 or 3');
-
-  t.equal(aon(data, interpreter)({v: 17}), false,
-    '17 is not: less than 15, and not less than 5, and divisible by either 2 or 3');
+  t.deepLooseEqual(matches,
+    [ { v: 6 }, { v: 8 }, { v: 9 }, { v: 10 }, { v: 12 }, { v: 14 } ],
+    'filter: less than 15, and not less than 5, and divisible by either 2 or 3')
 });
 
 // TODO: Test how `this` is affected
