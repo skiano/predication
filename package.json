@@ -1,6 +1,6 @@
 {
   "name": "and-or-not",
-  "version": "2.0.9",
+  "version": "2.0.10",
   "description": "Complex filters as functions and data",
   "main": "dist/index.js",
   "scripts": {
