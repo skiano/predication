@@ -1,14 +1,18 @@
 
+function createOperator(operator) {
+  return v => console.log(operator, v);
+}
+
 function createAnd() {
-  return v => console.log;
+  return createOperator('&&');
 }
 
 function createOr() {
-  return v => console.log;
+  return createOperator('||');
 }
 
 function createNot() {
-  return v => console.log;
+  return createOperator('!');
 }
 
 export { createAnd, createOr, createNot };
