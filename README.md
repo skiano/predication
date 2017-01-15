@@ -6,7 +6,7 @@ The following code creates a predicate that returns true for numbers _less than 
 
 ```javascript
 
-import aon from 'and-not-or';
+import { aon } from 'and-or-not';
 
 const data = ['&&', ['lessThan', 'v', 15],
                     ['!', ['lessThan', 'v', 5]],

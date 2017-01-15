@@ -1,4 +1,4 @@
-import aon from './';
+import { aon } from './';
 
 const data = ['&&', ['lessThan', 'v', 15],
                     ['!', ['lessThan', 'v', 5]],

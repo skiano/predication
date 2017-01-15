@@ -1,5 +1,6 @@
+
 import test from 'tape';
-import aon from './';
+import aon from './aon';
 
 test('And Operator', t => {
   t.plan(5);
@@ -150,4 +151,3 @@ test('Composition', t => {
 });
 
 // TODO: Test how `this` is affected
-
