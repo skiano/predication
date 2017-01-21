@@ -1,6 +1,5 @@
 import test from 'tape';
-import { aon } from './';
-import { $and, $or, $not, $lt, $mod } from './';
+import aon from './';
 
 test('Logic', t => {
   t.plan(1);

@@ -1,4 +1,4 @@
-export function aon(data) {
+export default function aon(data) {
   // TODO: handle evaluating a model
   const operator = Object.keys(data);
   return operators[operator[0]](data[operator]);
