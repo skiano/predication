@@ -9,8 +9,8 @@ test('Composition', t => {
                       not($lt(5)),
                       or($mod(2), $mod(3)));
 
-  const oneToFifteen = Array.from(Array(20).keys());
-  const matches = oneToFifteen.filter(predicate);
+  const oneToTwenty = Array.from(Array(20).keys());
+  const matches = oneToTwenty.filter(predicate);
 
   t.deepLooseEqual(matches,
     [ 6, 8, 9, 10, 12, 14 ],
