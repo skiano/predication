@@ -1,5 +1,5 @@
 import test from 'tape';
-import aon from './';
+import predication from './';
 
 test('Logic', t => {
   t.plan(1);
@@ -13,7 +13,7 @@ test('Logic', t => {
     ]}
   ]}
 
-  const predicate = aon(data);
+  const predicate = predication(data);
 
   const values = [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20 ];
   const matches = values.filter(predicate);
