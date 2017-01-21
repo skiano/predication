@@ -15,8 +15,8 @@ export default function aon(data) {
 
 function wrap(operator) {
   return (operands) => {
-    operands = Array.isArray(operands) ? operands : [operands];
-    return operator(...operands);
+    return Array.isArray(operands) ?
+      operator(...operands) : operator(operands);
   }
 }
 
