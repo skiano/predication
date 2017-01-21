@@ -25,7 +25,6 @@ const p1 = and($_({x: $gt(5)}),
 
 console.log(p1({x: 13, y: 10}));
 
-
 const p2 = and($mod(2),
                $mod(3),
                or($gt(50),
