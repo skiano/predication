@@ -1,4 +1,4 @@
-# and-or-not
+# predication
 
 ### Example
 
