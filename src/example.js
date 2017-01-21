@@ -11,7 +11,7 @@ const $gt = value => key => key > value;
 const $gte = value => key => key >= value;
 const $mod = (divisor, remainder) => v => v % divisor === (remainder || 0);
 
-const $obj = (predicates) => model => {
+const _$ = (predicates) => model => {
   for (let key in predicates) {
     if (predicates.hasOwnProperty(key)) {
       if (!predicates[key](model[key])) return false;
@@ -20,8 +20,10 @@ const $obj = (predicates) => model => {
   return true;
 }
 
-const predicate = and($obj({x: $gt(5)}), 
-                      $obj({y: $gt(5)}));
+
+
+const predicate = and(_$({x: $gt(5)}), 
+                      _$({y: $gt(5)}));
 
 console.log(predicate({x: 13, y: 10}));
 
