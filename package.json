@@ -1,6 +1,6 @@
 {
   "name": "predication",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Complex filters as functions and data",
   "main": "dist/index.js",
   "scripts": {
