@@ -1,8 +1,6 @@
 # and-or-not
 
-#### Example
-
-Example
+### Example
 
 The following code creates a predicate that returns true for numbers less than 15, and not less than 5, and divisible by either 2 or 3.
 
