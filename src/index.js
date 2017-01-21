@@ -5,9 +5,6 @@ const makeOperator = (logic) => {
     const js = `!!(${predicates.map((p) => (
       `fn[${fn.push(p) - 1}](v)`
     )).join(logic)})`;
-
-    console.log(js);
-
     return v => eval(js);
   }
 }
