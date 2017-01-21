@@ -2,12 +2,12 @@ import test from 'tape';
 import { and, or, not } from './';
 import { $lt, $mod } from './';
 
-test('Composition', t => {
+test('Logic', t => {
   t.plan(1);
 
   const predicate = and($lt(15), 
-                      not($lt(5)),
-                      or($mod(2), $mod(3)));
+                        not($lt(5)),
+                        or($mod(2), $mod(3)));
 
   const values = [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20 ];
   const matches = values.filter(predicate);
