@@ -22,3 +22,20 @@ test('Logic', t => {
     [ 6, 8, 9, 10, 12, 14 ],
     'filter: less than 15, and not less than 5, and divisible by either 2 or 3')
 });
+
+test('Objects', t => {
+  t.plan(1);
+
+  const data = {
+    $and: [
+      {x: {$lt: 5}},
+      {y: {$gt: 5}}
+    ]
+  }
+
+  const predicate = predication(data);
+
+  console.log(predicate({x: 4, y: 7}))
+
+  t.equal(true, true);
+});
