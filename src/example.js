@@ -1,19 +1,11 @@
 
-import { and, or, not, createAndOrNot } from './';
+import { and, or, not } from './';
 
 const a = x => x % 2 === 0;
 const b = x => x % 3 === 0;
-const c = x => x > 20;
+const c = x => x > 50;
+const d = x => x > 20;
 
-const check1 = and(a, b, c);
-const check2 = or(a, b, c);
+const predicate = and(a, b, or(c, not(d)));
 
-console.log("AND");
-
-console.log(check1(24)); // true
-console.log(check1(6));  // false
-
-console.log("OR");
-
-console.log(check2(8));  // true
-console.log(check2(7));  // false
+console.log(predicate(60))
