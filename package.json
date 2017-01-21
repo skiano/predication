@@ -1,6 +1,6 @@
 {
-  "name": "and-or-not",
-  "version": "2.1.0",
+  "name": "predication",
+  "version": "0.0.1",
   "description": "Complex filters as functions and data",
   "main": "dist/index.js",
   "scripts": {
@@ -19,7 +19,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/skiano/and-or-not.git"
+    "url": "git+https://github.com/skiano/predication.git"
   },
   "keywords": [
     "Filter"
@@ -27,7 +27,7 @@
   "author": "Greg Skiano",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/skiano/and-or-not/issues"
+    "url": "https://github.com/skiano/predication/issues"
   },
-  "homepage": "https://github.com/skiano/and-or-not#readme"
+  "homepage": "https://github.com/skiano/predication#readme"
 }
