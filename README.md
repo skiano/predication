@@ -17,5 +17,5 @@ const predicate = and($lt(15),
 
   const matches = oneToTwenty.filter(predicate);
   
-  // matches = [ 6, 8, 9, 10, 12, 14 ]
+  console.log(matches) // [ 6, 8, 9, 10, 12, 14 ]
 ```
