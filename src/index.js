@@ -1,15 +1,14 @@
 
 const makeOperator = (logic) => {
   return (...predicates) => {
-    const c = [];
-
-    const statement = `!!(${predicates.map((p) => (
-      `c[${c.push(p) - 1}](v)`
+    const fn = [];
+    const js = `!!(${predicates.map((p) => (
+      `fn[${fn.push(p) - 1}](v)`
     )).join(logic)})`;
 
-    console.log(statement);
+    console.log(js);
 
-    return v => eval(statement);
+    return v => eval(js);
   }
 }
 
