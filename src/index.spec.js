@@ -35,7 +35,5 @@ test('Objects', t => {
 
   const predicate = predication(data);
 
-  console.log(predicate({x: 4, y: 7}))
-
   t.equal(true, true);
 });
