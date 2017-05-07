@@ -6,7 +6,7 @@
   "scripts": {
     "start": "npm run watch",
     "build": "babel src -d dist",
-    "test": "npm run build && tape dist/*spec.js | tap-spec",
+    "test": "npm run build && tape dist/test/*.js | tap-spec",
     "watch": "nodemon --watch src -q -x 'npm test'",
     "prepublish": "npm run build"
   },

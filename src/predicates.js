@@ -8,8 +8,8 @@ const isString = v => typeof v === 'string';
 const strIncludes = (v, c) => c.toLowerCase().includes(v.toLowerCase());
 const includes = (v, c) => isString(c) ? strIncludes(v, c) : c.includes(v);
 
-const mod = (v, c) => v % denom === 0;
-const modR = (v, [denom, remainder = 0]) => v % denom === remainder;
+const mod = (v, c) => v % c === 0;
+const modR = (v, [denom, remainder]) => v % denom === remainder;
 
 const objectIncludesString = (o, c) => {
   for (let k in o) {
@@ -44,8 +44,8 @@ export default {
   gt:  c => v => missing(v) || v > c,
   lte: c => v => missing(v) || v <= c,
   gte: c => v => missing(v) || v >= c,
-  rng: c => v => missing(v) || v >= c[0] && v <= c[1],
-  mod: c => v => missing(v) || Array.isArray(c) ? modR(v, c) : mod(v, c),
-  oi:  c => v => missing(v) || isDictionary(v) ? objectIncludesString(v, c) : false,
-  noi: c => v => missing(v) || isDictionary(v) ? !objectIncludesString(v, c) : false
+  rng: c => v => missing(v) || (v >= c[0] && v <= c[1]),
+  mod: c => v => missing(v) || (Array.isArray(c) ? modR(v, c) : mod(v, c)),
+  oi:  c => v => missing(v) || (isDictionary(v) ? objectIncludesString(v, c) : false),
+  noi: c => v => missing(v) || (isDictionary(v) ? !objectIncludesString(v, c) : false)
 }
