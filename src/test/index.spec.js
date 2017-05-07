@@ -44,8 +44,11 @@ test('Logic: object Access', t => {
 
 test('Logic: missing members', t => {
   t.plan(1);
-
-  // const predicate = predication({not: {by: 'missing', eq: true}});
   const predicate = predication({not: {by: 'missing', eq: true}});
   t.equal(predicate({}), false, 'logic: object access');
+});
+
+test('Logic: bad predicate', t => {
+  t.plan(1);
+  t.throws(() => predication({bar: 2}), /Unkown predicate: bar/, 'throws on bad operators');
 });
