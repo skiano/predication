@@ -1,6 +1,8 @@
 import predicates, { isDictionary } from './predicates';
 import {by} from './by';
 
+const predicateCache = {};
+
 const removeBy = k => k !== 'by';
 
 // undefined should be false, not reversed!
@@ -23,9 +25,12 @@ const or = predicates => v => {
 };
 
 export default function predication(data, extraPs) {
+  const cacheKey = JSON.stringify(data);
+  if (predicateCache[cacheKey]) return predicateCache[cacheKey];
+
   const getter = data.hasOwnProperty('by') ? by(data.by) : undefined;
   
-  const predicate = or(Object.keys(data).filter(removeBy).map(key => {
+  const raw = or(Object.keys(data).filter(removeBy).map(key => {
     if (key === 'not') return not(predication(data[key], extraPs));
     if (key === 'and') return and(data[key].map(d => predication(d, extraPs)));
     if (key === 'or') return or(data[key].map(d => predication(d, extraPs)));
@@ -35,8 +40,12 @@ export default function predication(data, extraPs) {
     throw new Error(`Unkown predicate: ${key}`)
   }));
 
-  return v => {
+  const predicate = v => {
     v = getter ? getter(v) : v;
-    return v === undefined ? undefined : predicate(v);
+    return v === undefined ? undefined : raw(v);
   }
+
+  predicateCache[cacheKey] = predicate;  
+
+  return predicate;
 }
