@@ -1,5 +1,5 @@
 import test from 'tape';
-import {by} from './by';
+import {by} from '../by';
 
 test('Filter by', t => {
   t.plan(9);

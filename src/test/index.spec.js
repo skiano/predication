@@ -1,5 +1,5 @@
 import test from 'tape';
-import predication from './';
+import predication from '../';
 
 test('Logic', t => {
   t.plan(1);

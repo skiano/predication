@@ -1,5 +1,5 @@
 import test from 'tape';
-import predicates, { missing } from './predicates';
+import predicates, { missing } from '../predicates';
 
 test('Predicates', t => {
   t.plan(16);
