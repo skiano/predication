@@ -11,7 +11,6 @@ const and = predicates => v => {
 const or = predicates => v => {
   let p;
   for (p = 0; p < predicates.length; p += 1) {
-    console.log(predicates);
     if (predicates[p](v)) return true;
   }
   return false;
@@ -20,6 +19,6 @@ const or = predicates => v => {
 /** undefined should be false, not reversed! */
 const not = predicate => v => predicate(v) === false ? true : false;
 
-registerPredicate('not', or);
+registerPredicate('not', not);
 registerPredicate('and', and);
 registerPredicate('or', or);

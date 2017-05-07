@@ -5,7 +5,17 @@ import '../predicates/operators';
 import '../predicates/common';
 
 test('Predicates', t => {
-  t.plan(45)
+  t.plan(52)
+
+  t.equal(getPredicate('not', () => false)(), true, 'not: true');
+
+  t.equal(getPredicate('or', [() => true, () => false])(), true, 'or: true early');
+  t.equal(getPredicate('or', [() => false, () => true])(), true, 'or: true late');
+  t.equal(getPredicate('or', [() => false, () => false])(), false, 'or: false');
+
+  t.equal(getPredicate('and', [() => false, () => true])(), false, 'and: false early');
+  t.equal(getPredicate('and', [() => true, () => false])(), false, 'and: false late');
+  t.equal(getPredicate('and', [() => true, () => true])(), true, 'and: true');
 
   t.equal(getPredicate('eq', 2)(2), true, 'equals: true');
   t.equal(getPredicate('eq', 2)(3), false, 'equals: false');

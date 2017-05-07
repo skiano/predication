@@ -34,6 +34,7 @@ const objectIncludesString = (o, c) => {
   }
 };
 
+registerPredicate('mod', c => v => (Array.isArray(c) ? modR(v, c) : mod(v, c)));
 registerPredicate('in',  c => v => includes(v, c));
 registerPredicate('nin', c => v => !includes(v, c));
 registerPredicate('eq',  c => v => v === c);
@@ -43,6 +44,5 @@ registerPredicate('gt',  c => v => v > c);
 registerPredicate('lte', c => v => v <= c);
 registerPredicate('gte', c => v => v >= c);
 registerPredicate('rng', c => v => (v >= c[0] && v <= c[1]));
-registerPredicate('mod', c => v => (Array.isArray(c) ? modR(v, c) : mod(v, c)));
 registerPredicate('oi',  c => v => objectIncludesString(v, c));
 registerPredicate('noi', c => v => !objectIncludesString(v, c));
