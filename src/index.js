@@ -3,7 +3,8 @@ import {by} from './by';
 
 const removeBy = k => k !== 'by';
 
-const not = predicate => v => !predicate(v);
+// undefined should be false, not reversed!
+const not = predicate => v => predicate(v) === false ? true : false;
 
 const and = predicates => v => {
   let p;
@@ -34,5 +35,8 @@ export default function predication(data, extraPs) {
     throw new Error(`Unkown predicate: ${key}`)
   }));
 
-  return v => v === undefined ? false : predicate(getter ? getter(v) : v);
+  return v => {
+    v = getter ? getter(v) : v;
+    return v === undefined ? undefined : predicate(v);
+  }
 }

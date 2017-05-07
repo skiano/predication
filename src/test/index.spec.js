@@ -23,7 +23,7 @@ test('Logic', t => {
     'filter: less than 15, and not less than 5, and divisible by either 2 or 3');
 });
 
-test('Logic Object Access', t => {
+test('Logic: object Access', t => {
   t.plan(5);
 
   const p1 = predication({by: 'foo.bar[-0]', eq: true});
@@ -40,4 +40,12 @@ test('Logic Object Access', t => {
   t.equal(p2({foo: {bar: true, baz: false}}), true, 'logic: object deep access');
   t.equal(p2({foo: {baz: true}}), true, 'logic: object deep access or');
   t.equal(p2({foo: {baz: false, bar: false}}), false, 'logic: object deep access or false');
+});
+
+test('Logic: missing members', t => {
+  t.plan(1);
+
+  // const predicate = predication({not: {by: 'missing', eq: true}});
+  const predicate = predication({not: {by: 'missing', eq: true}});
+  t.equal(predicate({}), false, 'logic: object access');
 });
