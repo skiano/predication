@@ -42,12 +42,12 @@ test('Predicates', t => {
   t.equal(predicates.rng([0, 10])(-1), false, 'range: too low');
   t.equal(predicates.rng([0, 10])(11), false, 'range: too high');
 
-  t.equal(predicates.mod(2)(4), true, 'divisible by: true');
-  t.equal(predicates.mod(3)(4), false, 'divisible by: false');
+  t.equal(predicates.mod(2)(4), true, 'divisible this: true');
+  t.equal(predicates.mod(3)(4), false, 'divisible this: false');
 
-  t.equal(predicates.mod([3,0])(3), true, 'divisible by: (remainder) 0');
-  t.equal(predicates.mod([3,1])(4), true, 'divisible by: (remainder) 1');
-  t.equal(predicates.mod([3,2])(5), true, 'divisible by: (remainder) 2');
+  t.equal(predicates.mod([3,0])(3), true, 'divisible this: (remainder) 0');
+  t.equal(predicates.mod([3,1])(4), true, 'divisible this: (remainder) 1');
+  t.equal(predicates.mod([3,2])(5), true, 'divisible this: (remainder) 2');
 
   t.equal(predicates.oi('foo')({a: 'foo', b: 'bar'}), true, 'object includes: top key left');
   t.equal(predicates.oi('foo')({a: 'bar', b: 'foo'}), true, 'object includes: top key right');

@@ -26,15 +26,15 @@ test('Logic', t => {
 test('Logic: object Access', t => {
   t.plan(5);
 
-  const p1 = predication({by: 'foo.bar[-0]', eq: true});
+  const p1 = predication({this: 'foo.bar[-0]', eq: true});
   t.equal(p1({foo: {bar: [false, true]}}), true, 'logic: object access');
   t.equal(p1({foo: {bar: [true, false]}}), false, 'logic: object access');
 
   const p2 = predication({
-    by: 'foo',
+    this: 'foo',
     or: [
-      {by: 'bar', eq: true},
-      {by: 'baz', eq: true}
+      {this: 'bar', eq: true},
+      {this: 'baz', eq: true}
     ]
   })
   t.equal(p2({foo: {bar: true, baz: false}}), true, 'logic: object deep access');
@@ -44,7 +44,7 @@ test('Logic: object Access', t => {
 
 test('Logic: missing members', t => {
   t.plan(1);
-  const predicate = predication({not: {by: 'missing', eq: true}});
+  const predicate = predication({not: {this: 'missing', eq: true}});
   t.equal(predicate({}), false, 'logic: object access');
 });
 
