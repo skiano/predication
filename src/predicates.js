@@ -12,21 +12,24 @@ const mod = (v, c) => v % c === 0;
 const modR = (v, [denom, remainder]) => v % denom === remainder;
 
 const objectIncludesString = (o, c) => {
-  for (let k in o) {
-    const v = o[k];
-    if (isString(v) && strIncludes(c, v)) {
-      return true;
-    } else if (Array.isArray(v)) {
-      // no map because so break as soon as possible
-      for (let i = 0; i < v.length; i += 1) {
-        if (objectIncludesString(v[i])) return true;
+  if (isString(o) && strIncludes(c, o)) {
+    return true;
+  } else if (isDictionary(o)) {
+    for (let k in o) {
+      if (o.hasOwnProperty(k)) {
+        if (objectIncludesString(o[k], c)) return true;
       }
-    } else if (isDictionary(v)) {
-      if (objectIncludesString(v)) return true;
-    } else {}
+    }
+    return false;
+  } else if (Array.isArray(o)) {
+    // no map because so break as soon as possible
+    for (let i = 0; i < o.length; i += 1) {
+      if (objectIncludesString(o[i], c)) return true;
+    }
+    return false;
+  } else {
+    return false;
   }
-
-  return false;
 };
 
 /**
@@ -46,6 +49,6 @@ export default {
   gte: c => v => missing(v) || v >= c,
   rng: c => v => missing(v) || (v >= c[0] && v <= c[1]),
   mod: c => v => missing(v) || (Array.isArray(c) ? modR(v, c) : mod(v, c)),
-  oi:  c => v => missing(v) || (isDictionary(v) ? objectIncludesString(v, c) : false),
-  noi: c => v => missing(v) || (isDictionary(v) ? !objectIncludesString(v, c) : false)
+  oi:  c => v => missing(v) || objectIncludesString(v, c),
+  noi: c => v => missing(v) || !objectIncludesString(v, c)
 }

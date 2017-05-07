@@ -2,7 +2,7 @@ import test from 'tape';
 import predicates, { missing } from '../predicates';
 
 test('Predicates', t => {
-  t.plan(45);
+  t.plan(58)
 
   t.equal(predicates.eq(2)(2), true, 'equals: true');
   t.equal(predicates.eq(2)(3), false, 'equals: false');
@@ -60,6 +60,22 @@ test('Predicates', t => {
   t.equal(predicates.mod([3,1])(4), true, 'divisible by: (remainder) 1');
   t.equal(predicates.mod([3,2])(5), true, 'divisible by: (remainder) 2');
   t.equal(predicates.mod([3,2])(undefined), missing, 'divisible by: (remainder) undefined');
+
+  t.equal(predicates.oi('foo')({a: 'foo', b: 'bar'}), true, 'object includes: top key left');
+  t.equal(predicates.oi('foo')({a: 'bar', b: 'foo'}), true, 'object includes: top key right');
+  t.equal(predicates.oi('foo')({a: {a: 'foo'}, b: {a: 'bar'}}), true, 'object includes: deep key left');
+  t.equal(predicates.oi('foo')({a: {a: 'bar'}, b: {a: 'foo'}}), true, 'object includes: deep key right');
+  t.equal(predicates.oi('foo')({a: ['bar', 'foo']}), true, 'object includes: array');
+  t.equal(predicates.oi('foo')({a: ['bar', {a: 'foo'}]}), true, 'object includes: array with object');
+  t.equal(predicates.oi('foo')('foo'), true, 'object includes: string');
+  t.equal(predicates.oi('foo')(2), false, 'object includes: number');
+  t.equal(predicates.oi('foo')([1, 2, 3]), false, 'object includes: array');
+  t.equal(predicates.oi('foo')(null), false, 'object includes: null');
+  t.equal(predicates.oi('foo')(true), false, 'object includes: boolean');
+  t.equal(predicates.oi('foo')(undefined), missing, 'object includes: undefined');
+
+  t.equal(predicates.noi('foo')({a: [{a: [1, undefined, false, {a: true, b: 'foo'}]}]}),
+    false, 'object doesnt include');
 });
 
 
