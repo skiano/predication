@@ -32,7 +32,5 @@
     "url": "https://github.com/skiano/predication/issues"
   },
   "homepage": "https://github.com/skiano/predication#readme",
-  "dependencies": {
-    "and-or-not": "^2.1.0"
-  }
+  "dependencies": {}
 }

@@ -1,4 +1,4 @@
-const isDictionary = obj => {
+export const isDictionary = obj => {
   const type = typeof obj;
   return type === 'object' && type !== 'function' && !!obj;
 };
@@ -32,23 +32,17 @@ const objectIncludesString = (o, c) => {
   }
 };
 
-/**
-  * will help predicate always return false when value cannot be matched
-  * it is tricky when combining the not operator with includes processing empty values 
-  */
-export const missing = v => typeof v === 'undefined' ? missing : false;
-
 export default {
-  in:  c => v => missing(v) || includes(v, c),
-  nin: c => v => missing(v) || !includes(v, c),
-  eq:  c => v => missing(v) || v === c,
-  ne:  c => v => missing(v) || v !== c,
-  lt:  c => v => missing(v) || v < c,
-  gt:  c => v => missing(v) || v > c,
-  lte: c => v => missing(v) || v <= c,
-  gte: c => v => missing(v) || v >= c,
-  rng: c => v => missing(v) || (v >= c[0] && v <= c[1]),
-  mod: c => v => missing(v) || (Array.isArray(c) ? modR(v, c) : mod(v, c)),
-  oi:  c => v => missing(v) || objectIncludesString(v, c),
-  noi: c => v => missing(v) || !objectIncludesString(v, c)
+  in:  c => v => includes(v, c),
+  nin: c => v => !includes(v, c),
+  eq:  c => v => v === c,
+  ne:  c => v => v !== c,
+  lt:  c => v => v < c,
+  gt:  c => v => v > c,
+  lte: c => v => v <= c,
+  gte: c => v => v >= c,
+  rng: c => v => (v >= c[0] && v <= c[1]),
+  mod: c => v => (Array.isArray(c) ? modR(v, c) : mod(v, c)),
+  oi:  c => v => objectIncludesString(v, c),
+  noi: c => v => !objectIncludesString(v, c)
 }

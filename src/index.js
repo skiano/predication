@@ -1,44 +1,39 @@
-import { and, or, not } from 'and-or-not';
-import { 
-  $in, $nin,
-  $ne, $eq,
-  $lt, $lte,
-  $gt, $gte,
-  $mod, $_
-} from 'and-or-not';
+import predicates, { isDictionary } from './predicates';
+import {by} from './by';
 
-const operators = {
-  $and: wrap((...predicates) => and(...predicates.map(predication))),
-  $or: wrap((...predicates) => or(...predicates.map(predication))),
-  $not: wrap(predicate => not(predication(predicate))),
-  $in: wrap($in),
-  $nin: wrap($nin),
-  $ne: wrap($ne),
-  $eq: wrap($eq),
-  $lt: wrap($lt),
-  $lte: wrap($lte),
-  $gt: wrap($gt),
-  $gte: wrap($gte),
-  $mod: wrap($mod)
-}
+const removeBy = k => k !== 'by';
 
-export default function predication(data) {
-  const keys = Object.keys(data);
+const not = predicate => v => !predicate(v);
 
-  if (operators.hasOwnProperty(keys[0])) {
-    return operators[keys[0]](data[keys]);
-  } else {
-    const predicated = {};
-    keys.forEach(k => {
-      predicated[k] = predication(data[k]);
-    });
-    return $_(predicated);
+const and = predicates => v => {
+  let p;
+  for (p = 0; p < predicates.length; p += 1) {
+    if (!predicates[p](v)) return false;
   }
-}
+  return true;
+};
 
-function wrap(operator) {
-  return (operands) => {
-    return Array.isArray(operands) ?
-      operator(...operands) : operator(operands);
+const or = predicates => v => {
+  let p;
+  for (p = 0; p < predicates.length; p += 1) {
+    if (predicates[p](v)) return true;
   }
+  return false;
+};
+
+export default function predication(data, customPredicates) {
+  const getter = data.hasOwnProperty('by') ? by(data.by) : undefined;
+  
+  const predicate = or(Object.keys(data).filter(removeBy).map(key => {
+    if (key === 'not') return not(predication(data[key], customPredicates));
+    if (key === 'and') return and(data[key].map(d => predication(d, customPredicates)));
+    if (key === 'or') return and(data[key].map(d => predication(d, customPredicates)));
+    if (predicates.hasOwnProperty(key)) return predicates[key](data[key]);
+    if (customPredicates && customPredicates.hasOwnProperty(key))
+      return customPredicates[key](data[key]);
+
+    throw new Error(`Unkown predicate: ${key}`)
+  }));
+
+  return v => v === undefined ? false : predicate(getter ? getter(v) : v);
 }
