@@ -1,11 +1,39 @@
 import test from 'tape';
-import { getPredicate } from '../predicates';
+import {
+  registerPredicate,
+  removePredicate,
+  listPredicates,
+  hasPredicate,
+  getPredicate
+} from '../';
 
-import '../predicates/operators';
-import '../predicates/common';
+test('Predicates MGMT', t => {
+  t.plan(5);
+
+  t.equal(Array.isArray(listPredicates()), true, 'list predicates');
+
+  registerPredicate('foo', c => v => true);
+
+  t.equal(typeof getPredicate('foo') === 'function', true, 'register and get prdicate');
+
+  t.equal(hasPredicate('foo'), true, 'check for predicate');
+
+  removePredicate('foo');
+
+  t.throws(() => getPredicate('foo'), /Unregisterd predicate: "foo"/, 'remove and check');
+
+  t.throws(() => registerPredicate('and', c => v => false,
+    /Predicate "and" is already registered/, 'prevent overriting'))
+});
 
 test('Predicates', t => {
-  t.plan(52)
+  t.plan(57)
+
+  t.equal(getPredicate('exists', true)(0), true, 'exists: true for 0');
+  t.equal(getPredicate('exists', true)(''), true, 'exists: true for empty string');
+  t.equal(getPredicate('exists', true)(false), true, 'exists: true for false');
+  t.equal(getPredicate('exists', true)(null), true, 'exists: true for null');
+  t.equal(getPredicate('exists', true)(undefined), false, 'exists: false for undefined');
 
   t.equal(getPredicate('not', () => false)(), true, 'not: true');
 

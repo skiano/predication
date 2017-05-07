@@ -21,4 +21,4 @@ export const getPredicate = (key, config) => {
 }
 
 /** exists is important for all predicates */
-registerPredicate('exists', c => v => c === (typeof v === undefined));
+registerPredicate('exists', c => v => c === (typeof v !== 'undefined'));
