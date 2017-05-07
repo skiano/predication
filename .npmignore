@@ -9,3 +9,4 @@ src
 # Test Files
 
 *.spec.js
+dist/test
