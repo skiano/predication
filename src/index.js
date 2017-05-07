@@ -21,16 +21,15 @@ const or = predicates => v => {
   return false;
 };
 
-export default function predication(data, customPredicates) {
+export default function predication(data, extraPs) {
   const getter = data.hasOwnProperty('by') ? by(data.by) : undefined;
   
   const predicate = or(Object.keys(data).filter(removeBy).map(key => {
-    if (key === 'not') return not(predication(data[key], customPredicates));
-    if (key === 'and') return and(data[key].map(d => predication(d, customPredicates)));
-    if (key === 'or') return and(data[key].map(d => predication(d, customPredicates)));
+    if (key === 'not') return not(predication(data[key], extraPs));
+    if (key === 'and') return and(data[key].map(d => predication(d, extraPs)));
+    if (key === 'or') return or(data[key].map(d => predication(d, extraPs)));
     if (predicates.hasOwnProperty(key)) return predicates[key](data[key]);
-    if (customPredicates && customPredicates.hasOwnProperty(key))
-      return customPredicates[key](data[key]);
+    if (extraPs && extraPs.hasOwnProperty(key)) return extraPs[key](data[key]);
 
     throw new Error(`Unkown predicate: ${key}`)
   }));
