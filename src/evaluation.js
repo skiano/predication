@@ -15,7 +15,7 @@ const indexer = str => {
  *   "foo[-1]"
  *   "foo[2].bar"
  */
-export const by = path => {
+export const evaluation = path => {
   if (!path) return v => v;
   if (typeof path !== 'string') throw new Error(`bad access path: ${path}`);
 

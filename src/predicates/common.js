@@ -1,3 +1,5 @@
+import { registerPredicate } from './';
+
 export const isDictionary = obj => {
   const type = typeof obj;
   return type === 'object' && type !== 'function' && !!obj;
@@ -32,17 +34,15 @@ const objectIncludesString = (o, c) => {
   }
 };
 
-export default {
-  in:  c => v => includes(v, c),
-  nin: c => v => !includes(v, c),
-  eq:  c => v => v === c,
-  ne:  c => v => v !== c,
-  lt:  c => v => v < c,
-  gt:  c => v => v > c,
-  lte: c => v => v <= c,
-  gte: c => v => v >= c,
-  rng: c => v => (v >= c[0] && v <= c[1]),
-  mod: c => v => (Array.isArray(c) ? modR(v, c) : mod(v, c)),
-  oi:  c => v => objectIncludesString(v, c),
-  noi: c => v => !objectIncludesString(v, c)
-}
+registerPredicate('in',  c => v => includes(v, c));
+registerPredicate('nin', c => v => !includes(v, c));
+registerPredicate('eq',  c => v => v === c);
+registerPredicate('ne',  c => v => v !== c);
+registerPredicate('lt',  c => v => v < c);
+registerPredicate('gt',  c => v => v > c);
+registerPredicate('lte', c => v => v <= c);
+registerPredicate('gte', c => v => v >= c);
+registerPredicate('rng', c => v => (v >= c[0] && v <= c[1]));
+registerPredicate('mod', c => v => (Array.isArray(c) ? modR(v, c) : mod(v, c)));
+registerPredicate('oi',  c => v => objectIncludesString(v, c));
+registerPredicate('noi', c => v => !objectIncludesString(v, c));

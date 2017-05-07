@@ -24,3 +24,40 @@ const matches = values.filter(predicate);
   
 console.log(matches) // [6,8,9,10,12,14]
 ```
+
+```
+
+predication({eq: true})
+
+predication({this: 'foo', eq: true})
+
+predication({this: 'foo.bar', eq: {that: 'foo.baz[-0]'}})
+
+predication({this: 'foo.bar', exists: true});
+
+predicate options can be numbers, strings, or arrays of numbers/strings
+
+predication({this: 'foo.bar', exists: true});
+
+
+import {
+  predication,
+  registerPredicate,
+  isString
+  isArray,
+  isNumber,
+  isBoolean
+} from 'predication'
+
+
+
+{
+  and: [
+    {this: 'foo', gt: 3}
+  ]
+}
+
+update('and['foo'].gt', 5);
+
+push('and['foo'].in', 5);
+```
