@@ -1,9 +1,4 @@
-import { registerPredicate } from './';
-
-export const isDictionary = obj => {
-  const type = typeof obj;
-  return type === 'object' && type !== 'function' && !!obj;
-};
+import { registerPredicate, isDictionary } from './';
 
 const isString = v => typeof v === 'string';
 
