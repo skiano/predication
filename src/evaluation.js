@@ -32,9 +32,11 @@ export const evaluation = path => {
   return value => {
     if (!isDictionary(value)) return undefined;
     if (terms.length === 0) return value;
+
     let output = value;
 
     for (let i = 0; i < terms.length; i += 1) {
+      if (typeof output === 'undefined') return undefined;
       output = typeof terms[i] === 'function' ? terms[i](output) : output[terms[i]];
     }
 
