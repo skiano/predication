@@ -7,14 +7,16 @@ The following code creates a predicate that returns true for numbers less than 1
 ```javascript
 import predication from 'predication';
 
-const data = {$and: [
-  {$lt: 15},
-  {$not: {$lt: 5}},
-  {$or: [
-    {$mod: 2},
-    {$mod: 3}
-  ]}
-]}
+const data = {
+  and: [
+    {lt: 15},
+    {not: {lt: 5}},
+    {or: [
+      {mod: 2},
+      {mod: 3}
+    ]}
+  ]
+};
 
 const predicate = predication(data);
 
