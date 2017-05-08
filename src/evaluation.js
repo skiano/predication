@@ -1,3 +1,5 @@
+import { isDictionary } from './predicates';
+
 const TERM_RE = /^([^\[]*)\[(\-?\d*)\]$/;
 const IDX_RE = /^(\-?)(\d)$/;
 
@@ -5,6 +7,9 @@ const indexer = str => {
   const [, reverse, idx] = IDX_RE.exec(str);
   return arr => reverse ? arr[arr.length - idx - 1] : arr[idx];
 }
+
+/** make identity fn once */
+const identity = v => v;
 
 /*
  * path {string}
@@ -16,7 +21,7 @@ const indexer = str => {
  *   "foo[2].bar"
  */
 export const evaluation = path => {
-  if (!path) return;
+  if (!path) return identity;
   if (typeof path !== 'string') throw new Error(`bad access path: ${path}`);
 
   const terms = path.split('.').reduce((terms, frag) => {
@@ -25,7 +30,7 @@ export const evaluation = path => {
   }, []);
 
   return value => {
-    if (typeof value === 'undefined') return undefined;
+    if (!isDictionary(value)) return undefined;
     if (terms.length === 0) return value;
     let output = value;
 

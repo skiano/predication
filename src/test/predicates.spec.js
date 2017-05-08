@@ -26,6 +26,24 @@ test('Predicates MGMT', t => {
     /Predicate "and" is already registered/, 'prevent overriting'))
 });
 
+test('Predicates THIS', t => {
+  t.plan(4);
+
+  t.equal(getPredicate('eq', 2, 'foo')({foo: 2}), true, 'simple this');
+  t.equal(getPredicate('eq', 2, 'foo.bar[0]')({foo: {bar: [2]}}), true, 'advanced this');
+  t.equal(getPredicate('eq', 2, 'foo.baz')({foo: {bar: [2]}}), undefined, 'bad this');
+  t.equal(getPredicate('eq', 2, 'foo.baz')(), undefined, 'bad value');
+});
+
+test('Predicates THAT', t => {
+  t.plan(4);
+
+  t.equal(getPredicate('eq', {that: 'bar'}, 'foo')({foo: 2, bar: 2}), true, 'simple that');
+  t.equal(getPredicate('eq', {that: 'bar[0]'}, 'foo')({foo: 2, bar: [2]}), true, 'advanced that');
+  t.equal(getPredicate('eq', {that: 'bar[0].baz'}, 'foo')({foo: 2, bar: [2]}), undefined, 'bad that');
+  t.equal(getPredicate('eq', {that: 'bar[0].baz'}, 'foo')(), undefined, 'bad value');
+});
+
 test('Predicates', t => {
   t.plan(57)
 

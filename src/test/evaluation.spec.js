@@ -12,9 +12,9 @@ test('Evaluation', t => {
   t.equal(evaluation('bar[-1]')({bar: [0, 1, 2]}), 1, 'reverse index x');
   t.equal(evaluation('bar[-9]')({bar: [0, 1, 2]}), undefined, 'reverse index overflow');
 
+  t.equal(evaluation()(2), 2, 'by undefined');
   t.equal(evaluation('missing')({}), undefined, 'missing key');
   t.equal(evaluation('missing')(), undefined, 'missing value');
-  t.equal(evaluation(), undefined, 'by undefined');
 
   t.throws(() => {
     evaluation(2)({bar: []});

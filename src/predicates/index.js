@@ -20,17 +20,13 @@ export const registerPredicate = (key, predicator, validator) => {
     throw new Error(`Predicate "${key}" is already registered`);
   } else {
     predicates[key] = config => {
-      const getThat = isDictionary(config) && config.hasOwnProperty('that') ?
-        evaluation(config.that) : () => config;
+      const getThat = isDictionary(config) && config.that && evaluation(config.that);
 
       return (value, getThis) => {
+        const v = getThis(value);
         const c = getThat ? getThat(value) : config;
-        const v = getThis ? getThis(value) : value;
 
-        if (isMissing(key, v, c)) {
-          return undefined;
-        }
-
+        if (isMissing(key, v, c)) return undefined;
         return predicator(c)(v);
       }
     }
