@@ -35,7 +35,7 @@ test('Predicates', t => {
   t.equal(getPredicate('exists', true)(null), true, 'exists: true for null');
   t.equal(getPredicate('exists', true)(undefined), false, 'exists: false for undefined');
 
-  t.equal(getPredicate('not', () => false)(), true, 'not: true');
+  t.equal(getPredicate('not', () => false)(true), true, 'not: true');
 
   t.equal(getPredicate('or', [() => true, () => false])(), true, 'or: true early');
   t.equal(getPredicate('or', [() => false, () => true])(), true, 'or: true late');

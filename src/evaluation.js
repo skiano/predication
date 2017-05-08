@@ -6,9 +6,6 @@ const indexer = str => {
   return arr => reverse ? arr[arr.length - idx - 1] : arr[idx];
 }
 
-/** make one identity function */
-const identity = v => v;
-
 /*
  * path {string}
  * example paths:
@@ -19,7 +16,7 @@ const identity = v => v;
  *   "foo[2].bar"
  */
 export const evaluation = path => {
-  if (!path) return identity;
+  if (!path) return;
   if (typeof path !== 'string') throw new Error(`bad access path: ${path}`);
 
   const terms = path.split('.').reduce((terms, frag) => {
@@ -28,6 +25,7 @@ export const evaluation = path => {
   }, []);
 
   return value => {
+    if (typeof value === 'undefined') return undefined;
     if (terms.length === 0) return value;
     let output = value;
 
