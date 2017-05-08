@@ -27,7 +27,7 @@ test('Predicates MGMT', t => {
 });
 
 test('Predicates THIS', t => {
-  t.plan(8);
+  t.plan(10);
 
   t.equal(getPredicate('eq', 2, 'foo')({foo: 2}), true, 'simple this');
   t.equal(getPredicate('eq', 2, 'foo.bar[0]')({foo: {bar: [2]}}), true, 'advanced this');
@@ -41,9 +41,11 @@ test('Predicates THIS', t => {
 
   t.equal(both({foo: {bar: true, baz: true}}), true, 'combination - and: true');
   t.equal(both({foo: {bar: false, baz: true}}), false, 'combination - and: false');
+  t.equal(both({foo: {bar: true}}), false, 'combination - and: undefined');
 
   t.equal(either({foo: {bar: false, baz: true}}), true, 'combination - or: true');
   t.equal(either({foo: {bar: false, baz: false}}), false, 'combination - or: false');
+  t.equal(either({foo: {baz: true}}), true, 'combination - or: undefined');
 });
 
 test('Predicates THAT', t => {

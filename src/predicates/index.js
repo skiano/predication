@@ -26,8 +26,6 @@ export const registerPredicate = (key, predicator, validator) => {
         const v = getThis(value);
         const c = getThat ? getThat(value) : config;
 
-        console.log(value);
-
         if (isMissing(key, v, c)) return undefined;
         return predicator(c)(v);
       }
@@ -35,13 +33,12 @@ export const registerPredicate = (key, predicator, validator) => {
   }
 }
 
-export const getPredicate = (key, config, value) => {
+export const getPredicate = (key, config, thisValue) => {
   if (!hasPredicate(key)) {
     throw new Error(`Unregisterd predicate: "${key}"`);
   } else {
     /** parse "this" into getter once **/
-    console.log('this', value);
-    const getThis = evaluation(value);
+    const getThis = evaluation(thisValue);
     /** curry the getter into the predicate **/
     return v => predicates[key](config)(v, getThis);
   }
