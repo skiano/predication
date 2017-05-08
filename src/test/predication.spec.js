@@ -24,7 +24,7 @@ test('Logic', t => {
 });
 
 test('Logic: setting this', t => {
-  t.plan(8);
+  t.plan(9);
 
   const a = predication({this: 'foo', eq: true});
 
@@ -37,14 +37,23 @@ test('Logic: setting this', t => {
   t.equal(b({foo: {bar: false}}), false, 'multiple levels deep: false');
   t.equal(b({foo: false}), undefined, 'multiple levels deep: undefined');
 
+  console.log('here!')
   const c = predication({
-    this: 'foo',
-    and: [{this: 'bar', eq: true}, {this: 'baz', eq: true}]
+    and: [{this: 'foo.bar', eq: 1}, {this: 'foo.baz', eq: 1}]
   });
 
-  t.equal(b({foo: {bar: true, baz: true}}), true, 'depth + logic: true');
-  t.equal(b({foo: {bar: true, baz: false}}), false, 'depth + logic: false');
-  t.equal(b({foo: {bar: true}}), undefined, 'depth + logic: undefined');
+  t.equal(c({foo: {bar: 1, baz: 1}}), true, 'depth + logic: true');
+  t.equal(c({foo: {bar: 1, baz: 2}}), false, 'depth + logic: false');
+  t.equal(c({foo: {baz: 1}}), false, 'depth + logic: undefined');
+
+
+  const d = predication({
+    this: 'foo',
+    and: [{this: 'bar', eq: 1}, {this: 'baz', eq: 1}]
+  });
+
+  t.equal(d({foo: {bar: 1, baz: 1}}), true, 'depth + logic + scope: true');
+
 
   // const p1 = predication({this: 'foo.bar[-0]', eq: true});
   // t.equal(p1({foo: {bar: [false, true]}}), true, 'logic: object access');
