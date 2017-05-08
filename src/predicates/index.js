@@ -2,7 +2,7 @@ import { evaluation } from '../';
 
 const predicates = {};
 
-const lenientPredicates = ['and', 'or', 'exists']; 
+const lenientPredicates = ['exists']; 
 const isUndefined = v => typeof v === 'undefined';
 const isMissing = (k, v, c) => !lenientPredicates.includes(k) && (isUndefined(c) || isUndefined(v));
 
@@ -26,6 +26,8 @@ export const registerPredicate = (key, predicator, validator) => {
         const v = getThis(value);
         const c = getThat ? getThat(value) : config;
 
+        console.log(value);
+
         if (isMissing(key, v, c)) return undefined;
         return predicator(c)(v);
       }
@@ -38,6 +40,7 @@ export const getPredicate = (key, config, value) => {
     throw new Error(`Unregisterd predicate: "${key}"`);
   } else {
     /** parse "this" into getter once **/
+    console.log('this', value);
     const getThis = evaluation(value);
     /** curry the getter into the predicate **/
     return v => predicates[key](config)(v, getThis);

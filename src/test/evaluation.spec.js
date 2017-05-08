@@ -15,7 +15,7 @@ test('Evaluation', t => {
   t.equal(evaluation()(2), 2, 'by undefined');
 
   const deep = evaluation('foo.bar[3]');
-  
+
   t.equal(deep(), undefined, 'missing object');
   t.equal(deep({}), undefined, 'missing key');
   t.equal(deep({foo: true}), undefined, 'missing key');

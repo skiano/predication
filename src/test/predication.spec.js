@@ -1,46 +1,66 @@
-// import test from 'tape';
-// import predication from '../';
+import test from 'tape';
+import predication from '../';
 
-// test('Logic', t => {
-//   t.plan(1);
+test('Logic', t => {
+  t.plan(1);
 
-//   const predicate = predication({
-//     and: [
-//       {lt: 15},
-//       {not: {lt: 5}},
-//       {or: [
-//         {mod: 2},
-//         {mod: 3}
-//       ]}
-//     ]
-//   });
+  const predicate = predication({
+    and: [
+      {lt: 15},
+      {not: {lt: 5}},
+      {or: [
+        {mod: 2},
+        {mod: 3}
+      ]}
+    ]
+  });
 
-//   const values = [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20 ];
-//   const matches = values.filter(predicate);
+  const values = [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20 ];
+  const matches = values.filter(predicate);
 
-//   t.deepLooseEqual(matches,
-//     [ 6, 8, 9, 10, 12, 14 ],
-//     'filter: less than 15, and not less than 5, and divisible by either 2 or 3');
-// });
+  t.deepLooseEqual(matches,
+    [ 6, 8, 9, 10, 12, 14 ],
+    'filter: less than 15, and not less than 5, and divisible by either 2 or 3');
+});
 
-// test('Logic: setting this', t => {
-//   t.plan(5);
+test('Logic: setting this', t => {
+  t.plan(8);
 
-//   const p1 = predication({this: 'foo.bar[-0]', eq: true});
-//   t.equal(p1({foo: {bar: [false, true]}}), true, 'logic: object access');
-//   t.equal(p1({foo: {bar: [true, false]}}), false, 'logic: object access');
+  const a = predication({this: 'foo', eq: true});
 
-//   const p2 = predication({
-//     this: 'foo',
-//     or: [
-//       {this: 'bar', eq: true},
-//       {this: 'baz', eq: true}
-//     ]
-//   })
-//   t.equal(p2({foo: {bar: true, baz: false}}), true, 'logic: object deep access');
-//   t.equal(p2({foo: {baz: true}}), true, 'logic: object deep access or');
-//   t.equal(p2({foo: {baz: false, bar: false}}), false, 'logic: object deep access or false');
-// });
+  t.equal(a({foo: true}), true, 'one level deep: true');
+  t.equal(a({foo: false}), false, 'one level deep: false');
+
+  const b = predication({this: 'foo.bar', eq: true});
+
+  t.equal(b({foo: {bar: true}}), true, 'multiple levels deep: true');
+  t.equal(b({foo: {bar: false}}), false, 'multiple levels deep: false');
+  t.equal(b({foo: false}), undefined, 'multiple levels deep: undefined');
+
+  const c = predication({
+    this: 'foo',
+    and: [{this: 'bar', eq: true}, {this: 'baz', eq: true}]
+  });
+
+  t.equal(b({foo: {bar: true, baz: true}}), true, 'depth + logic: true');
+  t.equal(b({foo: {bar: true, baz: false}}), false, 'depth + logic: false');
+  t.equal(b({foo: {bar: true}}), undefined, 'depth + logic: undefined');
+
+  // const p1 = predication({this: 'foo.bar[-0]', eq: true});
+  // t.equal(p1({foo: {bar: [false, true]}}), true, 'logic: object access');
+  // t.equal(p1({foo: {bar: [true, false]}}), false, 'logic: object access');
+
+  // const p2 = predication({
+  //   this: 'foo',
+  //   or: [
+  //     {this: 'bar', eq: true},
+  //     {this: 'baz', eq: true}
+  //   ]
+  // })
+  // t.equal(p2({foo: {bar: true, baz: false}}), true, 'logic: object deep access');
+  // t.equal(p2({foo: {baz: true}}), true, 'logic: object deep access or');
+  // t.equal(p2({foo: {baz: false, bar: false}}), false, 'logic: object deep access or false');
+});
 
 // test('Logic: setting that', t => {
 //   t.plan(4);
