@@ -2,7 +2,7 @@
 
 Predication uses javascript objects to describe predicates. That way you can store these descriptions as data and easily convert them into functions. Out of the box it supports common predicates and logical operators, and you can extend it by registering your own predicates.
 
-Predication takes a description and returns a predicate. So it looks like this
+Predication takes a **description** and returns a **predicate**. So it looks like this
 
 ```javascript
 import predication from 'predication';
