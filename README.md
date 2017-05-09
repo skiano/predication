@@ -1,15 +1,28 @@
 # predication
 
-Predication uses javascript objects to describe predicates. That way you can store these descriptions as data and easily convert them into functions.
+Predication uses javascript objects to describe filter logic. That way you can store these descriptions as data and easily convert them into functions.
+
+Predication takes a description and returns a predicate. So it looks like this
+
+```javascript
+import predication from 'predication';
+
+//                              The value you are checking
+//                                         |
+//                           description   |
+//                                |        |
+//                            |---|----|   |
+const tautology = predication({eq: true})(true); // returns true
+//                             |
+//                           predicate name (in this case "equals")
+```
 
 ### A few quick examples
 
 Here is an example of the simplest type of predicate. This one returns true for values greater than 3.
 
 ```javascript
-import predication from 'predication';
-
-const predicate = predication({gt: 3});
+{gt: 3});
 predicate(4); // true
 predicate(0); // false
 ```
