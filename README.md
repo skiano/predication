@@ -37,7 +37,7 @@ const matches = values.filter(predicate); // [6,8,9,10,12,14]
 ```
 
 
-In the above example, the description `{eq: true}` means “does the value equal true?”, and `eq` is an example of one of the built-in predicate names. Here is the full list.
+In the above examples, `eq`, `mod`, and `lt` are examples of built-in predicate names. Here is the full list:
 
 | Name | Example | Explanation |
 | :--  | :------ | :---------- |
