@@ -2,7 +2,7 @@
 
 Predication uses javascript objects to describe predicates. That way you can store these descriptions as data and easily convert them into functions.
 
-### Examples
+### A few quick examples
 
 Here is an example of the simplest type of predicate. This one returns true for values greater than 3.
 
@@ -45,6 +45,17 @@ predicate({foo: 5}); // true
 predicate({foo: 7}); // false
 predicate({bar: true}); // false
 ```
+
+## The predicate description
+
+The predicate description is an object literal with key/value pairs that specify predicates and their configuration.
+
+### Example descriptions
+
+| Description | Explanation | Matches | Doesn’t match |
+| :---------  | :---------- | :------ | :------------ |
+| `{lt: 5}` | Less than 5 | `3` | `5` |
+| `{and: [{mod: 2}, {gte: 10}]}` | Divisible by 2 AND Greater than or equal to 10 | `12` | `11` |
 
 
 ```
