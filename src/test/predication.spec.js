@@ -1,6 +1,22 @@
 import test from 'tape';
 import predication from '../';
 
+test('logic', t => {
+  t.plan(6);
+
+  const a = predication({lt: 5, mod: 2});
+
+  t.true(a(3), 'simple: left true');
+  t.true(a(6), 'simple: right true');
+  t.false(a(7), 'simple: neither true');
+
+  const b = predication({this: 'foo', lt: 5, mod: 2});
+
+  t.true(b({foo: 3}), 'simple this: left true');
+  t.true(b({foo: 6}), 'simple this: right true');
+  t.false(b({foo: 7}), 'simple this: neither true');
+});
+
 test('Logic', t => {
   t.plan(1);
 
@@ -24,7 +40,7 @@ test('Logic', t => {
 });
 
 test('Logic: setting this', t => {
-  t.plan(9);
+  t.plan(14);
 
   const a = predication({this: 'foo', eq: true});
 
@@ -47,52 +63,51 @@ test('Logic: setting this', t => {
 
 
   const d = predication({
-    this: 'foo.flarb',
-    eq: true,
-    and: [{this: 'foo.bar', eq: 1}, {this: 'foo.baz', eq: 1}]
+    this: 'foo',
+    and: [{this: 'bar', eq: 1}, {this: 'baz', eq: 1}]
   });
 
   t.equal(d({flarb: true, foo: {bar: 1, baz: 1}}), true, 'depth + logic + scope: true');
 
 
-  // const p1 = predication({this: 'foo.bar[-0]', eq: true});
-  // t.equal(p1({foo: {bar: [false, true]}}), true, 'logic: object access');
-  // t.equal(p1({foo: {bar: [true, false]}}), false, 'logic: object access');
+  const p1 = predication({this: 'foo.bar[-0]', eq: true});
+  t.equal(p1({foo: {bar: [false, true]}}), true, 'logic: object access');
+  t.equal(p1({foo: {bar: [true, false]}}), false, 'logic: object access');
 
-  // const p2 = predication({
-  //   this: 'foo',
-  //   or: [
-  //     {this: 'bar', eq: true},
-  //     {this: 'baz', eq: true}
-  //   ]
-  // })
-  // t.equal(p2({foo: {bar: true, baz: false}}), true, 'logic: object deep access');
-  // t.equal(p2({foo: {baz: true}}), true, 'logic: object deep access or');
-  // t.equal(p2({foo: {baz: false, bar: false}}), false, 'logic: object deep access or false');
+  const p2 = predication({
+    this: 'foo',
+    or: [
+      {this: 'bar', eq: true},
+      {this: 'baz', eq: true}
+    ]
+  })
+  t.equal(p2({foo: {bar: true, baz: false}}), true, 'logic: object deep access');
+  t.equal(p2({foo: {baz: true}}), true, 'logic: object deep access or');
+  t.equal(p2({foo: {baz: false, bar: false}}), false, 'logic: object deep access or false');
 });
 
-// test('Logic: setting that', t => {
-//   t.plan(4);
+test('Logic: setting that', t => {
+  t.plan(4);
 
-//   const predicate = predication({this: 'foo', eq: {that: 'bar'}});
+  const predicate = predication({this: 'foo', eq: {that: 'bar'}});
 
-//   t.equal(predicate({foo: true, bar: true}), true, 'this equals that');
-//   t.equal(predicate({foo: true, bar: false}), false, 'this does not equal that');
+  t.equal(predicate({foo: true, bar: true}), true, 'this equals that');
+  t.equal(predicate({foo: true, bar: false}), false, 'this does not equal that');
 
-//   const compare = predication({this: 'foo', gt: {that: 'bar'}});
+  const compare = predication({this: 'foo', gt: {that: 'bar'}});
 
-//   t.equal(compare({foo: 10, bar: 3}), true, 'this > that true');
-//   t.equal(compare({foo: 10, bar: 13}), false, 'this > that false');
-// });
+  t.equal(compare({foo: 10, bar: 3}), true, 'this > that true');
+  t.equal(compare({foo: 10, bar: 13}), false, 'this > that false');
+});
 
-// test('Logic: missing', t => {
-//   t.plan(1);
-//   // const predicate = predication({not: {this: 'missing', eq: true}});
-//   const predicate = predication({not: {this: 'missing', eq: true}});
-//   t.equal(predicate({}), false, 'logic: missing this');
-// });
+test('Logic: missing', t => {
+  t.plan(1);
+  // const predicate = predication({not: {this: 'missing', eq: true}});
+  const predicate = predication({not: {this: 'missing', eq: true}});
+  t.equal(predicate({}), false, 'logic: missing this');
+});
 
-// test('Logic: bad predicate', t => {
-//   t.plan(1);
-//   t.throws(() => predication({bar: 2}), /Unregisterd predicate: "bar"/, 'throws on bad operators');
-// });
+test('Logic: bad predicate', t => {
+  t.plan(1);
+  t.throws(() => predication({bar: 2}), /Unregisterd predicate: "bar"/, 'throws on bad operators');
+});

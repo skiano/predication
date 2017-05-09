@@ -5,25 +5,20 @@ import { isDictionary } from './predicates';
 import './predicates/operators';
 import './predicates/common';
 
-// const predicateCache = {};
-
 const removeThis = k => k !== 'this';
 
-export const predication = config => {
-  if (!isDictionary(config)) {
-    throw new Error('Predication config must be an object literal');
+export const predication = (config) => {
+  const thisVal = config.this;
+  const keys = Object.keys(config).filter(removeThis);
+  const key = keys[0];
+
+  if (keys.length > 1)  {
+    return getPredicate('or', keys.map(k => predication({[k]: config[k]})), thisVal);
+  } else if (key === 'and' || key === 'or') {
+    return getPredicate(key, config[key].map(predication), thisVal);
+  } else if (key === 'not') {
+    return getPredicate(key, predication(config[key]), thisVal);
+  } else {
+    return getPredicate(key, config[key], thisVal);
   }
-  // const cacheKey = JSON.stringify(config);
-  // if (predicateCache[cacheKey]) return predicateCache[cacheKey];
-  const predicate = getPredicate('or', Object.keys(config).filter(removeThis).map(key => {
-    if (key === 'not') return getPredicate('not', predication(config[key]), config.this);
-    if (key === 'and') return getPredicate('and', config[key].map(predication), config.this);
-    if (key === 'or') return getPredicate('or', config[key].map(predication), config.this);
-    return getPredicate(key, config[key]);
-  }), config.this);
-
-  // predicateCache[cacheKey] = predicate;
-  // console.log(predicateCache);
-
-  return predicate;
 }
