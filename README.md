@@ -42,6 +42,13 @@ In the likely circumstance that the values you are checking are objects, you can
 const description = {this: 'foo.bar[0]', eq: true}
 ```
 
+You can even specify relationships inside the object using `that`
+
+```
+// match objects like {foo: true, bar: true} but not {foo: true, bar: false}
+const description = {this: 'foo', eq: {that: 'bar'}}
+```
+
 In the above examples, `eq`, `mod`, and `lt` are examples of built-in predicate names. Here is the full list:
 
 | Name | Example | Explanation |
