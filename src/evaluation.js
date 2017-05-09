@@ -1,4 +1,4 @@
-import { isDictionary } from './predicates';
+import { isDictionary } from './helpers';
 
 const TERM_RE = /^([^\[]*)\[(\-?\d*)\]$/;
 const IDX_RE = /^(\-?)(\d)$/;

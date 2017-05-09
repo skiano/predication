@@ -1,8 +1,8 @@
 import { predication } from './predication';
 
-export * from './predication';
+export * from './registry';
 export * from './evaluation';
+export * from './predication';
 export * from './filtration';
-export * from './predicates';
 
 export default predication;

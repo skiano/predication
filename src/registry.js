@@ -1,14 +1,19 @@
-import { evaluation } from '../';
+import { evaluation } from './';
+import {
+  or,
+  and,
+  not,
+  mod,
+  modR,
+  includes,
+  isDictionary,
+  objectIncludesString
+} from './helpers';
 
 const predicates = {};
 
 const isUndefined = v => typeof v === 'undefined';
 const isMissing = (k, v, c) => k !== 'exists' && (isUndefined(c) || isUndefined(v));
-
-export const isDictionary = obj => {
-  const type = typeof obj;
-  return type === 'object' && !Array.isArray(obj) && type !== 'function' && !!obj;
-};
 
 export const listPredicates = () => Object.keys(predicates);
 export const hasPredicate = key => predicates.hasOwnProperty(key);
@@ -44,5 +49,21 @@ export const getPredicate = (key, config, thisValue) => {
   }
 }
 
-/** register exists */
 registerPredicate('exists', c => v => c === (typeof v !== 'undefined'));
+
+registerPredicate('not', not);
+registerPredicate('and', and);
+registerPredicate('or', or);
+
+registerPredicate('mod', c => v => (Array.isArray(c) ? modR(v, c) : mod(v, c)));
+registerPredicate('in',  c => v => includes(v, c));
+registerPredicate('nin', c => v => !includes(v, c));
+registerPredicate('eq',  c => v => v === c);
+registerPredicate('ne',  c => v => v !== c);
+registerPredicate('lt',  c => v => v < c);
+registerPredicate('gt',  c => v => v > c);
+registerPredicate('lte', c => v => v <= c);
+registerPredicate('gte', c => v => v >= c);
+registerPredicate('rng', c => v => (v >= c[0] && v <= c[1]));
+registerPredicate('oi',  c => v => objectIncludesString(v, c));
+registerPredicate('noi', c => v => !objectIncludesString(v, c));
