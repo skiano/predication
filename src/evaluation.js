@@ -29,9 +29,10 @@ export const evaluation = path => {
     return parts ? terms.concat([parts[1], indexer(parts[2])]) : terms.concat([frag]);
   }, []);
 
+  if (terms.length === 0) return identity;
+
   return value => {
     if (!isDictionary(value)) return undefined;
-    if (terms.length === 0) return value;
 
     let output = value;
 
