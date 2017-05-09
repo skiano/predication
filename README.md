@@ -35,7 +35,12 @@ const values = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20];
 
 const matches = values.filter(predicate); // [6,8,9,10,12,14]
 ```
+In the likely circumstance that the values you are checking are objects, you can use `this` to specify what property you are interested in.
 
+```javascript
+// match an object like {foo: {bar: [true]}}
+const description = {this: 'foo.bar[0]', eq: true}
+```
 
 In the above examples, `eq`, `mod`, and `lt` are examples of built-in predicate names. Here is the full list:
 
