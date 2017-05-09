@@ -44,7 +44,7 @@ const description = {this: 'foo.bar[0]', eq: true}
 
 You can even specify relationships inside the object using `that`
 
-```
+```javascript
 // match objects like {foo: true, bar: true} but not {foo: true, bar: false}
 const description = {this: 'foo', eq: {that: 'bar'}}
 ```
