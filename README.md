@@ -7,12 +7,10 @@ Predication takes a description and returns a predicate. So it looks like this
 ```javascript
 import predication from 'predication';
 
-//                              The value you are checking
-//                                         |
-//                           description   |
-//                                |        |
-//                            |---|----|   |
-const tautology = predication({eq: true})(true); // returns true
+const isTrue = predication({eq: true});
+
+isTrue(true); // true
+isTrue(false); // false
 ```
 
 In the above example, the description `{eq: true}` means “does the value equal true?”, and `eq` is an example of one of the built-in predicate names. Here is the full list.
