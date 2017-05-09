@@ -13,9 +13,15 @@ import predication from 'predication';
 //                                |        |
 //                            |---|----|   |
 const tautology = predication({eq: true})(true); // returns true
-//                             |
-//                           predicate name (in this case "equals")
 ```
+
+In the above example, the description `{eq: true}` means “does the value equal true?”, and `eq` is an example of one of the built-in predicate names. Here is the full list.
+
+| Name | Example | Explanation |
+| :--  | :------ | :---------- |
+| `eq` | `{eq: true}` | value equals true |
+| `in` | `{in: [1, 2, 3]}` | value is included in array  |
+| `in` | `{in: 'abc'}` | value includes string 'abc' (case-insensitive) |
 
 ### A few quick examples
 
