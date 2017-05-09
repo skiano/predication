@@ -17,11 +17,11 @@ test('Evaluation', t => {
   const deep = evaluation('foo.bar[3]');
 
   t.equal(deep(), undefined, 'missing object');
-  t.equal(deep({}), undefined, 'missing key');
-  t.equal(deep({foo: true}), undefined, 'missing key');
-  t.equal(deep({foo: {bar: true}}), undefined, 'missing key');
-  t.equal(deep({foo: {bar: {baz: 2}}}), undefined, 'missing key');
-  t.equal(deep({foo: {bar: []}}), undefined, 'missing key');
+  t.equal(deep({}), undefined, 'missing key: level 1');
+  t.equal(deep({foo: true}), undefined, 'missing key: level 2');
+  t.equal(deep({foo: {bar: true}}), undefined, 'missing key: bool');
+  t.equal(deep({foo: {bar: {baz: 2}}}), undefined, 'missing key: num');
+  t.equal(deep({foo: {bar: []}}), undefined, 'missing array value');
 
   t.throws(() => {
     evaluation(2)({bar: []});
