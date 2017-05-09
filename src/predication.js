@@ -9,15 +9,18 @@ export const predication = (config, isChild = false) => {
   const thisVal = config.this;
 
   let predicate;
+  let childPredication;
 
   switch (true) {
     case keys.length > 1:
       /** this object has multiple predicates, so join them by or */
-      predicate = getPredicate('or', keys.map(k => predication({[k]: config[k]}, IS_CHILD)), thisVal);
+      childPredication = k => predication({[k]: config[k]}, IS_CHILD);
+      predicate = getPredicate('or', keys.map(childPredication), thisVal);
       break;
 
     case key === 'and' || key === 'or':
-      predicate = getPredicate(key, config[key].map(c => predication(c, IS_CHILD)), thisVal);
+      childPredication = c => predication(c, IS_CHILD);
+      predicate = getPredicate(key, config[key].map(childPredication), thisVal);
       break;
 
     case key === 'not':
