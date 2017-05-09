@@ -51,7 +51,7 @@ test('Logic: setting this', t => {
 
   t.equal(b({foo: {bar: true}}), true, 'multiple levels deep: true');
   t.equal(b({foo: {bar: false}}), false, 'multiple levels deep: false');
-  t.equal(b({foo: false}), undefined, 'multiple levels deep: undefined');
+  t.equal(b({foo: false}), false, 'multiple levels deep: undefined');
 
   const c = predication({
     and: [{this: 'foo.bar', eq: 1}, {this: 'foo.baz', eq: 1}]

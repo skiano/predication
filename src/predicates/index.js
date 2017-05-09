@@ -2,9 +2,8 @@ import { evaluation } from '../';
 
 const predicates = {};
 
-const lenientPredicates = ['exists']; 
 const isUndefined = v => typeof v === 'undefined';
-const isMissing = (k, v, c) => !lenientPredicates.includes(k) && (isUndefined(c) || isUndefined(v));
+const isMissing = (k, v, c) => k !== 'exists' && (isUndefined(c) || isUndefined(v));
 
 export const isDictionary = obj => {
   const type = typeof obj;
@@ -20,6 +19,7 @@ export const registerPredicate = (key, predicator, validator) => {
     throw new Error(`Predicate "${key}" is already registered`);
   } else {
     predicates[key] = config => {
+      /** parse "that" into getter once **/
       const getThat = isDictionary(config) && config.that && evaluation(config.that);
 
       return (value, getThis) => {
@@ -44,5 +44,5 @@ export const getPredicate = (key, config, thisValue) => {
   }
 }
 
-/** exists is important for all predicates */
+/** register exists */
 registerPredicate('exists', c => v => c === (typeof v !== 'undefined'));
