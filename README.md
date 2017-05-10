@@ -110,7 +110,8 @@ const people = [
       mentalAge: 14,
       iq: 100,
       favoriteBooks: [
-        {title: 'Nancy Drew', length: 115}
+        {title: 'Nancy Drew', length: 115},
+        {title: 'The Hardy Boys', length: 105}
       ]
     }
   }
