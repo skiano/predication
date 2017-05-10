@@ -54,22 +54,23 @@ Both `this` and that use `evalutation`, which you can read about in more detail 
 
 In the above examples, `eq`, `mod`, and `lt` are examples of built-in predicate names. Here is the full list:
 
-* 
+## Common Predicates
 
-| Name | Example | Explanation |
-| :--  | :------ | :---------- |
-| `eq` | `{eq: true}` | value equals true |
-| `in` | `{in: [1, 2, 3]}` | value is included in array  |
-| `in` | `{in: 'abc'}` | value includes string 'abc' (case-insensitive) |
-| `s` | 
-
-Common Predicates
-
-* Modulo `mod`
-* Includes `in`
-* Doesn’t Include `nin`
-* Equal `eq`
-* Not Equal `ne`
+* **Modulo** 
+  - `{mod: 2}` divisible by 2
+  - `{mod: [3, 1]}` divisible by 3 with a remainder of 1
+* **Includes**
+  - `{in: 'apple'}` value includes string ‘apple’ (case-insensitive)
+  - `{in: [1, 2, 3]}` value in array
+* **Doesn’t Include**
+  - `{nin: 'apple'}` value does not include ‘apple’ (case-insensitive)
+  - `{nin: [1, 2, 3]}` value not in array
+* **Equal** (deep equal)
+  - `{eq: true}` value equals true
+  - `{eq: 2}` value equals 2
+* **Not Equal** 
+  - `{ne: true}` value does not equal true
+  - `{ne: 2}` value does not equal 2
 * Less Than `lt`
 * Greater Than `gt`
 * Less Than or Equal `lte`
