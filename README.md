@@ -102,20 +102,16 @@ Imagine you had a list of people that looked a something like this:
 const people = [
   {
     name: 'Bruce',
-    age: 30,
-    body: {
-      physicalAge: 34, height: 57, hair: 'brown', eyes: 'brown'
+    age: {
+      mental: 14,
+      physical: 24
     },
-    mind: {
-      mentalAge: 14,
-      iq: 100,
-      favoriteBooks: [
-        {title: 'Nancy Drew', length: 115},
-        {title: 'The Hardy Boys', length: 105}
-      ]
-    }
-  }
-]
+    favoriteBooks: [
+      {title: 'Nancy Drew', length: 115},
+      {title: 'The Hardy Boys', length: 105}
+    ]
+  },
+];
 ```
 
 
