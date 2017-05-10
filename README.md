@@ -38,15 +38,17 @@ const matches = values.filter(predicate); // [6,8,9,10,12,14]
 In the likely circumstance that the values you are checking are objects, you can use `this` to specify what property you are interested in.
 
 ```javascript
-// match an object like {foo: {bar: [true]}}
 const description = {this: 'foo.bar[0]', eq: true}
+// matches the object: {foo: {bar: [true, false]}}
+// does not match the object: {foo: {bar: [false, true]}}
 ```
 
 You can even specify relationships inside the object using `that`
 
 ```javascript
-// match objects like {foo: true, bar: true} but not {foo: true, bar: false}
 const description = {this: 'foo', eq: {that: 'bar'}}
+// matches the objects: {foo: true, bar: true} 
+// does not match {foo: true, bar: false}
 ```
 
 In the above examples, `eq`, `mod`, and `lt` are examples of built-in predicate names. Here is the full list:
@@ -75,3 +77,8 @@ registerPredicate('rng', c => v => (v >= c[0] && v <= c[1]));
 registerPredicate('oi',  c => v => objectIncludesString(v, c));
 registerPredicate('noi', c => v => !objectIncludesString(v, c));
 ```
+
+
+
+
+
