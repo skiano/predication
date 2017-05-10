@@ -96,7 +96,25 @@ In the above examples, `eq`, `mod`, and `lt` are examples of built-in predicate 
 
 ## A case study
 
+Imagine you had a list of people that looked a something like this:
 
+```javascript
+const people = [
+  {
+    name: 'Bruce',
+    body: {
+      age: 34, height: 57, hair: 'brown', eyes: 'brown'
+    },
+    mind: {
+      age: 14,
+      iq: 100,
+      favoriteBooks: [
+        {title: 'Nancy Drew', length: 115}
+      ]
+    }
+  }
+]
+```
 
 
 
