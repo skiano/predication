@@ -102,6 +102,7 @@ Imagine you had a list of people that looked a something like this:
 const people = [
   {
     name: 'Bruce',
+    hair: 'brown',
     age: {
       mental: 14,
       physical: 24
