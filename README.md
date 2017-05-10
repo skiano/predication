@@ -35,7 +35,7 @@ const values = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20];
 
 const matches = values.filter(predicate); // [6,8,9,10,12,14]
 ```
-In the likely circumstance that the values you are checking are objects, you can use `this` to specify what property you are interested in.
+If you are checking are trying to match objects, you can use `this` to specify what property you are interested in.
 
 ```javascript
 const description = {this: 'foo.bar[0]', eq: true}
@@ -50,33 +50,39 @@ const description = {this: 'foo', eq: {that: 'bar'}}
 // matches the objects: {foo: true, bar: true} 
 // does not match {foo: true, bar: false}
 ```
+Both `this` and that use `evalutation`, which you can read about in more detail below.  
 
 In the above examples, `eq`, `mod`, and `lt` are examples of built-in predicate names. Here is the full list:
+
+* 
 
 | Name | Example | Explanation |
 | :--  | :------ | :---------- |
 | `eq` | `{eq: true}` | value equals true |
 | `in` | `{in: [1, 2, 3]}` | value is included in array  |
 | `in` | `{in: 'abc'}` | value includes string 'abc' (case-insensitive) |
+| `s` | 
 
 ```javascript
 registerPredicate('not', not);
 registerPredicate('and', and);
 registerPredicate('or', or);
 
-registerPredicate('mod', c => v => (Array.isArray(c) ? modR(v, c) : mod(v, c)));
-registerPredicate('in',  c => v => includes(v, c));
-registerPredicate('nin', c => v => !includes(v, c));
-registerPredicate('eq',  c => v => v === c);
-registerPredicate('ne',  c => v => v !== c);
-registerPredicate('lt',  c => v => v < c);
-registerPredicate('gt',  c => v => v > c);
-registerPredicate('lte', c => v => v <= c);
-registerPredicate('gte', c => v => v >= c);
-registerPredicate('rng', c => v => (v >= c[0] && v <= c[1]));
-registerPredicate('oi',  c => v => objectIncludesString(v, c));
-registerPredicate('noi', c => v => !objectIncludesString(v, c));
 ```
+
+* `mod`
+* `in`
+* `nin`
+* `eq`
+* `ne`
+* `lt`
+* `gt`
+* `lte`
+* `gte`
+* `rng`
+* `oi`
+* `noi`
+
 
 
 
