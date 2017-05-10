@@ -63,25 +63,20 @@ In the above examples, `eq`, `mod`, and `lt` are examples of built-in predicate 
 | `in` | `{in: 'abc'}` | value includes string 'abc' (case-insensitive) |
 | `s` | 
 
-```javascript
-registerPredicate('not', not);
-registerPredicate('and', and);
-registerPredicate('or', or);
+Common Predicates
 
-```
-
-* `mod`
-* `in`
-* `nin`
-* `eq`
-* `ne`
-* `lt`
-* `gt`
-* `lte`
-* `gte`
-* `rng`
-* `oi`
-* `noi`
+* Modulo `mod`
+* Includes `in`
+* Doesn’t Include `nin`
+* Equal `eq`
+* Not Equal `ne`
+* Less Than `lt`
+* Greater Than `gt`
+* Less Than or Equal `lte`
+* Greater Than or Equal `gte`
+* Range `rng`
+* Object Includes `oi`
+* Object Doesn’t include `noi`
 
 
 
