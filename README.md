@@ -1,6 +1,14 @@
-# predication
+# Predication
 
 Predication uses javascript objects to describe predicates. That way you can store these descriptions as data and easily convert them into functions. Out of the box it supports common predicates and logical operators, and you can extend it by registering your own predicates.
+
+## Installation
+
+```bash
+$ npm install predication
+```
+
+## Summary
 
 Predication takes a **description** and returns a **predicate**. So it looks like this
 
@@ -54,7 +62,7 @@ Both `this` and that use `evalutation`, which you can read about in more detail 
 
 In the above examples, `eq`, `mod`, and `lt` are examples of built-in predicate names. Here is the full list:
 
-## Common Predicates
+## Common predicates
 
 * **Modulo** 
   - `{mod: 2}` divisible by 2
@@ -86,6 +94,7 @@ In the above examples, `eq`, `mod`, and `lt` are examples of built-in predicate 
 * **Object Doesn’t include**
   - `{noi: 'apple'}` opposite of `oi`
 
+## A case study
 
 
 
