@@ -15,9 +15,9 @@ export const isDictionary = obj => {
   return type === 'object' && !Array.isArray(obj) && type !== 'function' && !!obj;
 };
 
-export const objectIncludesString = (o, str) => (
-  (isString(o) && strIncludes(str, o)) ||
-  (isDictionary(o) && Object.keys(o).some(k => objectIncludesString(o[k], str))) ||
-  (Array.isArray(o) && o.some(v => objectIncludesString(v, str))) ||
-  false
-);
+export const objectIncludesString = (o, str) => {
+  return (isString(o) && strIncludes(str, o)) ||
+    (isDictionary(o) && Object.keys(o).some(k => objectIncludesString(o[k], str))) ||
+    (Array.isArray(o) && o.some(v => objectIncludesString(v, str))) ||
+    false;
+};
