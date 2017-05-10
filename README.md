@@ -81,9 +81,9 @@ In the above examples, `eq`, `mod`, and `lt` are examples of built-in predicate 
   - `{gte: 10}`
 * **Range**
   - `{rng: [0, 10]}` greater than or equal to 0 AND less than or equal to 10
-* Object Includes `oi`
+* **Object Includes**
   - `{oi: 'apple'}` any key in the object has a value that contains ‘apple’ (depth-first search and case-insensitive)
-* Object Doesn’t include `noi`
+* **Object Doesn’t include**
   - `{noi: 'apple'}` opposite of `oi`
 
 
