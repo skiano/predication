@@ -32,6 +32,7 @@ export const registerPredicate = (key, predicator, validator) => {
         const c = getThat ? getThat(value) : config;
 
         if (isMissing(key, v, c)) return undefined;
+
         return predicator(c)(v);
       }
     }
