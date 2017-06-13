@@ -70,7 +70,7 @@ test('Predicates NOT with undefined', t => {
 });
 
 test('Predicates', t => {
-  t.plan(59)
+  t.plan(60)
 
   t.true(getPredicate('exists', true)(0), 'exists: true for 0');
   t.true(getPredicate('exists', true)(''), 'exists: true for empty string');
@@ -146,6 +146,7 @@ test('Predicates', t => {
   t.false(getPredicate('oi', 'foo')([1, 2, 3]), 'object includes: array');
   t.false(getPredicate('oi', 'foo')(null), 'object includes: null');
   t.false(getPredicate('oi', 'foo')(true), 'object includes: boolean');
+  t.true(getPredicate('oi', 'fo')({a: 'ooofoo', b: 'bar'}), 'object includes partial string: top key left');
   t.false(getPredicate('noi', 'foo')(
     {a: [{a: [1, undefined, false, {a: true, b: 'foo'}]}]}
   ), 'object doesnt include');
