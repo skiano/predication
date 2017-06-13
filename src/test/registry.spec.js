@@ -7,7 +7,7 @@ import {
   getPredicate
 } from '../';
 
-test('Predicates MGMT', t => {
+test('Registry of predicates', t => {
   t.plan(5);
 
   t.true(Array.isArray(listPredicates()), 'list predicates');
