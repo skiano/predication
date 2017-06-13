@@ -63,10 +63,16 @@ If you want to add support for your own predicates it looks like this
 ```javascript
 import { registerPredicate } from 'predication'
 
-registerPredicate('hasRoot', (c, n) => n > 0 && Math.pow(n, (1 / c)) % 1 === 0)
+registerPredicate('hasRoot', (config, value) => (
+  value > 0 &&
+  config !== 0 &&
+  Math.pow(value, (1 / config)) % 1 === 0
+))
 
 // create a predicate that matches 1, 4, 9, 16...
-const hasSquareRoot = predication({ hasRoot: 2 })
+const hasSquareRoot = predication({
+  hasRoot: 2 // 2 is the 'config' passed to your registered predicate
+})
 
 // your predicates can still use 'this' and 'that'
 const fooHasCubeRoot = predication({ this: 'foo', hasRoot: 3 })
