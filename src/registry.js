@@ -23,7 +23,8 @@ export const registerPredicate = (key, predicator, validator) => {
   if (hasPredicate(key)) {
     throw new Error(`Predicate "${key}" is already registered`);
   } else {
-    predicates[key] = (config, value, getThis) => {
+    predicates[key] = (config, value, thisValue) => {
+      const getThis = evaluation(thisValue);
       const getThat = isDictionary(config) && config.that && evaluation(config.that);
       const v = getThis(value);
       const c = getThat ? getThat(value) : config;
@@ -44,10 +45,7 @@ export const getPredicate = (key, config, thisValue) => {
   if (!hasPredicate(key)) {
     throw new Error(`Unregisterd predicate: "${key}"`);
   } else {
-    /** parse "this" into getter once **/
-    const getThis = evaluation(thisValue);
-    /** curry the getter into the predicate **/
-    return v => predicates[key](config, v, getThis);
+    return v => predicates[key](config, v, thisValue);
   }
 }
 
