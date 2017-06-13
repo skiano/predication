@@ -28,7 +28,13 @@ export const registerPredicate = (key, predicator, validator) => {
       const c = getThat ? getThat(value) : config;
 
       if (isMissing(key, v, c)) return undefined;
-      return predicator(c, v);      
+
+      try {
+        return predicator(v, c);  
+      } catch (e) {
+        console.log(key, v, c)
+      }
+      
     }
   }
 }
@@ -43,21 +49,21 @@ export const getPredicate = (key, config, thisValue) => {
   }
 }
 
-registerPredicate('exists', (c, v) => c === (typeof v !== 'undefined'));
+registerPredicate('exists', (v, c) => c === (typeof v !== 'undefined'));
 
 registerPredicate('not', not);
 registerPredicate('and', and);
 registerPredicate('or', or);
 
-registerPredicate('mod', (c, v) => (Array.isArray(c) ? modR(c, v) : mod(c, v)));
-registerPredicate('in',  (c, v) => includes(c, v));
-registerPredicate('nin', (c, v) => !includes(c, v));
-registerPredicate('eq',  (c, v) => v === c);
-registerPredicate('ne',  (c, v) => v !== c);
-registerPredicate('lt',  (c, v) => v < c);
-registerPredicate('gt',  (c, v) => v > c);
-registerPredicate('lte', (c, v) => v <= c);
-registerPredicate('gte', (c, v) => v >= c);
-registerPredicate('rng', (c, v) => (v >= c[0] && v <= c[1]));
-registerPredicate('oi',  (c, v) => objectIncludesString(c, v));
-registerPredicate('noi', (c, v) => !objectIncludesString(c, v));
+registerPredicate('mod', (v, c) => (Array.isArray(c) ? modR(v, c) : mod(v, c)));
+registerPredicate('in',  (v, c) => includes(v, c));
+registerPredicate('nin', (v, c) => !includes(v, c));
+registerPredicate('eq',  (v, c) => v === c);
+registerPredicate('ne',  (v, c) => v !== c);
+registerPredicate('lt',  (v, c) => v < c);
+registerPredicate('gt',  (v, c) => v > c);
+registerPredicate('lte', (v, c) => v <= c);
+registerPredicate('gte', (v, c) => v >= c);
+registerPredicate('rng', (v, c) => (v >= c[0] && v <= c[1]));
+registerPredicate('oi',  (v, c) => objectIncludesString(v, c));
+registerPredicate('noi', (v, c) => !objectIncludesString(v, c));
