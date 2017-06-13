@@ -10,7 +10,7 @@ Predication uses javascript objects to describe predicates. That way you can sto
 $ npm install predication
 ```
 
-### CDN
+### cdn
 
 * https://unpkg.com/predication/dist/predication.js
 * https://unpkg.com/predication/dist/predication.min.js
