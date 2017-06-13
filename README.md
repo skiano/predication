@@ -1,6 +1,16 @@
 # predication
 
-Predication uses javascript objects to describe predicates. That way you can store these descriptions as data and easily convert them into functions. Out of the box it supports common predicates and logical operators, and you can extend it by registering your own predicates.
+Predication uses objects to describe predicates. That way you can store these descriptions as data and easily convert them into functions. This is useful if you need to store them in a database or send them as a message for example.
+
+It supports common predicates and logical operators out of the box, and you can register your own predicates.
+
+## installation
+
+```bash
+$ npm install predication
+```
+
+## usage
 
 Predication takes a **description** and returns a **predicate**. So it looks like this
 
@@ -47,6 +57,25 @@ You can even specify relationships inside the object using `that`
 ```javascript
 // match objects like {foo: true, bar: true} but not {foo: true, bar: false}
 const description = {this: 'foo', eq: {that: 'bar'}}
+```
+If you want to add support for your own predicates it looks like this
+
+```javascript
+import { registerPredicate } from 'predication'
+
+registerPredicate('hasRoot', (config, value) => (
+  value > 0 &&
+  config !== 0 &&
+  Math.pow(value, (1 / config)) % 1 === 0
+))
+
+// create a predicate that matches 1, 4, 9, 16...
+const hasSquareRoot = predication({
+  hasRoot: 2 // 2 is the 'config' passed to your registered predicate
+})
+
+// your predicates can still use 'this' and 'that'
+const fooHasCubeRoot = predication({ this: 'foo', hasRoot: 3 })
 ```
 
 In the above examples, `eq`, `mod`, and `lt` are examples of built-in predicate names. Here is the full list:
