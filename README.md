@@ -58,6 +58,19 @@ You can even specify relationships inside the object using `that`
 // match objects like {foo: true, bar: true} but not {foo: true, bar: false}
 const description = {this: 'foo', eq: {that: 'bar'}}
 ```
+If you want to add support for your own predicates it looks like this
+
+```javascript
+import { registerPredicate } from 'predication'
+
+registerPredicate('hasRoot', (c, n) => n > 0 && Math.pow(n, (1 / c)) % 1 === 0)
+
+// create a predicate that matches 1, 4, 9, 16...
+const hasSquareRoot = predication({ hasRoot: 2 })
+
+// your predicates can still use 'this' and 'that'
+const fooHasCubeRoot = predication({ this: 'foo', hasRoot: 3 })
+```
 
 In the above examples, `eq`, `mod`, and `lt` are examples of built-in predicate names. Here is the full list:
 
