@@ -12,8 +12,8 @@ $ npm install predication
 
 ### CDN
 
-https://unpkg.com/predication/dist/predication.js
-https://unpkg.com/predication/dist/predication.min.js
+* https://unpkg.com/predication/dist/predication.js
+* https://unpkg.com/predication/dist/predication.min.js
 
 ## Summary
 
