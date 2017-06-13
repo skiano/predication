@@ -4,13 +4,13 @@ Predication uses objects to describe predicates. That way you can store these de
 
 It supports common predicates and logical operators out of the box, and you can register your own predicates.
 
-# install
+## installation
 
 ```bash
 $ npm install predication
 ```
 
-## use
+## usage
 
 Predication takes a **description** and returns a **predicate**. So it looks like this
 
