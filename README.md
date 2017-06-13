@@ -6,9 +6,16 @@ It supports common predicates and logical operators out of the box, and you can 
 
 ## installation
 
+### npm
+
 ```bash
 $ npm install predication
 ```
+
+### cdn
+
+* https://unpkg.com/predication/dist/predication.js
+* https://unpkg.com/predication/dist/predication.min.js
 
 ## usage
 
