@@ -1,6 +1,16 @@
 # predication
 
-Predication uses javascript objects to describe predicates. That way you can store these descriptions as data and easily convert them into functions. Out of the box it supports common predicates and logical operators, and you can extend it by registering your own predicates.
+Predication uses objects to describe predicates. That way you can store these descriptions as data and easily convert them into functions. This is useful if you need to store them in a database or send them as a message for example.
+
+It supports common predicates and logical operators out of the box, and you can register your own predicates.
+
+# install
+
+```bash
+$ npm install predication
+```
+
+## use
 
 Predication takes a **description** and returns a **predicate**. So it looks like this
 
