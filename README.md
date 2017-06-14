@@ -67,7 +67,7 @@ predicate({foo: {bar: [true]}})  // true
 predicate({foo: {bar: [false]}}) // false
 ```
 
-You can even specify relationships inside the object using `that`
+You can even specify relationships inside the object using `that`. Here is an example that matches objects whose `foo` and `bar` properties are the same.
 
 ```javascript
 const predicate = predication({
