@@ -59,12 +59,35 @@ In the likely circumstance that the values you are checking are objects, you can
 
 ```javascript
 const predicate = predication({
+  this: 'foo',
+  eq: true
+})
+
+predicate({foo: true}})  // true
+predicate({foo: false}}) // false
+```
+
+You can key into the object in more complicated ways. For example...
+
+```javascript
+const predicate = predication({
   this: 'foo.bar[0]',
   eq: true
 })
 
-predicate({foo: {bar: [true]}})  // true
-predicate({foo: {bar: [false]}}) // false
+predicate({foo: {bar: [true, false]}}) // true
+predicate({foo: {bar: [false, true]}}) // false
+```
+You can also key into arrays starting from the end using negative indexing.
+
+```javascript
+const predicate = predication({
+  this: 'foo.bar[-0]',
+  eq: true
+})
+
+predicate({foo: {bar: [true, false]}}) // false
+predicate({foo: {bar: [false, true]}}) // true
 ```
 
 You can even specify relationships inside the object using `that`. Here is an example that matches objects whose `foo` and `bar` properties are the same.
