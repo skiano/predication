@@ -1,7 +1,7 @@
 {
   "name": "predication",
   "version": "0.0.6",
-  "description": "Complex filters as functions and data",
+  "description": "Describe predicates with objects",
   "main": "dist/predication.js",
   "scripts": {
     "start": "npm run watch",
@@ -32,7 +32,9 @@
     "url": "git+https://github.com/skiano/predication.git"
   },
   "keywords": [
-    "Filter"
+    "filter",
+    "predicate",
+    "logic"
   ],
   "author": "Greg Skiano",
   "license": "MIT",
