@@ -1,6 +1,6 @@
 # predication
 
-Predication uses objects to describe predicates. That way you can store these descriptions as data and easily convert them into functions. This is useful if you need to store them in a database or send them as a message for example.
+Predication uses objects to describe predicates. That way you can store these descriptions as data and easily convert them into pre-compiled functions. This is useful if you need to store them in a database or send them as a message for example.
 
 It supports common predicates and logical operators out of the box, and you can register your own predicates.
 
