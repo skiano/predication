@@ -207,4 +207,4 @@ registerPredicate('oi',  c => v => objectIncludesString(v, c));
 registerPredicate('noi', c => v => !objectIncludesString(v, c));
 ```
 
-### A word about not and missing properties
+### A word about `not` and missing properties
