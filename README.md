@@ -102,9 +102,9 @@ predicate({foo: true, bar: true})  // true
 predicate({foo: true, bar: false}) // false
 ```
 
-The strings provided for `this` will nest. Look at this example...
+#### Nesting `this`
 
-We have Bobby and Marian...
+The strings provided for `this` will nest. Take, for example, Bobby and Marian...
 
 ```javascript
 const Bobby = {
@@ -122,7 +122,7 @@ const Marian = {
 }
 ```
 
-And we want to match people who are either taller than 50" or older than 65. We could do the following...
+If we wanted want to match people who are either taller than 50" or older than 65, we could do the following...
 
 ```javascript
 const tall_or_old = predication({
