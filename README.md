@@ -119,7 +119,6 @@ registerPredicate('hasRoot', myHasRootPredicate)
 Now that you have registered it, you can use `hasRoot` as a key in your descriptions...
 
 ```javascript
-// create a predicate that matches 1, 4, 9, 16...
 const hasSquareRoot = predication({
   hasRoot: 2
 })
