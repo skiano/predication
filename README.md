@@ -210,3 +210,10 @@ registerPredicate('noi', c => v => !objectIncludesString(v, c));
 ```
 
 ### A word about `not` and missing properties
+
+...
+
+### Possible Todos for version 1.0
+
+* [] Error Handling / vallidation of configuration
+* [] Matching ‘Filtration’ helpers
