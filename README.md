@@ -107,21 +107,37 @@ predicate({foo: true, bar: false}) // false
 If you want to add support for your own predicates, you can use `registerPredicate`. The following would add a predicate that returns true when a value has a given root, for example a square root...
 
 ```javascript
-import { registerPredicate } from 'predication'
+import { registerPredicate, predication } from 'predication'
 
 registerPredicate('hasRoot', (config, value) => (
   value > 0 &&
   config !== 0 &&
   Math.pow(value, (1 / config)) % 1 === 0
 ))
+```
 
+Then you can use `hasRoot` as a key in your descriptions...
+
+```javascript
 // create a predicate that matches 1, 4, 9, 16...
 const hasSquareRoot = predication({
-  hasRoot: 2 // 2 is the 'config' passed to your registered predicate
+  hasRoot: 2
 })
 
-// your predicates can still use 'this' and 'that'
-const fooHasCubeRoot = predication({ this: 'foo', hasRoot: 3 })
+hasSquareRoot(4) // true
+hasSquareRoot(7) // false
+hasSquareRoot(9) // true
+```
+Because registerPredicate is used internally, you can take advantage of `this` and `that` for your predicates too...
+
+```javascript
+const fooHasCubeRoot = predication({
+  this: 'foo',
+  hasRoot: 3
+})
+
+fooHasCubeRoot({foo: 27}) // true
+fooHasCubeRoot({foo: 9})  // false
 ```
 
 ### Built-in predicates
