@@ -102,6 +102,45 @@ predicate({foo: true, bar: true})  // true
 predicate({foo: true, bar: false}) // false
 ```
 
+The strings provided for `this` will nest. Look at this example...
+
+We have Bobby and Marian...
+
+```javascript
+const Bobby = {
+  body: {
+    height: 60,
+    age: 33
+  }
+}
+
+const Marian = {
+  body: {
+    height: 49,
+    age: 72
+  }
+}
+```
+
+And we want to match people who are either taller than 50" or older than 65. We could do the following...
+
+```javascript
+const tall_or_old = predication({
+  this: 'body',
+  or: [
+    { this: 'height', gt: 50 },
+    { this: 'age', gt: 45 }
+  ]
+})
+```
+
+Which would match both Bobby and Marian...
+
+```
+tall_or_old(Bobby)  // true
+tall_or_old(Marian) // true
+```
+
 ### Registering your own predicates
 
 If you want to add support for your own predicates, you can use `registerPredicate`. The following would add a predicate that returns `true` when a value has a given root, for example a square root...
@@ -167,3 +206,5 @@ registerPredicate('rng', c => v => (v >= c[0] && v <= c[1]));
 registerPredicate('oi',  c => v => objectIncludesString(v, c));
 registerPredicate('noi', c => v => !objectIncludesString(v, c));
 ```
+
+### A word about not and missing properties
