@@ -4,7 +4,7 @@ Predication uses objects to describe predicates. That way you can store these de
 
 It supports common predicates and logical operators out of the box, and you can register your own predicates.
 
-There are no external dependencies, and the umd bundle is about 3kb minified.
+There are no external dependencies, and the umd bundle is about 3kb uglified.
 
 ## installation
 
