@@ -55,7 +55,7 @@ const matches = values.filter(predicate) // [6,8,9,10,12,14]
 
 ### Working with objects
 
-In the likely circumstance that the values you are checking are objects, you can use `this` to ‘key’ into the object...
+In the likely event that your values are objects, you can use `this` to ‘key’ into the object...
 
 ```javascript
 const predicate = predication({
