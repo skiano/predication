@@ -22,7 +22,7 @@ $ npm install predication
 Predication takes a **description** and returns a **predicate**. So it looks like this
 
 ```javascript
-import predication from 'predication';
+import { predication } from 'predication';
 
 const isTrue = predication({eq: true});
 
