@@ -215,5 +215,7 @@ registerPredicate('noi', c => v => !objectIncludesString(v, c));
 
 ### Possible Todos for version 1.0
 
-* [] Error Handling / vallidation of configuration
-* [] Matching ‘Filtration’ helpers
+* Error Handling / vallidation of configuration
+* Matching ‘Filtration’ helpers
+* Travis CI
+* Demo site
