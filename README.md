@@ -63,8 +63,8 @@ const predicate = predication({
   eq: true
 })
 
-predicate({foo: {bar: [true]}}) // true
-predicate({foo: {bar: [false]}}) // true
+predicate({foo: {bar: [true]}})  // true
+predicate({foo: {bar: [false]}}) // false
 ```
 
 You can even specify relationships inside the object using `that`
@@ -75,7 +75,7 @@ const predicate = predication({
   eq: {that: 'bar'}
 })
 
-predicate({foo: true, bar: true}) // true
+predicate({foo: true, bar: true})  // true
 predicate({foo: true, bar: false}) // false
 ```
 
