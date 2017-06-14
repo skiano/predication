@@ -90,7 +90,7 @@ predicate({foo: {bar: [true, false]}}) // false
 predicate({foo: {bar: [false, true]}}) // true
 ```
 
-You can even specify relationships inside the object using `that`. Here is an example that matches objects whose `foo` and `bar` properties are the same.
+You can even specify relationships inside the object using `that`. Here is an example that matches objects whose `foo` and `bar` properties are the same...
 
 ```javascript
 const predicate = predication({
@@ -104,7 +104,7 @@ predicate({foo: true, bar: false}) // false
 
 ### Registering your own predicates
 
-If you want to add support for your own predicates, you can use `registerPredicate`. The following would add a predicate that returns true when a value has a given root, for example a square root...
+If you want to add support for your own predicates, you can use `registerPredicate`. The following would add a predicate that returns `true` when a value has a given root, for example a square root...
 
 ```javascript
 import { registerPredicate, predication } from 'predication'
