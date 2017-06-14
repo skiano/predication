@@ -26,7 +26,7 @@ import { predication } from 'predication'
 
 const isTrue = predication({eq: true})
 
-isTrue(true) // true
+isTrue(true)  // true
 isTrue(false) // false
 ```
 
