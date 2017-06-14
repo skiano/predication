@@ -109,11 +109,11 @@ If you want to add support for your own predicates, you can use `registerPredica
 ```javascript
 import { registerPredicate, predication } from 'predication'
 
-registerPredicate('hasRoot', (config, value) => (
-  value > 0 &&
-  config !== 0 &&
-  Math.pow(value, (1 / config)) % 1 === 0
-))
+const myHasRootPredicate = (config, value) => (
+  (value > 0) && (config !== 0) && (Math.pow(value, (1 / config)) % 1 === 0)
+)
+
+registerPredicate('hasRoot', myHasRootPredicate)
 ```
 
 Now that you have registered it, you can use `hasRoot` as a key in your descriptions...
