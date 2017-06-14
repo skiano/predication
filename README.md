@@ -19,7 +19,7 @@ $ npm install predication
 
 ## usage
 
-Predication takes a **description** and returns a **predicate**. So it looks like this
+Predication takes a **description** and returns a **predicate**. So it looks like this...
 
 ```javascript
 import { predication } from 'predication'
@@ -30,7 +30,7 @@ isTrue(true) // true
 isTrue(false) // false
 ```
 
-That example is sort of silly, but here is a more complicated description that matches numbers less than 15, and not less than 5, and divisible by either 2 or 3.
+That example is sort of silly, but here is a more complicated description that matches numbers less than 15, and not less than 5, and divisible by either 2 or 3...
 
 ```javascript
 import { predication } from 'predication'
@@ -55,7 +55,7 @@ const matches = values.filter(predicate) // [6,8,9,10,12,14]
 
 ### Working with objects
 
-In the likely circumstance that the values you are checking are objects, you can use `this` to specify what property you are interested in.
+In the likely circumstance that the values you are checking are objects, you can use `this` to ‘key’ into the object...
 
 ```javascript
 const predicate = predication({
@@ -78,7 +78,7 @@ const predicate = predication({
 predicate({foo: {bar: [true, false]}}) // true
 predicate({foo: {bar: [false, true]}}) // false
 ```
-You can also key into arrays starting from the end using negative indexing.
+You can also key into arrays starting from the end using negative indexing...
 
 ```javascript
 const predicate = predication({
@@ -104,7 +104,7 @@ predicate({foo: true, bar: false}) // false
 
 ### Registering your own predicates
 
-If you want to add support for your own predicates it looks like this
+If you want to add support for your own predicates, you can use `registerPredicate`. The following would add a predicate that returns true when a value has a given root, for example a square root...
 
 ```javascript
 import { registerPredicate } from 'predication'
