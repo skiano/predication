@@ -185,8 +185,10 @@ In the above examples, `eq`, `mod`, and `lt` are examples of built-in predicate 
 | Name | Example | Explanation |
 | :--  | :------ | :---------- |
 | `eq` | `{eq: true}` | value equals true |
+| `ne` | `{ne: true}` | negation of `eq` |
 | `in` | `{in: [1, 2, 3]}` | value is included in array  |
 | `in` | `{in: 'abc'}` | value includes string 'abc' (case-insensitive) |
+| `nin` | `{nin: ...}` | negation of `in` |
 
 ```javascript
 registerPredicate('not', not);
@@ -194,9 +196,7 @@ registerPredicate('and', and);
 registerPredicate('or', or);
 
 registerPredicate('mod', c => v => (Array.isArray(c) ? modR(v, c) : mod(v, c)));
-registerPredicate('in',  c => v => includes(v, c));
-registerPredicate('nin', c => v => !includes(v, c));
-registerPredicate('eq',  c => v => v === c);
+
 registerPredicate('ne',  c => v => v !== c);
 registerPredicate('lt',  c => v => v < c);
 registerPredicate('gt',  c => v => v > c);
