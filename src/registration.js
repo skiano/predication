@@ -55,6 +55,8 @@ registerPredicate('not', not);
 registerPredicate('and', and);
 registerPredicate('or', or);
 
+// NOTE: add ALL, ANY ? 
+
 registerPredicate('mod', (v, c) => (Array.isArray(c) ? modR(v, c) : mod(v, c)));
 registerPredicate('in',  (v, c) => includes(v, c));
 registerPredicate('nin', (v, c) => !includes(v, c));
