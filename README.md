@@ -33,7 +33,7 @@ isTrue(false); // false
 That example is sort of silly, but here is a more complicated description that matches numbers less than 15, and not less than 5, and divisible by either 2 or 3.
 
 ```javascript
-import predication from 'predication';
+import { predication } from 'predication';
 
 const description = {
   and: [
