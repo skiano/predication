@@ -52,6 +52,9 @@ const values = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20]
 
 const matches = values.filter(predicate) // [6,8,9,10,12,14]
 ```
+
+### Working with objects
+
 In the likely circumstance that the values you are checking are objects, you can use `this` to specify what property you are interested in.
 
 ```javascript
@@ -65,6 +68,9 @@ You can even specify relationships inside the object using `that`
 // match objects like {foo: true, bar: true} but not {foo: true, bar: false}
 const description = {this: 'foo', eq: {that: 'bar'}}
 ```
+
+### Registering your own predicates
+
 If you want to add support for your own predicates it looks like this
 
 ```javascript
@@ -84,6 +90,8 @@ const hasSquareRoot = predication({
 // your predicates can still use 'this' and 'that'
 const fooHasCubeRoot = predication({ this: 'foo', hasRoot: 3 })
 ```
+
+### Built-in predicates
 
 In the above examples, `eq`, `mod`, and `lt` are examples of built-in predicate names. Here is the full list:
 
