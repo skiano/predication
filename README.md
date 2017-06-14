@@ -126,17 +126,17 @@ If we wanted want to match people who are either taller than 50" or older than 6
 
 ```javascript
 const tall_or_old = predication({
-  this: 'body',
+  this: 'body',                 // <-- we select the body object
   or: [
-    { this: 'height', gt: 50 },
-    { this: 'age', gt: 45 }
+    { this: 'height', gt: 50 }, // <-- we don't say body.height
+    { this: 'age', gt: 45 }     // <-- we don't say body.age
   ]
 })
 ```
 
 Which would match both Bobby and Marian...
 
-```
+```javascript
 tall_or_old(Bobby)  // true
 tall_or_old(Marian) // true
 ```
