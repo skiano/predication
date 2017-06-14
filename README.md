@@ -58,15 +58,17 @@ const matches = values.filter(predicate) // [6,8,9,10,12,14]
 In the likely circumstance that the values you are checking are objects, you can use `this` to specify what property you are interested in.
 
 ```javascript
-// match an object like {foo: {bar: [true]}}
-const description = {this: 'foo.bar[0]', eq: true}
+const predicate = predication({this: 'foo.bar[0]', eq: true})
+predicate({foo: {bar: [true]}}) // true
+predicate({foo: {bar: [false]}}) // true
 ```
 
 You can even specify relationships inside the object using `that`
 
 ```javascript
-// match objects like {foo: true, bar: true} but not {foo: true, bar: false}
-const description = {this: 'foo', eq: {that: 'bar'}}
+const predicate = predication({this: 'foo', eq: {that: 'bar'}})
+predicate({foo: true, bar: true}) // true
+predicate({foo: true, bar: false}) // false
 ```
 
 ### Registering your own predicates
