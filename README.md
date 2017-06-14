@@ -22,18 +22,18 @@ $ npm install predication
 Predication takes a **description** and returns a **predicate**. So it looks like this
 
 ```javascript
-import { predication } from 'predication';
+import { predication } from 'predication'
 
-const isTrue = predication({eq: true});
+const isTrue = predication({eq: true})
 
-isTrue(true); // true
-isTrue(false); // false
+isTrue(true) // true
+isTrue(false) // false
 ```
 
 That example is sort of silly, but here is a more complicated description that matches numbers less than 15, and not less than 5, and divisible by either 2 or 3.
 
 ```javascript
-import { predication } from 'predication';
+import { predication } from 'predication'
 
 const description = {
   and: [
@@ -44,13 +44,13 @@ const description = {
       {mod: 3}
     ]}
   ]
-};
+}
 
-const predicate = predication(description);
+const predicate = predication(description)
 
-const values = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20];
+const values = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20]
 
-const matches = values.filter(predicate); // [6,8,9,10,12,14]
+const matches = values.filter(predicate) // [6,8,9,10,12,14]
 ```
 In the likely circumstance that the values you are checking are objects, you can use `this` to specify what property you are interested in.
 
