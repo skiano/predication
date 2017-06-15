@@ -2,9 +2,24 @@
 <html>
 <head>
   <title>Predication</title>
-  <script type="text/javascript" src="https://unpkg.com/predication/dist/predication.min.js"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/predication/dist/predication.js"></script>
+  <script src="https://unpkg.com/vue"></script>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.26.0/codemirror.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.26.0/theme/3024-night.min.css">
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.26.0/codemirror.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.26.0/mode/javascript/javascript.min.js"></script>
+
+  <script src="https://unpkg.com/@reactivex/rxjs@6.0.0-alpha.0/dist/global/Rx.js"></script>
 </head>
 <body>
-  hello
+  <div id="app">
+    {{ message }}
+  </div>
+
+<textarea id="editor">{ "eq": true }</textarea>
+
+  <script type="text/javascript" src="./app.js"></script>
 </body>
 </html>
