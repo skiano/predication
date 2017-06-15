@@ -5,7 +5,7 @@ const willNotThrow = fn => (...args) => {
   return true
 }
 
-const getContent = doc => predication(JSON.parse(doc.getValue()))
+const getContent = doc => eval(`predication(${doc.getValue()})`)
 
 Vue.component('editor', {
   template: '<div class="editor" :class="{ invalid: !isValid }"></div>',
@@ -16,9 +16,9 @@ Vue.component('editor', {
   ],
   mounted() {
     this.codeMirror = CodeMirror(this.$el, {
-      value: JSON.stringify(this.initialValue, null, 2),
-      mode:  { name: "javascript", json: true },
-      theme: '3024-night',
+      value: this.initialValue,
+      mode:  { name: "javascript" },
+      // theme: '3024-night',
       tabSize: '2',
     })
 
@@ -51,9 +51,9 @@ Vue.component('editor', {
 const app = new Vue({
   el: '#app',
   data: {
-    values: Array.from(new Array(20).keys()),
-    initialValue: { gt: 3 },
-    predicate: () => false,
+    values: Array.from(new Array(20).keys()).map(v => v + 1),
+    initialValue: '{ mod: 2 }',
+    predicate: () => true,
   },
   methods: {
     update(predicate) {
@@ -62,7 +62,10 @@ const app = new Vue({
   },
   computed: {
     filteredValues() {
-      return this.values.filter(this.predicate).join(' ')
+      return this.values.map(value => ({
+        value: value,
+        included: this.predicate(value)
+      }))
     }
   }
 })

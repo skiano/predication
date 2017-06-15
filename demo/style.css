@@ -1,8 +1,46 @@
 .editor {
-  border: 3px solid blue;
   margin: 10px;
+  
 }
 
-.editor.invalid {
-  border-color: red;
+.CodeMirror {
+  font-size: 16px;
+  line-height: 24px;
+  padding: 10px;
+  background: #eee;
+  transition: background-color 300ms ease;
+}
+
+.editor.invalid .CodeMirror {
+  background: #edd;
+}
+
+.numbers {
+  font-family: monospace;
+  padding: 20px;
+  font-size: 28px;
+  overflow: hidden;
+}
+
+.numbers > li {
+  padding: 5px;
+  border-right: 1px solid #ddd;
+  float: left;
+  list-style: none;
+}
+
+.numbers > li:first-child {
+  border-left: 1px solid #ddd;
+}
+
+.number {
+  transition: all 450ms ease;
+  display: block;
+  transform: scale(1);
+}
+
+.number.filtered {
+  // color: red;
+  opacity: 0.1;
+  transform: scale(.8);
 }

@@ -5,21 +5,26 @@
 
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.26.0/codemirror.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.26.0/theme/3024-night.min.css">
+  <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.26.0/theme/3024-night.min.css"> -->
+  <!-- <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.26.0/addon/hint/show-hint.min.css"> -->
   <link rel="stylesheet" href="./style.css">
 
   <script src="https://unpkg.com/vue"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.26.0/codemirror.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.26.0/mode/javascript/javascript.min.js"></script>
+  <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.26.0/addon/hint/show-hint.min.js"></script> -->
+  <!-- <script src="https://codemirror.net/addon/hint/javascript-hint.js"></script> -->
   <script src="https://unpkg.com/@reactivex/rxjs@6.0.0-alpha.0/dist/global/Rx.js"></script>
 
   <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/predication/dist/predication.js"></script>
 </head>
 <body>
   <div id="app">
-    <pre>
-      {{ filteredValues }}
-    </pre>
+    <div class="numbers">
+      <li v-for="item in filteredValues">
+        <span class="number" :class="{ filtered: !item.included }">{{ item.value }}</span>
+      </li>
+    </div>
     <editor
       :initial-value="initialValue"
       @change="update"/>
