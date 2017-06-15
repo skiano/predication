@@ -25,16 +25,23 @@
   height: auto;
 }
 
+.CodeMirror-lines:after,
 .CodeMirror-lines:before {
-  content: 'predication({';
   display: block;
   padding-left: 4px;
+  color: blue;
+}
+
+.CodeMirror-matchingbracket {
+  color: blue !important;
+}
+
+.CodeMirror-lines:before {
+  content: 'predication({';
 }
 
 .CodeMirror-lines:after {
   content: '})';
-  display: block;
-  padding-left: 4px;
 }
 
 .editor.invalid .CodeMirror {

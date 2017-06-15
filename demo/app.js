@@ -5,7 +5,7 @@ const willNotThrow = fn => (...args) => {
   return true
 }
 
-const getContent = doc => eval(`predication({ ${doc.getValue().trim()} })`)
+const getContent = doc => eval(`predication({${doc.getValue().trim()}})`)
 
 Vue.component('editor', {
   template: '<div class="editor" :class="{ invalid: !isValid }"></div>',
@@ -18,6 +18,9 @@ Vue.component('editor', {
     this.codeMirror = CodeMirror(this.$el, {
       value: this.initialValue,
       mode:  { name: "javascript" },
+      smartIndent: false,
+      autoCloseBrackets: true,
+      matchBrackets: true,
       // theme: '3024-night',
       tabSize: '2',
     })
