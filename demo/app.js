@@ -1,3 +1,5 @@
+const editorElm = document.getElementById('editor')
+
 const app = new Vue({
   el: '#app',
   data: {
@@ -5,7 +7,7 @@ const app = new Vue({
   }
 })
 
-const myCodeMirror = CodeMirror.fromTextArea(document.getElementById('editor'), {
+const myCodeMirror = CodeMirror.fromTextArea(editorElm, {
   mode:  { name: "javascript", json: true },
   theme: '3024-night',
   tabSize: '2',
@@ -16,11 +18,37 @@ const willNotThrow = fn => (...args) => {
   return true
 }
 
-const getDescription = doc => JSON.parse(doc.getValue())
-const isDocValid = doc => !throws(getDescription, doc)
+const getContent = doc => JSON.parse(doc.getValue())
 
-Rx.Observable
-  .fromEvent(myCodeMirror, 'change')
-  .filter(willNotThrow(getDescription))
-  .map(getDescription)
-  .subscribe(doc => console.log(doc))
+const source = Rx.Observable.fromEvent(myCodeMirror, 'change')
+const multicasted = source.multicast(new Rx.BehaviorSubject(myCodeMirror))
+
+multicasted.connect()
+
+const values = multicasted
+  .debounceTime(100)
+  .filter(willNotThrow(getContent))
+  .map(getContent)
+
+const validity = multicasted
+  .map(willNotThrow(getContent))
+  .distinctUntilChanged()
+
+values.subscribe(v => console.log(`values 1: ${JSON.stringify(v)}`))
+values.subscribe(v => console.log(`values 2: ${JSON.stringify(v)}`))
+
+validity.subscribe(v => console.log(`validity 1: ${v}`))
+
+validity.subscribe((valid) => {
+  const elm = myCodeMirror.getTextArea()
+  console.log(myCodeMirror)
+  if (valid) {
+    elm.style.borderColor = "red"
+    console.log(elm.style.borderColor)
+  } else {
+    elm.style.borderColor = "blue"
+  }
+})
+
+
+

@@ -12,13 +12,19 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.26.0/mode/javascript/javascript.min.js"></script>
 
   <script src="https://unpkg.com/@reactivex/rxjs@6.0.0-alpha.0/dist/global/Rx.js"></script>
+
+  <style type="text/css">
+    .CodeMirror {
+      border: 10px solid blue;
+    }
+  </style>
 </head>
 <body>
   <div id="app">
     {{ message }}
   </div>
 
-<textarea id="editor">{ "eq": true }</textarea>
+<textarea id="editor">{ "gt": 5 }</textarea>
 
   <script type="text/javascript" src="./app.js"></script>
 </body>
