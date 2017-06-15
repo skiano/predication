@@ -2,30 +2,28 @@
 <html>
 <head>
   <title>Predication</title>
-  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/predication/dist/predication.js"></script>
-  <script src="https://unpkg.com/vue"></script>
 
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.26.0/codemirror.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.26.0/theme/3024-night.min.css">
+  <link rel="stylesheet" href="./style.css">
 
+  <script src="https://unpkg.com/vue"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.26.0/codemirror.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.26.0/mode/javascript/javascript.min.js"></script>
-
   <script src="https://unpkg.com/@reactivex/rxjs@6.0.0-alpha.0/dist/global/Rx.js"></script>
 
-  <style type="text/css">
-    .CodeMirror {
-      border: 10px solid blue;
-    }
-  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/predication/dist/predication.js"></script>
 </head>
 <body>
   <div id="app">
-    {{ message }}
+    <pre>
+      {{ filteredValues }}
+    </pre>
+    <editor
+      :initial-value="initialValue"
+      @change="update"/>
   </div>
-
-<textarea id="editor">{ "gt": 5 }</textarea>
-
   <script type="text/javascript" src="./app.js"></script>
 </body>
 </html>

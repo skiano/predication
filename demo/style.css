@@ -1,0 +1,8 @@
+.editor {
+  border: 3px solid blue;
+  margin: 10px;
+}
+
+.editor.invalid {
+  border-color: red;
+}

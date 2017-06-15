@@ -1,54 +1,68 @@
-const editorElm = document.getElementById('editor')
-
-const app = new Vue({
-  el: '#app',
-  data: {
-    message: 'You loaded this page on ' + new Date()
-  }
-})
-
-const myCodeMirror = CodeMirror.fromTextArea(editorElm, {
-  mode:  { name: "javascript", json: true },
-  theme: '3024-night',
-  tabSize: '2',
-});
+const { predication } = window.predication
 
 const willNotThrow = fn => (...args) => {
   try { fn(...args) } catch (e) { return false }
   return true
 }
 
-const getContent = doc => JSON.parse(doc.getValue())
+const getContent = doc => predication(JSON.parse(doc.getValue()))
 
-const source = Rx.Observable.fromEvent(myCodeMirror, 'change')
-const multicasted = source.multicast(new Rx.BehaviorSubject(myCodeMirror))
+Vue.component('editor', {
+  template: '<div class="editor" :class="{ invalid: !isValid }"></div>',
+  data: () => ({ isValid: true }),
+  props: [
+    'initialValue',
+    'onChange',
+  ],
+  mounted() {
+    this.codeMirror = CodeMirror(this.$el, {
+      value: JSON.stringify(this.initialValue, null, 2),
+      mode:  { name: "javascript", json: true },
+      theme: '3024-night',
+      tabSize: '2',
+    })
 
-multicasted.connect()
+    this.source = Rx.Observable.fromEvent(this.codeMirror, 'change')
+    this.multicasted = this.source.multicast(new Rx.BehaviorSubject(this.codeMirror))
 
-const values = multicasted
-  .debounceTime(100)
-  .filter(willNotThrow(getContent))
-  .map(getContent)
+    this.multicasted.connect()
 
-const validity = multicasted
-  .map(willNotThrow(getContent))
-  .distinctUntilChanged()
+    this.values = this.multicasted
+        .debounceTime(100)
+        .filter(willNotThrow(getContent))
+        .map(getContent)
+        .subscribe((value) => {
+          this.$emit('change', value)
+        })
 
-values.subscribe(v => console.log(`values 1: ${JSON.stringify(v)}`))
-values.subscribe(v => console.log(`values 2: ${JSON.stringify(v)}`))
-
-validity.subscribe(v => console.log(`validity 1: ${v}`))
-
-validity.subscribe((valid) => {
-  const elm = myCodeMirror.getTextArea()
-  console.log(myCodeMirror)
-  if (valid) {
-    elm.style.borderColor = "red"
-    console.log(elm.style.borderColor)
-  } else {
-    elm.style.borderColor = "blue"
+    this.validity = this.multicasted
+        .map(willNotThrow(getContent))
+        .distinctUntilChanged()
+        .subscribe((valid) => {
+          this.isValid = valid
+          this.$emit('validity', valid)
+        })
+  },
+  beforeDestroy() {
+    console.log('destroy codeMirror and observable stuff')
   }
 })
 
-
-
+const app = new Vue({
+  el: '#app',
+  data: {
+    values: Array.from(new Array(20).keys()),
+    initialValue: { gt: 3 },
+    predicate: () => false,
+  },
+  methods: {
+    update(predicate) {
+      this.predicate = predicate
+    }
+  },
+  computed: {
+    filteredValues() {
+      return this.values.filter(this.predicate).join(' ')
+    }
+  }
+})
