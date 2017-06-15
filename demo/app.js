@@ -5,7 +5,7 @@ const willNotThrow = fn => (...args) => {
   return true
 }
 
-const getContent = doc => eval(`predication(${doc.getValue()})`)
+const getContent = doc => eval(`predication({ ${doc.getValue().trim()} })`)
 
 Vue.component('editor', {
   template: '<div class="editor" :class="{ invalid: !isValid }"></div>',
@@ -20,6 +20,11 @@ Vue.component('editor', {
       mode:  { name: "javascript" },
       // theme: '3024-night',
       tabSize: '2',
+    })
+
+    this.codeMirror.on('beforeChange', (doc, change) => {
+      console.log(doc.getValue())
+      console.log(change)
     })
 
     this.source = Rx.Observable.fromEvent(this.codeMirror, 'change')
@@ -51,8 +56,8 @@ Vue.component('editor', {
 const app = new Vue({
   el: '#app',
   data: {
-    values: Array.from(new Array(20).keys()).map(v => v + 1),
-    initialValue: '{ mod: 2 }',
+    values: Array.from(new Array(7 * 40).keys()).map(v => v + 1),
+    initialValue: '  mod: [2, 1]',
     predicate: () => true,
   },
   methods: {

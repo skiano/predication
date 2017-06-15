@@ -1,40 +1,83 @@
+*, *:before, *:after {
+  box-sizing: border-box;
+}
+
 .editor {
-  margin: 10px;
-  
+  position: fixed;
+  left: 310px;
+  right: 0px;
+  top: 0px;
+  bottom: 0px;
+  border: 10px solid #111;
 }
 
 .CodeMirror {
-  font-size: 16px;
-  line-height: 24px;
-  padding: 10px;
+  font-size: 14px;
+  line-height: 20px;
+  padding: 20px;
   background: #eee;
-  transition: background-color 300ms ease;
+  transition: background-color 300ms ease 300ms;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: auto;
+}
+
+.CodeMirror-lines:before {
+  content: 'predication({';
+  display: block;
+  padding-left: 4px;
+}
+
+.CodeMirror-lines:after {
+  content: '})';
+  display: block;
+  padding-left: 4px;
 }
 
 .editor.invalid .CodeMirror {
   background: #edd;
 }
 
+.numbers-wrap {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 310px;
+  overflow-y: auto;
+  background: #111;
+  padding: 10px;
+  border-left: 10px solid #111;
+}
+
 .numbers {
+  margin: auto;
   font-family: monospace;
-  padding: 20px;
   font-size: 28px;
   overflow: hidden;
+  font-weight: bold;
+  font-size: 13px;
+  color: limegreen;
 }
 
 .numbers > li {
-  padding: 5px;
-  border-right: 1px solid #ddd;
+  text-align: center;
+  line-height: 40px;
+  width: 40px;
+  height: 40px;
   float: left;
   list-style: none;
 }
 
-.numbers > li:first-child {
-  border-left: 1px solid #ddd;
+.numbers > li:nth-child(2n) {
+  // background: #222;
 }
 
 .number {
-  transition: all 450ms ease;
+  transition: all 350ms ease;
   display: block;
   transform: scale(1);
 }
