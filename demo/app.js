@@ -18,12 +18,19 @@ Vue.component('editor', {
     this.codeMirror = CodeMirror(this.$el, {
       value: this.initialValue,
       mode:  { name: "javascript" },
+      autofocus: true,
+      lineWrapping: true,
       smartIndent: false,
+      fixedGutter: false,
       autoCloseBrackets: true,
       matchBrackets: true,
-      // theme: '3024-night',
+      gutters: [ 'editor-gutter' ],
       tabSize: '2',
+      cursorScrollMargin: 300,
     })
+
+    // this.codeMirror.execCommand('selectAll')
+    // this.codeMirror.execCommand('goDocEnd')
 
     this.codeMirror.on('beforeChange', (doc, change) => {
       console.log(doc.getValue())
@@ -56,13 +63,45 @@ Vue.component('editor', {
   }
 })
 
-const app = new Vue({
-  el: '#app',
-  data: {
+const Main = {
+  template: `
+    <div id="app">
+      <editor
+        :initial-value="initialValue"
+        @change="update">
+      </editor>
+      <div class="numbers-wrap">
+        <div class="numbers">
+          <li v-for="item in filteredValues">
+            <span class="number" :class="{ filtered: !item.included }">{{ item.value }}</span>
+          </li>
+        </div>
+      </div>
+    </div>
+  `,
+  data: () => ({
     values: Array.from(new Array(7 * 40).keys()).map(v => v + 1),
-    initialValue: '  mod: [2, 1]',
+    initialValue: `or: [
+  {lte: 7},
+  {rng: [15, 35]},
+  {and: [
+    {rng: [43, 77]},
+    {mod: [2, 1]},
+  ]},
+  {and: [
+    {gte: 85},
+    {not: {gt: 266}},
+    {or: [
+      {mod: 3},
+      {mod: [7, 0]},
+      {mod: [7, 4]},
+      {mod: [7, 1]},
+    ]},
+  ]},
+  {gte: 274},
+],`,
     predicate: () => true,
-  },
+  }),
   methods: {
     update(predicate) {
       this.predicate = predicate
@@ -76,4 +115,18 @@ const app = new Vue({
       }))
     }
   }
+}
+
+const numbers = Main
+const objects = { template: '<div>bar</div>' }
+
+const router = new VueRouter({
+  routes: [
+    { path: '/', redirect: '/numbers' },
+    { path: '/numbers', component: numbers },
+    { path: '/objects', component: objects },
+    { path: '*', redirect: '/numbers' }
+  ]
 })
+
+const app = new Vue({ router }).$mount('#app')
