@@ -1,5 +1,3 @@
-import { isDictionary } from './helpers';
-
 const TERM_RE = /^([^\[]*)\[(\-?\d*)\]$/;
 const IDX_RE = /^(\-?)(\d)$/;
 
