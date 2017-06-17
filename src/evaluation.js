@@ -25,14 +25,20 @@ export const evaluation = path => {
   if (typeof path !== 'string') throw new Error(`bad access path: ${path}`);
 
   const terms = path.split('.').reduce((terms, frag) => {
-    const parts = TERM_RE.exec(frag);
-    return parts ? terms.concat([parts[1], indexer(parts[2])]) : terms.concat([frag]);
+    let parts = TERM_RE.exec(frag);
+    if (parts) {
+      return terms.concat(
+        parts[1] ? [parts[1], indexer(parts[2])] : indexer(parts[2])
+      )
+    } else {
+      return terms.concat([frag]);
+    }
   }, []);
 
   if (terms.length === 0) return identity;
 
   return value => {
-    if (!isDictionary(value) && !Array.isArray(value)) return undefined;
+    if (typeof value === 'undefined' || value === null) return undefined;
 
     let output = value;
 
