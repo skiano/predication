@@ -16,8 +16,8 @@ $ npm install predication
 
 ### cdn
 
-* https://cdn.jsdelivr.net/npm/predication
-* https://cdn.jsdelivr.net/npm/predication
+* (umd uglified) https://cdn.jsdelivr.net/npm/predication
+* (umd) https://cdn.jsdelivr.net/npm/predication/dist/predication.js
 
 ## usage
 
