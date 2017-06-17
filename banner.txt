@@ -1,1 +1,1 @@
-/** https://github.com/skiano/predication/blob/master/LICENSE @license */
+/** @license https://github.com/skiano/predication/blob/master/LICENSE */
