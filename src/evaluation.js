@@ -1,3 +1,5 @@
+import { error } from './helpers'
+
 const TERM_RE = /^([^\[]*)\[(\-?\d*)\]$/;
 const IDX_RE = /^(\-?)(\d)$/;
 
@@ -9,8 +11,8 @@ const indexer = str => {
 /** make identity fn once */
 const identity = v => v;
 
-/*
- * path {string}
+/**
+ * @param path {string} - path in object
  * example paths:
  *   "foo"
  *   "foo.bar"
@@ -20,7 +22,7 @@ const identity = v => v;
  */
 export const evaluation = path => {
   if (!path) return identity;
-  if (typeof path !== 'string') throw new Error(`bad access path: ${path}`);
+  if (typeof path !== 'string') error(`bad access path: ${path}`);
 
   const terms = path.split('.').reduce((terms, frag) => {
     let parts = TERM_RE.exec(frag);

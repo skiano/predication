@@ -1,29 +1,26 @@
-const { predication } = window.predication
+"use strict";
 
-function b64EncodeUnicode(str) {
-  // first we use encodeURIComponent to get percent-encoded UTF-8,
-  // then we convert the percent encodings into raw bytes which
-  // can be fed into btoa.
-  return btoa(encodeURIComponent(str).replace(/%([0-9A-F]{2})/g,
+/** encode from MDN */
+const b64EncodeUnicode = str => (
+  btoa(encodeURIComponent(str).replace(/%([0-9A-F]{2})/g,
       function toSolidBytes(match, p1) {
           return String.fromCharCode('0x' + p1);
-  }));
-}
+  }))
+)
 
-function b64DecodeUnicode(str) {
-  // Going backwards: from bytestream, to percent-encoding, to original string.
-  return decodeURIComponent(atob(str).split('').map(function(c) {
+/** decode from MDN */
+const b64DecodeUnicode = str => (
+  decodeURIComponent(atob(str).split('').map(function(c) {
       return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
-  }).join(''));
-}
-
+  }).join(''))
+)
 
 const willNotThrow = fn => (...args) => {
   try { fn(...args) } catch (e) { return false }
   return true
 }
 
-const getContent = doc => eval(`predication(${doc.getValue().trim()})`)
+const getContent = doc => eval(`predication.predication(${doc.getValue().trim()})`)
 
 Vue.component('editor', {
   template: '<div class="editor" :class="{ invalid: !isValid }"></div>',
@@ -32,35 +29,29 @@ Vue.component('editor', {
     'initialValue',
     'onChange',
   ],
+  computed: {
+    useValue() {
+      const init = this.$router.currentRoute.query.predicate
+      return init ? b64DecodeUnicode(init) : this.initialValue
+    }
+  },
   mounted() {
-    let init = this.$router.currentRoute.query.predicate
-    init = init ? b64DecodeUnicode(init) : this.initialValue
-
     this.codeMirror = CodeMirror(this.$el, {
-      value: init,
-      mode:  { name: "javascript" },
-      autofocus: true,
+      value: this.useValue,
+      mode: 'javascript',
+      gutters: [ 'editor-gutter' ],
+      autoCloseBrackets: true,
+      cursorScrollMargin: 300,
+      matchBrackets: true,
       lineWrapping: true,
       smartIndent: false,
       fixedGutter: false,
-      autoCloseBrackets: true,
-      matchBrackets: true,
-      gutters: [ 'editor-gutter' ],
+      autofocus: true,
       tabSize: '2',
-      cursorScrollMargin: 300,
-    })
-
-    // this.codeMirror.execCommand('selectAll')
-    // this.codeMirror.execCommand('goDocEnd')
-
-    this.codeMirror.on('beforeChange', (doc, change) => {
-      console.log(doc.getValue())
-      console.log(change)
     })
 
     this.source = Rx.Observable.fromEvent(this.codeMirror, 'change')
     this.multicasted = this.source.multicast(new Rx.BehaviorSubject(this.codeMirror))
-
     this.multicasted.connect()
 
     this.values = this.multicasted
@@ -81,7 +72,8 @@ Vue.component('editor', {
         })
   },
   beforeDestroy() {
-    console.log('destroy codeMirror and observable stuff')
+    this.validity.unsubscribe()
+    this.values.unsubscribe()
   }
 })
 
@@ -149,4 +141,4 @@ const router = new VueRouter({
   ]
 })
 
-const app = new Vue({ router }).$mount('#app')
+new Vue({ router }).$mount('#app')

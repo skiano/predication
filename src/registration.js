@@ -5,6 +5,7 @@ import {
   not,
   mod,
   modR,
+  error,
   includes,
   isDictionary,
   objectIncludesString
@@ -21,7 +22,7 @@ export const removePredicate = key => delete predicates[key];
 
 export const registerPredicate = (key, predicator, validator) => {
   if (hasPredicate(key)) {
-    throw new Error(`Predicate "${key}" is already registered`);
+    error(`Predicate "${key}" is already registered`);
   } else {
     predicates[key] = (config, value, getThis, getThat) => {
       const v = getThis(value);
@@ -41,7 +42,7 @@ export const registerPredicate = (key, predicator, validator) => {
 
 export const getPredicate = (key, config, thisValue) => {
   if (!hasPredicate(key)) {
-    throw new Error(key ? `Unregisterd predicate: "${key}"` : "Empty predicate");
+    error(key ? `Unregisterd predicate: "${key}"` : 'Empty predicate');
   } else {
     const getThis = evaluation(thisValue);
     const getThat = isDictionary(config) && config.that && evaluation(config.that);
@@ -54,8 +55,6 @@ registerPredicate('exists', (v, c) => c === (typeof v !== 'undefined'));
 registerPredicate('not', not);
 registerPredicate('and', and);
 registerPredicate('or', or);
-
-// NOTE: add ALL, ANY ? 
 
 registerPredicate('mod', (v, c) => (Array.isArray(c) ? modR(v, c) : mod(v, c)));
 registerPredicate('in',  (v, c) => includes(v, c));

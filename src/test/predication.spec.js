@@ -108,14 +108,10 @@ test('Logic: missing', t => {
 });
 
 test('Logic: bad predicate', t => {
-  t.plan(2);
+  t.plan(4);
   t.throws(() => predication({bar: 2}), /Unregisterd predicate: "bar"/, 'throws on bad operators');
   t.throws(() => predication({}), /Empty predicate/, 'throws on empty operators');
+  t.throws(() => predication({and: []}), /Empty logic/, 'throws on empty "and"');
+  t.throws(() => predication({or: []}), /Empty logic/, 'throws on empty "or"');
 });
-
-test('empty logic groups', t => {
-  t.plan(2)
-  t.equal(predication({and: []})(1), true, 'empty "and" returns true')
-  t.equal(predication({or: []})(1), true, 'empty "or" returns true')
-})
 

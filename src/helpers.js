@@ -1,7 +1,7 @@
 /** undefined should be false, not reversed! */
 export const not = (v, predicate) => predicate(v) === false ? true : false;
-export const and = (v, predicates) => predicates.length ? predicates.every(p => p(v)) : true;
-export const or = (v, predicates) => predicates.length ? predicates.some(p => p(v)) : true;
+export const and = (v, predicates) => predicates.every(p => p(v));
+export const or = (v, predicates) => predicates.some(p => p(v));
 
 export const isString = v => typeof v === 'string';
 export const strIncludes = (v, c) => c.toLowerCase().includes(v.toLowerCase());
@@ -21,3 +21,5 @@ export const objectIncludesString = (o, str) => (
   (Array.isArray(o) && o.some(v => objectIncludesString(v, str))) ||
   false
 );
+
+export const error = msg => { throw new Error(msg); }

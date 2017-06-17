@@ -1,4 +1,5 @@
 import { getPredicate } from './';
+import { error } from './helpers'
 
 const truthy = () => true;
 const removeThis = k => k !== 'this';
@@ -20,6 +21,7 @@ export const predication = (config, isChild = false) => {
       break;
 
     case key === 'and' || key === 'or':
+      if (config[key].length === 0) error('Empty logic')
       childPredication = c => predication(c, IS_CHILD);
       predicate = getPredicate(key, config[key].map(childPredication), thisVal);
       break;
