@@ -32,7 +32,7 @@ export const evaluation = path => {
   if (terms.length === 0) return identity;
 
   return value => {
-    if (!isDictionary(value)) return undefined;
+    if (!isDictionary(value) && !Array.isArray(value)) return undefined;
 
     let output = value;
 

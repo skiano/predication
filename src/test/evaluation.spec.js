@@ -2,7 +2,7 @@ import test from 'tape';
 import { evaluation } from '../';
 
 test('Evaluation', t => {
-  t.plan(14);
+  t.plan(16);
 
   t.equal(evaluation('bar[0]')({bar: [0, 1, 2]}), 0, 'index 0');
   t.equal(evaluation('bar[1]')({bar: [0, 1, 2]}), 1, 'index x');
@@ -11,6 +11,9 @@ test('Evaluation', t => {
   t.equal(evaluation('bar[-0]')({bar: [0, 1, 2]}), 2, 'reverse index 0');
   t.equal(evaluation('bar[-1]')({bar: [0, 1, 2]}), 1, 'reverse index x');
   t.equal(evaluation('bar[-9]')({bar: [0, 1, 2]}), undefined, 'reverse index overflow');
+
+  t.equal(evaluation('length')([0, 1, 2]), 3, 'access length');
+  t.equal(evaluation('bar.length')({bar: [0, 1, 2]}), 3, 'access length deep');
 
   t.equal(evaluation()(2), 2, 'by undefined');
 

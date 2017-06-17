@@ -41,7 +41,7 @@ export const registerPredicate = (key, predicator, validator) => {
 
 export const getPredicate = (key, config, thisValue) => {
   if (!hasPredicate(key)) {
-    throw new Error(`Unregisterd predicate: "${key}"`);
+    throw new Error(key ? `Unregisterd predicate: "${key}"` : "Empty predicate");
   } else {
     const getThis = evaluation(thisValue);
     const getThat = isDictionary(config) && config.that && evaluation(config.that);

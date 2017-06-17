@@ -1,5 +1,6 @@
 import { getPredicate } from './';
 
+const truthy = () => true;
 const removeThis = k => k !== 'this';
 const IS_CHILD = true;
 
