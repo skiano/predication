@@ -1,5 +1,23 @@
 const { predication } = window.predication
 
+function b64EncodeUnicode(str) {
+  // first we use encodeURIComponent to get percent-encoded UTF-8,
+  // then we convert the percent encodings into raw bytes which
+  // can be fed into btoa.
+  return btoa(encodeURIComponent(str).replace(/%([0-9A-F]{2})/g,
+      function toSolidBytes(match, p1) {
+          return String.fromCharCode('0x' + p1);
+  }));
+}
+
+function b64DecodeUnicode(str) {
+  // Going backwards: from bytestream, to percent-encoding, to original string.
+  return decodeURIComponent(atob(str).split('').map(function(c) {
+      return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+  }).join(''));
+}
+
+
 const willNotThrow = fn => (...args) => {
   try { fn(...args) } catch (e) { return false }
   return true
@@ -15,8 +33,11 @@ Vue.component('editor', {
     'onChange',
   ],
   mounted() {
+    let init = this.$router.currentRoute.query.predicate
+    init = init ? b64DecodeUnicode(init) : this.initialValue
+
     this.codeMirror = CodeMirror(this.$el, {
-      value: this.initialValue,
+      value: init,
       mode:  { name: "javascript" },
       autofocus: true,
       lineWrapping: true,
@@ -47,6 +68,7 @@ Vue.component('editor', {
         .filter(willNotThrow(getContent))
         .map(getContent)
         .subscribe((value) => {
+          this.$router.push({ query: { predicate: b64EncodeUnicode(this.codeMirror.getValue()) } })
           this.$emit('change', value)
         })
 

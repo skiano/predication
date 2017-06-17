@@ -10,6 +10,15 @@ html {
   font-size: 13px;
 }
 
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
 header {
   position: fixed;
   top: 0;
@@ -67,6 +76,22 @@ header nav {
   float: right;
 }
 
+header nav a {
+  color: inherit;
+  display: inline-block;
+  padding: 0px 10px;
+  margin: 0 5px;
+  border-radius: 8px;
+  line-height: 25px;
+  background: #333;
+  text-decoration: none;
+}
+
+header nav a.router-link-active {
+  background: limegreen;
+  color: #000;
+}
+
 .editor {
   position: fixed;
   left: 310px;
@@ -116,7 +141,7 @@ header nav {
 }
 
 .CodeMirror-lines:before {
-  content: 'predication({';
+  content: 'predicate = predication({';
 }
 
 .CodeMirror-lines:after {
