@@ -23,7 +23,7 @@ const willNotThrow = fn => (...args) => {
   return true
 }
 
-const getContent = doc => eval(`predication({${doc.getValue().trim()}})`)
+const getContent = doc => eval(`predication(${doc.getValue().trim()})`)
 
 Vue.component('editor', {
   template: '<div class="editor" :class="{ invalid: !isValid }"></div>',
@@ -103,25 +103,23 @@ const Main = {
   `,
   data: () => ({
     values: Array.from(new Array(7 * 40).keys()).map(v => v + 1),
-    initialValue: `or: [
-  {lte: 7},
+    initialValue: `{or: [
+  {not: {gt: 7}},
   {rng: [15, 35]},
   {and: [
     {rng: [43, 77]},
-    {mod: [2, 1]},
+    {mod: [2, 1]}
   ]},
   {and: [
     {gte: 85},
-    {not: {gt: 266}},
     {or: [
       {mod: 3},
       {mod: [7, 0]},
       {mod: [7, 4]},
-      {mod: [7, 1]},
-    ]},
-  ]},
-  {gte: 274},
-],`,
+      {mod: [7, 1]}
+    ]}
+  ]}
+]}`,
     predicate: () => true,
   }),
   methods: {

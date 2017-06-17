@@ -141,11 +141,11 @@ header nav a.router-link-active {
 }
 
 .CodeMirror-lines:before {
-  content: 'predicate = predication({';
+  content: 'preview.filter(predication(';
 }
 
 .CodeMirror-lines:after {
-  content: '})';
+  content: '))';
 }
 
 .CodeMirror-matchingbracket {
