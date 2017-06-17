@@ -1,4 +1,1 @@
-/**
- * predication | (c) 2017 Greg Skiano | https://github.com/skiano/predication/blob/master/LICENSE
- * @license
- */
+/** https://github.com/skiano/predication/blob/master/LICENSE @license */
