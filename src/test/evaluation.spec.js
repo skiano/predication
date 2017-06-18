@@ -2,7 +2,7 @@ import test from 'tape';
 import { evaluation } from '../';
 
 test('Evaluation', t => {
-  t.plan(20);
+  t.plan(22);
 
   t.equal(evaluation('bar[0]')({bar: [0, 1, 2]}), 0, 'index 0');
   t.equal(evaluation('bar[1]')({bar: [0, 1, 2]}), 1, 'index x');
@@ -19,6 +19,9 @@ test('Evaluation', t => {
 
   t.equal(evaluation('[1]')([0, 3, 2]), 3, 'index x from array');
   t.equal(evaluation('[-0]')([0, 3, 2]), 2, 'index x from array reversed');
+
+  t.equal(evaluation('[0]')('boy'), 'b', 'index x from string');
+  t.equal(evaluation('[-1]')('boy'), 'o', 'index x from string reversed');
 
   t.equal(evaluation()(2), 2, 'by undefined');
 
