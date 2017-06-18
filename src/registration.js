@@ -7,8 +7,9 @@ import {
   modR,
   error,
   includes,
-  isDictionary,
+  isArray,
   isUndefined,
+  isDictionary,
   objectIncludesString
 } from './helpers';
 
@@ -52,7 +53,7 @@ registerPredicate('or', or);
 // predication({ x: [4, 5, 6] })([1, 2, 3]) // false
 
 registerPredicate('exists', (v, c) => c === !isUndefined(v));
-registerPredicate('mod', (v, c) => (Array.isArray(c) ? modR(v, c) : mod(v, c)));
+registerPredicate('mod', (v, c) => (isArray(c) ? modR(v, c) : mod(v, c)));
 registerPredicate('in',  (v, c) => includes(v, c));
 registerPredicate('nin', (v, c) => !includes(v, c));
 registerPredicate('eq',  (v, c) => v === c);
