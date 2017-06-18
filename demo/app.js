@@ -59,7 +59,7 @@ const makePerson = (name) => ({
   age: randInRange(19, 50),
   sign: randInArr(signs),
   loves: things,
-  hates: ['stars']
+  hates: Array.from(things).reverse()
 })
 
 Vue.component('editor', {
@@ -124,9 +124,14 @@ Vue.component('person', {
       <p>{{data.name}}, {{data.age}} - {{data.sign}}</p>
       <p>Loves: <span class='stuff'>{{data.loves.join('')}}</span></p>
       <p>Hates: <span class='stuff'>{{data.hates.join('')}}</span></p>
-      <pre>{{JSON.stringify(data, null, 2)}}</pre>
+      <pre>{{string}}</pre>
     </div>
-  `
+  `,
+  computed: {
+    string() {
+      return JSON.stringify(this.data, null, 2)
+    }
+  }
 })
 
 const Numbers = {

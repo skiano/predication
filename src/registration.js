@@ -8,12 +8,11 @@ import {
   error,
   includes,
   isDictionary,
+  isUndefined,
   objectIncludesString
 } from './helpers';
 
 const predicates = {};
-
-const isUndefined = v => typeof v === 'undefined';
 const isMissing = (k, v, c) => k !== 'exists' && (isUndefined(c) || isUndefined(v));
 
 export const listPredicates = () => Object.keys(predicates);
@@ -44,12 +43,15 @@ export const getPredicate = (key, config, thisValue) => {
   }
 }
 
-registerPredicate('exists', (v, c) => c === (typeof v !== 'undefined'));
-
 registerPredicate('not', not);
 registerPredicate('and', and);
 registerPredicate('or', or);
 
+// add intersect 
+// predication({ x: [3, 4, 5] })([1, 2, 3]) // true
+// predication({ x: [4, 5, 6] })([1, 2, 3]) // false
+
+registerPredicate('exists', (v, c) => c === !isUndefined(v));
 registerPredicate('mod', (v, c) => (Array.isArray(c) ? modR(v, c) : mod(v, c)));
 registerPredicate('in',  (v, c) => includes(v, c));
 registerPredicate('nin', (v, c) => !includes(v, c));

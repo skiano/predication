@@ -1,11 +1,24 @@
-import { error } from './helpers'
+import {
+  error,
+  isArray,
+  isString,
+  isFunction,
+  isUndefined
+} from './helpers'
 
 const TERM_RE = /^([^\[]*)\[(\-?\d*)\]$/;
 const IDX_RE = /^(\-?)(\d)$/;
 
+const getAtIdx = (value, idx) => {
+  if (isArray(value)) { return value[idx]; }
+  if (isString(value)) { return value.charAt(idx); }
+}
+
 const indexer = str => {
   const [, reverse, idx] = IDX_RE.exec(str);
-  return arr => reverse ? arr[arr.length - idx - 1] : arr[idx];
+  return arr => getAtIdx(
+    arr, (reverse ? arr.length - idx - 1 : idx)
+  );
 }
 
 /** make identity fn once */
@@ -22,7 +35,7 @@ const identity = v => v;
  */
 export const evaluation = path => {
   if (!path) return identity;
-  if (typeof path !== 'string') error(`bad access path: ${path}`);
+  if (!isString(path)) error(`bad access path: ${path}`);
 
   const terms = path.split('.').reduce((terms, frag) => {
     let parts = TERM_RE.exec(frag);
@@ -38,13 +51,13 @@ export const evaluation = path => {
   if (terms.length === 0) return identity;
 
   return value => {
-    if (typeof value === 'undefined' || value === null) return undefined;
+    if (isUndefined(value) || value === null) return undefined;
 
     let output = value;
 
     for (let i = 0; i < terms.length; i += 1) {
-      if (typeof output === 'undefined') return undefined;
-      output = typeof terms[i] === 'function' ? terms[i](output) : output[terms[i]];
+      if (isUndefined(output)) return undefined;
+      output = isFunction(terms[i]) ? terms[i](output) : output[terms[i]];
     }
 
     return output;
