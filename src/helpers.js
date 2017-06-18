@@ -5,7 +5,7 @@ export const or = (v, predicates) => predicates.some(p => p(v));
 
 export const isString = v => typeof v === 'string';
 export const strIncludes = (v, c) => v.toLowerCase().includes(c.toLowerCase());
-export const includes = (v, c) => isString(c) ? strIncludes(v, c) : c.includes(v);
+export const includes = (v, c) => isString(v) ? strIncludes(v, c) : v.includes(c);
 
 export const mod = (v, c) => v % c === 0;
 export const modR = (v, [denom, remainder]) => v % denom === remainder;

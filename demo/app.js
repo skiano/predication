@@ -22,6 +22,46 @@ const willNotThrow = fn => (...args) => {
 
 const getContent = doc => eval(`predication.predication(${doc.getValue().trim()})`)
 
+
+const randInRange = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min;
+const randInArr = arr => arr[randInRange(0, arr.length - 1)]
+
+const signs = [
+  'Aries',
+  'Taurus',
+  'Gemini',
+  'Cancer',
+  'Leo',
+  'Virgo',
+  'Libra',
+  'Scorpio',
+  'Sagittarius',
+  'Capricorn',
+  'Aquarius',
+  'Pisces',
+]
+
+const names = [
+  'Sandra','Christopher','Michelle','George','Susan','John','Kevin','Michael','Paul','Donald',
+  'Deborah','Anthony','Ronald','Ryan','Joshua','Amanda','Brian','Richard','Charles','Betty',
+  'Lisa','Kimberly','Barbara','Laura','Carol','Andrew','Edward','Dorothy','Sharon','Mark',
+  'Rebecca','Linda','Patricia','Joseph','Margaret','Jason','Helen','Ashley','Emily','Elizabeth',
+  'Jennifer','Jeffrey','James','Sarah','Steven','Thomas','Karen','Donna','Melissa','Robert',
+  'Nancy','David','Daniel','Jessica','Timothy','Mary','Matthew','William','Stephanie'
+]
+
+const things = [
+  '♖', '❄', '☂', '♬', '☎', '✈', '✭', '✿', '❤', '☯', '☭', ''
+]
+
+const makePerson = (name) => ({
+  name,
+  age: randInRange(19, 50),
+  sign: randInArr(signs),
+  loves: things,
+  hates: ['stars']
+})
+
 Vue.component('editor', {
   template: '<div class="editor" :class="{ invalid: !isValid }"></div>',
   data: () => ({ isValid: true }),
@@ -75,6 +115,18 @@ Vue.component('editor', {
     this.validity.unsubscribe()
     this.values.unsubscribe()
   }
+})
+
+Vue.component('person', {
+  props: [ 'data' ],
+  template: `
+    <div>
+      <p>{{data.name}}, {{data.age}} - {{data.sign}}</p>
+      <p>Loves: <span class='stuff'>{{data.loves.join('')}}</span></p>
+      <p>Hates: <span class='stuff'>{{data.hates.join('')}}</span></p>
+      <pre>{{JSON.stringify(data, null, 2)}}</pre>
+    </div>
+  `
 })
 
 const Numbers = {
@@ -139,21 +191,16 @@ const Objects = {
       <div class="numbers-wrap">
         <div class="objects">
           <li v-for="item in filteredValues">
-            <pre class="object" :class="{ filtered: !item.included }">{{ JSON.stringify(item, null, 2) }}</pre>
+            <div class="object" :class="{ filtered: !item.included }">
+              <person :data="item.value"></person>
+            </div>
           </li>
         </div>
       </div>
     </div>
   `,
   data: () => ({
-    values: [
-      { name: 'Jason', age: 28, sign: 'cancer', loves: ['♖'], hates: ['stars'] },
-      { name: 'Jason', age: 28, sign: 'cancer', loves: ['♖'], hates: ['stars'] },
-      { name: 'Jason', age: 28, sign: 'cancer', loves: ['♖'], hates: ['stars'] },
-      { name: 'Jason', age: 28, sign: 'cancer', loves: ['♖'], hates: ['stars'] },
-      { name: 'Jason', age: 28, sign: 'cancer', loves: ['♖'], hates: ['stars'] },
-      { name: 'Jason', age: 28, sign: 'cancer', loves: ['♖'], hates: ['stars'] },
-    ],
+    values: names.map(makePerson),
     initialValue: `{this: 'bar', eq: '♖'}`,
     predicate: () => true,
   }),

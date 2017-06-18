@@ -96,15 +96,15 @@ test('Predicates', t => {
   t.true(getPredicate('ne', 2)(3), 'not equals: true');
   t.false(getPredicate('ne', 2)(2), 'not equals: false');
 
-  t.true(getPredicate('in', [1, 2])(2), 'includes: (array) true');
-  t.false(getPredicate('in', [1, 2])(3), 'includes: (array) false');
+  t.true(getPredicate('in', 2)([1, 2]), 'includes: (array) true');
+  t.false(getPredicate('in', 3)([1, 2]), 'includes: (array) false');
 
   t.true(getPredicate('in', 'bc')('abc'), 'includes: (string) true');
   t.true(getPredicate('in', 'AbC')('aBc'), 'includes: (string: case insensitive) true');
   t.false(getPredicate('in', 'ac')('abc'), 'includes: (string) false');
 
-  t.true(getPredicate('nin', [1, 2])(3), 'does not include: (array) true');
-  t.false(getPredicate('nin', [1, 2])(2), 'does not include: (array) false');
+  t.true(getPredicate('nin', 3)([1, 2]), 'does not include: (array) true');
+  t.false(getPredicate('nin', 2)([1, 2]), 'does not include: (array) false');
 
   t.true(getPredicate('lt', 0)(-1), 'less than: less');
   t.false(getPredicate('lt', 0)(0), 'less than: equal');
