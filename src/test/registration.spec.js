@@ -99,9 +99,9 @@ test('Predicates', t => {
   t.true(getPredicate('in', [1, 2])(2), 'includes: (array) true');
   t.false(getPredicate('in', [1, 2])(3), 'includes: (array) false');
 
-  t.true(getPredicate('in', 'abc')('bc'), 'includes: (string) true');
-  t.true(getPredicate('in', 'aBc')('AbC'), 'includes: (string: case insensitive) true');
-  t.false(getPredicate('in', 'abc')('ac'), 'includes: (string) false');
+  t.true(getPredicate('in', 'bc')('abc'), 'includes: (string) true');
+  t.true(getPredicate('in', 'AbC')('aBc'), 'includes: (string: case insensitive) true');
+  t.false(getPredicate('in', 'ac')('abc'), 'includes: (string) false');
 
   t.true(getPredicate('nin', [1, 2])(3), 'does not include: (array) true');
   t.false(getPredicate('nin', [1, 2])(2), 'does not include: (array) false');

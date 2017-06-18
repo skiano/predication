@@ -168,7 +168,7 @@ header nav a.router-link-active {
   border-left: 10px solid #111;
 }
 
-.numbers {
+.numbers, .objects {
   margin: auto;
   font-family: 'Source Code Pro', monospace;
   font-size: 28px;
@@ -186,16 +186,24 @@ header nav a.router-link-active {
   list-style: none;
 }
 
+.objects > li {
+  list-style: none;
+  line-height: 20px;
+}
+
 .numbers > li:nth-child(2n) {
 }
 
-.number {
+.number,
+.object {
   transition: all 350ms ease;
   display: block;
   transform: scale(1);
+  opacity: 1;
 }
 
-.number.filtered {
-  opacity: 0.1;
-  transform: scale(.8);
+.number.filtered,
+.object.filtered {
+  opacity: 0.2;
+  // transform: scale(.8);
 }

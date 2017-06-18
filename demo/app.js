@@ -77,9 +77,9 @@ Vue.component('editor', {
   }
 })
 
-const Main = {
+const Numbers = {
   template: `
-    <div id="app">
+    <div>
       <editor
         :initial-value="initialValue"
         @change="update">
@@ -129,14 +129,54 @@ const Main = {
   }
 }
 
-const numbers = Main
-const objects = { template: '<div>bar</div>' }
+const Objects = {
+  template: `
+    <div>
+      <editor
+        :initial-value="initialValue"
+        @change="update">
+      </editor>
+      <div class="numbers-wrap">
+        <div class="objects">
+          <li v-for="item in filteredValues">
+            <pre class="object" :class="{ filtered: !item.included }">{{ JSON.stringify(item, null, 2) }}</pre>
+          </li>
+        </div>
+      </div>
+    </div>
+  `,
+  data: () => ({
+    values: [
+      { name: 'Jason', age: 28, sign: 'cancer', loves: ['♖'], hates: ['stars'] },
+      { name: 'Jason', age: 28, sign: 'cancer', loves: ['♖'], hates: ['stars'] },
+      { name: 'Jason', age: 28, sign: 'cancer', loves: ['♖'], hates: ['stars'] },
+      { name: 'Jason', age: 28, sign: 'cancer', loves: ['♖'], hates: ['stars'] },
+      { name: 'Jason', age: 28, sign: 'cancer', loves: ['♖'], hates: ['stars'] },
+      { name: 'Jason', age: 28, sign: 'cancer', loves: ['♖'], hates: ['stars'] },
+    ],
+    initialValue: `{this: 'bar', eq: '♖'}`,
+    predicate: () => true,
+  }),
+  methods: {
+    update(predicate) {
+      this.predicate = predicate
+    }
+  },
+  computed: {
+    filteredValues() {
+      return this.values.map(value => ({
+        value: value,
+        included: this.predicate(value)
+      }))
+    }
+  }
+}
 
 const router = new VueRouter({
   routes: [
     { path: '/', redirect: '/numbers' },
-    { path: '/numbers', component: numbers },
-    { path: '/objects', component: objects },
+    { path: '/numbers', component: Numbers },
+    { path: '/objects', component: Objects },
     { path: '*', redirect: '/numbers' }
   ]
 })
