@@ -21,7 +21,9 @@ export const isArrayOfLength = (len, validator) => v => (
 )
 
 export const strIncludes = (v, c) => v.toLowerCase().includes(c.toLowerCase());
-export const includes = (v, c) => isString(v) ? strIncludes(v, c) : v.includes(c);
+export const includes = (v, c) => (
+  v && (isString(v) ? strIncludes(v, c) : v.includes(c))
+)
 
 export const mod = (v, c) => v % c === 0;
 export const modR = (v, [denom, remainder]) => v % denom === remainder;

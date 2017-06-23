@@ -70,7 +70,7 @@ test('Predicates NOT with undefined', t => {
 });
 
 test('Predicates', t => {
-  t.plan(60)
+  t.plan(61)
 
   t.true(getPredicate('exists', true)(0), 'exists: true for 0');
   t.true(getPredicate('exists', true)(''), 'exists: true for empty string');
@@ -102,6 +102,7 @@ test('Predicates', t => {
   t.true(getPredicate('in', 'bc')('abc'), 'includes: (string) true');
   t.true(getPredicate('in', 'AbC')('aBc'), 'includes: (string: case insensitive) true');
   t.false(getPredicate('in', 'ac')('abc'), 'includes: (string) false');
+  t.false(getPredicate('in', 'ac')(false), 'includes: (missing value) false');
 
   t.true(getPredicate('nin', 3)([1, 2]), 'does not include: (array) true');
   t.false(getPredicate('nin', 2)([1, 2]), 'does not include: (array) false');
