@@ -22,7 +22,6 @@ const willNotThrow = fn => (...args) => {
 
 const getContent = doc => eval(`predication.predication(${doc.getValue().trim()})`)
 
-
 const randInRange = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min;
 const randInArr = arr => arr[randInRange(0, arr.length - 1)]
 
@@ -51,14 +50,14 @@ const names = [
 ]
 
 const things = [
-  '♖', '❄', '☂', '♬', '☎', '✈', '✭', '✿', '❤', '☯', '☭', ''
+  '♖', '❄', '☂', '♬', '☎', '✈', '✭', '✿', '❤', '☯', '☭',
 ]
 
 const makePerson = (name) => ({
   name,
   age: randInRange(19, 50),
   sign: randInArr(signs),
-  loves: things,
+  loves: [randInArr(things), randInArr(things)],
   hates: Array.from(things).reverse()
 })
 
