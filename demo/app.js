@@ -65,7 +65,7 @@ const makePerson = (name) => ({
   age: randInRange(19, 50),
   sign: randInArr(signs),
   loves: [randInArr(things), randInArr(things)],
-  hates: Array.from(things).reverse()
+  hates: [randInArr(things), randInArr(things), randInArr(things)]
 })
 
 Vue.component('editor', {
