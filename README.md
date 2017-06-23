@@ -4,7 +4,7 @@ Predication uses objects to describe predicates. That way you can store these de
 
 It supports common predicates and logical operators out of the box, and you can register your own predicates.
 
-There are no external dependencies, and the umd bundle is about 3kb uglified.
+There are no external dependencies, and the umd bundle is less than 4kb uglified, and less than 1.5kb gzipped.
 
 ## installation
 
@@ -215,7 +215,6 @@ registerPredicate('noi', c => v => !objectIncludesString(v, c));
 
 ### Possible Todos for version 1.0
 
-* Error Handling / vallidation of configuration
 * Matching ‘Filtration’ helpers
 * Travis CI
 * stricter lint rules
