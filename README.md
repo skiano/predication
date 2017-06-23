@@ -223,6 +223,10 @@ registerPredicate('noi', c => v => !objectIncludesString(v, c));
 
 ...
 
+### More on 'this' and 'that'
+
+... (how validation handles bad that values)
+
 ### Possible Todos for version 1.0
 
 * Matching ‘Filtration’ helpers
