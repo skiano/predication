@@ -6,13 +6,19 @@ export const or = (v, predicates) => predicates.some(p => p(v));
 export const checkType = typ => v => typeof v === typ
 export const error = msg => { throw new Error(msg); }
 export const isArray = v => Array.isArray(v)
+export const isNotUndefined = v => !isUndefined(v)
+export const isOneOf = (...predicates) => v => or(v, predicates)
 export const isFunction = checkType('function')
 export const isString = checkType('string');
 export const isUndefined = checkType('undefined');
 export const isNumber = checkType('number');
 export const isBool = checkType('boolean');
-export const isArrayOfLength = len => v => isArray(v) && v.length === len;
-export const isOneOf = (...predicates) => v => or(v, predicates)
+
+export const isArrayOfLength = (len, validator) => v => (
+  isArray(v) &&
+  (v.length === len) &&
+  (validator ? v.every(validator) : true)
+)
 
 export const strIncludes = (v, c) => v.toLowerCase().includes(c.toLowerCase());
 export const includes = (v, c) => isString(v) ? strIncludes(v, c) : v.includes(c);
