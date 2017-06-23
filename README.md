@@ -180,6 +180,16 @@ fooHasCubeRoot({foo: 27}) // true
 fooHasCubeRoot({foo: 9})  // false
 ```
 
+If you want to validate a configuration, you can pass a predicate as the third argument to `register predicate` like so...
+
+```javascript
+const greaterThan = (v, config) => v > config
+const isNumber = config => (typeof config === 'number')
+registerPredicate('custom_gt', greaterThan, isNumber)
+
+predication({custom_gt: true}) // throws, because true is not a number
+```
+
 ### Built-in predicates
 
 In the above examples, `eq`, `mod`, and `lt` are examples of built-in predicate names. Here is the full list:
