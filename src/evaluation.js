@@ -34,8 +34,8 @@ const identity = v => v;
  *   "foo[2].bar"
  */
 export const evaluation = path => {
-  if (!path) return identity;
-  if (!isString(path)) error(`bad access path: ${path}`);
+  if (isUndefined(path)) return identity;
+  if (!isString(path) || !path) error(`bad access path: ${path}`);
 
   const terms = path.split('.').reduce((terms, frag) => {
     let parts = TERM_RE.exec(frag);

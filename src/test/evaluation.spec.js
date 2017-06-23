@@ -2,7 +2,7 @@ import test from 'tape';
 import { evaluation } from '../';
 
 test('Evaluation', t => {
-  t.plan(22);
+  t.plan(23);
 
   t.equal(evaluation('bar[0]')({bar: [0, 1, 2]}), 0, 'index 0');
   t.equal(evaluation('bar[1]')({bar: [0, 1, 2]}), 1, 'index x');
@@ -37,4 +37,8 @@ test('Evaluation', t => {
   t.throws(() => {
     evaluation(2)({bar: []});
   }, /bad access path/, 'throw on truthy non-strings');
+
+  t.throws(() => {
+    evaluation('')({bar: []});
+  }, /bad access path/, 'throw on empty');
 });
