@@ -20,7 +20,14 @@ const willNotThrow = fn => (...args) => {
   return true
 }
 
-const getContent = doc => eval(`predication.predication(${doc.getValue().trim()})`)
+const getError = fn => (...args) => {
+  try { fn(...args) } catch (e) { return e }
+  return undefined
+}
+
+const getContent = doc => eval(`predication.predication(${
+  JSON.parse(JSON.stringify(doc.getValue().trim()))
+})`)
 
 const randInRange = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min;
 const randInArr = arr => arr[randInRange(0, arr.length - 1)]
@@ -62,8 +69,8 @@ const makePerson = (name) => ({
 })
 
 Vue.component('editor', {
-  template: '<div class="editor" :class="{ invalid: !isValid }"></div>',
-  data: () => ({ isValid: true }),
+  template: '<div class="editor" :class="{ invalid: errorMessage }"></div>',
+  data: () => ({ errorMessage: false }),
   props: [
     'initialValue',
     'onChange',
@@ -102,12 +109,13 @@ Vue.component('editor', {
           this.$emit('change', value)
         })
 
-    this.validity = this.multicasted
-        .map(willNotThrow(getContent))
+    this.error = this.multicasted
+        .map(getError(getContent))
         .distinctUntilChanged()
-        .subscribe((valid) => {
-          this.isValid = valid
-          this.$emit('validity', valid)
+        .subscribe((error) => {
+          this.errorMessage = error && error.message
+          console.log(`error: ${this.errorMessage}`)
+          this.$emit('error', error)
         })
   },
   beforeDestroy() {
