@@ -7,23 +7,32 @@ import {
   modR,
   error,
   includes,
+  isBool,
+  isOneOf,
   isArray,
+  isNumber,
   isUndefined,
   isDictionary,
+  isArrayOfLength,
   objectIncludesString
 } from './helpers';
 
 const predicates = {};
+const validators = {};
 const isMissing = (k, v, c) => k !== 'exists' && (isUndefined(c) || isUndefined(v));
 
 export const listPredicates = () => Object.keys(predicates);
 export const hasPredicate = key => predicates.hasOwnProperty(key);
-export const removePredicate = key => delete predicates[key];
+export const removePredicate = key => {
+  delete predicates[key];
+  delete validators[key];
+}
 
 export const registerPredicate = (key, predicator, validator) => {
   if (hasPredicate(key)) {
     error(`Predicate "${key}" is already registered`);
   } else {
+    validators[key] = validator
     predicates[key] = (config, value, getThis, getThat) => {
       const v = getThis(value);
       const c = getThat ? getThat(value) : config;
@@ -38,6 +47,9 @@ export const getPredicate = (key, config, thisValue) => {
   if (!hasPredicate(key)) {
     error(key ? `Unregisterd predicate: "${key}"` : 'Empty predicate');
   } else {
+    if (validators[key] && !validators[key](config)) {
+      error(`invalid config for "${key}": ${config}`)
+    }
     const getThis = evaluation(thisValue);
     const getThat = isDictionary(config) && config.that && evaluation(config.that);
     return v => predicates[key](config, v, getThis, getThat);
@@ -52,8 +64,8 @@ registerPredicate('or', or);
 // predication({ x: [3, 4, 5] })([1, 2, 3]) // true
 // predication({ x: [4, 5, 6] })([1, 2, 3]) // false
 
-registerPredicate('exists', (v, c) => c === !isUndefined(v));
-registerPredicate('mod', (v, c) => (isArray(c) ? modR(v, c) : mod(v, c)));
+registerPredicate('exists', (v, c) => c === !isUndefined(v), isBool)
+registerPredicate('mod', (v, c) => (isArray(c) ? modR(v, c) : mod(v, c)), isOneOf(isNumber, isArrayOfLength(2)));
 registerPredicate('in',  (v, c) => includes(v, c));
 registerPredicate('nin', (v, c) => !includes(v, c));
 registerPredicate('eq',  (v, c) => v === c);

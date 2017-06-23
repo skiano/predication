@@ -1,14 +1,18 @@
+/** undefined should be false, not reversed! */
+export const not = (v, predicate) => predicate(v) === false ? true : false;
+export const and = (v, predicates) => predicates.every(p => p(v));
+export const or = (v, predicates) => predicates.some(p => p(v));
+
 export const checkType = typ => v => typeof v === typ
 export const error = msg => { throw new Error(msg); }
 export const isArray = v => Array.isArray(v)
 export const isFunction = checkType('function')
 export const isString = checkType('string');
 export const isUndefined = checkType('undefined');
-
-/** undefined should be false, not reversed! */
-export const not = (v, predicate) => predicate(v) === false ? true : false;
-export const and = (v, predicates) => predicates.every(p => p(v));
-export const or = (v, predicates) => predicates.some(p => p(v));
+export const isNumber = checkType('number');
+export const isBool = checkType('boolean');
+export const isArrayOfLength = len => v => isArray(v) && v.length === len;
+export const isOneOf = (...predicates) => v => or(v, predicates)
 
 export const strIncludes = (v, c) => v.toLowerCase().includes(c.toLowerCase());
 export const includes = (v, c) => isString(v) ? strIncludes(v, c) : v.includes(c);
