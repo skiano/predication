@@ -184,7 +184,7 @@ If you want to validate a configuration, you can pass a predicate as the third a
 
 ```javascript
 const greaterThan = (v, config) => v > config
-const isNumber = config => (typeof config === 'number')
+const isNumber = config => typeof config === 'number' // returns false if invalid
 registerPredicate('custom_gt', greaterThan, isNumber)
 
 predication({custom_gt: true}) // throws, because true is not a number
