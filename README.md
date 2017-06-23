@@ -218,4 +218,5 @@ registerPredicate('noi', c => v => !objectIncludesString(v, c));
 * Error Handling / vallidation of configuration
 * Matching ‘Filtration’ helpers
 * Travis CI
+* stricter lint rules
 * Demo site
