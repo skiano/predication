@@ -70,7 +70,7 @@ test('Predicates NOT with undefined', t => {
 });
 
 test('Predicates', t => {
-  t.plan(61)
+  t.plan(62)
 
   t.true(getPredicate('exists', true)(0), 'exists: true for 0');
   t.true(getPredicate('exists', true)(''), 'exists: true for empty string');
@@ -135,6 +135,7 @@ test('Predicates', t => {
   t.true(getPredicate('mod', [3,0])(3), 'divisible this: (remainder) 0');
   t.true(getPredicate('mod', [3,1])(4), 'divisible this: (remainder) 1');
   t.true(getPredicate('mod', [3,2])(5), 'divisible this: (remainder) 2');
+  t.true(getPredicate('mod', [3,4])(4), 'divisible this: (remainder) overflow');
 
   t.true(getPredicate('oi', 'foo')({a: 'foo', b: 'bar'}), 'object includes: top key left');
   t.true(getPredicate('oi', 'foo')({a: 'bar', b: 'foo'}), 'object includes: top key right');

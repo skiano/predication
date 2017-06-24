@@ -27,7 +27,7 @@ export const includes = (v, c) => {
 }
 
 export const mod = (v, c) => v % c === 0;
-export const modR = (v, [denom, remainder]) => v % denom === remainder;
+export const modR = (v, [denom, remainder]) => v % denom === (remainder % denom);
 
 export const isDictionary = obj => {
   const type = typeof obj;

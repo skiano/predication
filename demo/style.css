@@ -47,21 +47,21 @@ header section {
   height: 50px;
   line-height: 30px;
   padding: 10px 15px;
-  left: 310px;
-  right: 310px;
+  left: 300px;
+  right: 300px;
 }
 
 header section:first-child {
   left: 0;
   right: auto;
-  width: 310px;
+  width: 300px;
   background: #222;
 }
 
 header section:last-child {
   right: 0;
   left: auto;
-  width: 310px;
+  width: 300px;
   background: #666;
 }
 
@@ -94,8 +94,8 @@ header nav a.router-link-active {
 
 .editor {
   position: fixed;
-  left: 310px;
-  right: 310px;
+  left: 300px;
+  right: 300px;
   top: 50px;
   bottom: 40px;
 }
@@ -161,11 +161,10 @@ header nav a.router-link-active {
   top: 50px;
   left: 0;
   bottom: 40px;
-  width: 310px;
+  width: 300px;
   overflow-y: auto;
   background: #111;
   padding: 10px;
-  border-left: 10px solid #111;
 }
 
 .numbers, .objects {
