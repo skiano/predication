@@ -1,6 +1,6 @@
 {
   "name": "predication",
-  "version": "0.0.18",
+  "version": "0.0.19",
   "description": "Describe predicates with objects",
   "main": "dist/predication.js",
   "scripts": {
