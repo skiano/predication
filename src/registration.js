@@ -70,7 +70,7 @@ registerPredicate('or', or);
 // predication({ x: [4, 5, 6] })([1, 2, 3]) // false
 
 registerPredicate('exists', (v, c) => c === !isUndefined(v),              isBool)
-registerPredicate('mod', (v, c) => (isArray(c) ? modR(v, c) : mod(v, c)), isOneOf(isNumber, isArrayOfLength(2)));
+registerPredicate('mod', (v, c) => (isArray(c) ? modR(v, c) : mod(v, c)), isOneOf(isNumber, isArrayOfLength(2, isNumber)));
 registerPredicate('in',  (v, c) => includes(v, c),                        isNotUndefined);
 registerPredicate('nin', (v, c) => !includes(v, c),                       isNotUndefined);
 registerPredicate('eq',  (v, c) => v === c,                               isNotUndefined);
