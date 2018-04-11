@@ -1,6 +1,6 @@
 # predication
 
-[Playground](https://skiano.github.io/predication/)
+[playground](https://skiano.github.io/predication/)
 
 Predication uses objects to describe predicates. That way you can store these descriptions as data and easily convert them into pre-compiled functions. This is useful if you need to store complicated predicates in a database or send them as a message, for example.
 
