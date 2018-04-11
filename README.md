@@ -55,6 +55,8 @@ const values = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20]
 const matches = values.filter(predicate) // [6,8,9,10,12,14]
 ```
 
+[example](https://skiano.github.io/predication/#/numbers?predicate=ewoJYW5kOiBbCgkJe2x0OiAxNX0sCgkgIHtub3Q6IHtsdDogNX19LAoJCXtvcjogWwoJCQl7bW9kOiAyfSwKCQkJe21vZDogM30KCQldfQoJXQp9)
+
 ### Working with objects
 
 In the likely event that your values are objects, you can use `this` to ‘key’ into the object...
