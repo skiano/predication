@@ -1,0 +1,225 @@
+@import url('https://fonts.googleapis.com/css?family=Source+Code+Pro');
+@import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro');
+
+*, *:before, *:after {
+  box-sizing: border-box;
+}
+
+html {
+  font-family: 'Source Sans Pro', sans-serif;
+  font-size: 13px;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 50px;
+  background: #444;
+  color: #aaa;
+}
+
+footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: #222;
+  height: 40px;
+  text-align: center;
+  color: #aaa;
+  line-height: 40px;
+}
+
+header section {
+  position: absolute;
+  top: 0;
+  height: 50px;
+  line-height: 30px;
+  padding: 10px 15px;
+  left: 300px;
+  right: 300px;
+}
+
+header section:first-child {
+  left: 0;
+  right: auto;
+  width: 300px;
+  background: #222;
+}
+
+header section:last-child {
+  right: 0;
+  left: auto;
+  width: 300px;
+  background: #666;
+}
+
+header section h2 {
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  display: inline-block;
+  color: #fff;
+}
+
+header nav {
+  float: right;
+}
+
+header nav a {
+  color: inherit;
+  display: inline-block;
+  padding: 0px 10px;
+  margin: 0 5px;
+  border-radius: 8px;
+  line-height: 25px;
+  background: #333;
+  text-decoration: none;
+}
+
+header nav a.router-link-active {
+  background: limegreen;
+  color: #000;
+}
+
+.editor {
+  position: fixed;
+  left: 300px;
+  right: 300px;
+  top: 50px;
+  bottom: 40px;
+}
+
+.CodeMirror-gutters {
+  background: transparent;
+  border: none;
+}
+
+.editor-gutter {
+  width: 40px;
+  background: transparent;
+}
+
+.CodeMirror {
+  font-family: 'Source Code Pro', monospace;
+  font-size: 14px;
+  line-height: 20px;
+  background: #eee;
+  transition: background-color 300ms ease 300ms;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: auto;
+}
+
+
+.CodeMirror-lines {
+  margin-top: 15px;
+  margin-bottom: 25px;
+  margin-right: 10px;
+}
+
+.CodeMirror-lines:after,
+.CodeMirror-lines:before {
+  position: relative;
+  left: -16.5px;
+  display: block;
+  padding-left: 4px;
+  color: #aaa;
+}
+
+.CodeMirror-lines:before {
+  content: 'preview.filter(predication(';
+}
+
+.CodeMirror-lines:after {
+  content: '))';
+}
+
+.CodeMirror-matchingbracket {
+  color: red !important;
+}
+
+.editor.invalid .CodeMirror {
+  background: #edd;
+}
+
+.numbers-wrap {
+  position: fixed;
+  top: 50px;
+  left: 0;
+  bottom: 40px;
+  width: 300px;
+  overflow-y: auto;
+  background: #111;
+  padding: 10px;
+}
+
+.numbers, .objects {
+  margin: auto;
+  font-family: 'Source Code Pro', monospace;
+  font-size: 28px;
+  overflow: hidden;
+  font-size: 13px;
+  color: limegreen;
+}
+
+.numbers > li {
+  text-align: center;
+  line-height: 40px;
+  width: 40px;
+  height: 40px;
+  float: left;
+  list-style: none;
+}
+
+.objects > li {
+  list-style: none;
+  line-height: 20px;
+}
+
+.numbers > li:nth-child(2n) {
+}
+
+.number,
+.object {
+  transition: all 350ms ease;
+  display: block;
+  transform: scale(1);
+  opacity: 1;
+}
+
+.number.filtered,
+.object.filtered {
+  opacity: 0.2;
+}
+
+.object {
+  border: 1px solid green;
+  padding: 5px 8px;
+  border-radius: 4px;
+  margin: 10px 0;
+}
+
+.object pre {
+  display: none; 
+}
+
+.stuff {
+  font-size: 14px;
+  letter-spacing: 3px;
+}
+
+
