@@ -4,7 +4,7 @@ import {
   isString,
   isFunction,
   isUndefined
-} from './helpers'
+} from './helpers.mjs'
 
 const TERM_RE = /^([^\[]*)\[(\-?\d*)\]$/;
 const IDX_RE = /^(\-?)(\d)$/;

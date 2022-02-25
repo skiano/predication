@@ -1,5 +1,5 @@
-import { getPredicate } from './';
-import { error } from './helpers'
+import { getPredicate } from './registration.mjs';
+import { error } from './helpers.mjs'
 
 const truthy = () => true;
 const removeThis = k => k !== 'this';

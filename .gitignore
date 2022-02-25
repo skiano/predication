@@ -1,14 +1,5 @@
-
 #build
-dist
-
-# Logs
-*.log
-npm-debug.log*
-
-# Coverage directory used by tools like istanbul
-coverage
-.nyc_output
+predication.min.mjs
 
 # Dependency directories
 node_modules

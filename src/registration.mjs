@@ -1,4 +1,4 @@
-import { evaluation } from './';
+import { evaluation } from './evaluation.mjs';
 import {
   or,
   and,
@@ -17,7 +17,7 @@ import {
   isNotUndefined,
   isArrayOfLength,
   objectIncludesString
-} from './helpers';
+} from './helpers.mjs';
 
 const predicates = {};
 const validators = {};
