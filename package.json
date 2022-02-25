@@ -6,7 +6,10 @@
   "main": "predication.min.mjs",
   "scripts": {
     "start": "node test/_run.mjs",
-    "build": "rollup src/index.mjs --plugin terser --file predication.min.mjs"
+    "build": "rollup src/index.mjs --plugin terser --file predication.min.mjs",
+    "release:patch": "node test/_run.mjs && npm version patch && git push origin master --tags && npm publish",
+    "release:minor": "node test/_run.mjs && npm version minor && git push origin master --tags && npm publish",
+    "release:major": "node test/_run.mjs && npm version major && git push origin master --tags && npm publish"
   },
   "devDependencies": {
     "chalk": "^5.0.0",
