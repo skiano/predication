@@ -1,7 +1,7 @@
 {
   "name": "predication",
   "type": "module",
-  "version": "0.0.19",
+  "version": "1.0.0",
   "description": "Describe predicates with objects",
   "main": "predication.min.mjs",
   "scripts": {
