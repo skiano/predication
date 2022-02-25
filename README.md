@@ -1,7 +1,5 @@
 # predication
 
-[playground](https://skiano.github.io/predication/)
-
 Predication uses objects to describe predicates. That way you can store these descriptions as data and easily convert them into pre-compiled functions. This is useful if you need to store complicated predicates in a database or send them as a message, for example.
 
 It supports common predicates and logical operators out of the box, and you can register your own predicates.
@@ -15,11 +13,6 @@ There are no external dependencies, and the umd bundle is less than 4kb uglified
 ```bash
 $ npm install predication
 ```
-
-### cdn
-
-* (umd uglified) https://cdn.jsdelivr.net/npm/predication
-* (umd) https://cdn.jsdelivr.net/npm/predication/dist/predication.js
 
 ## usage
 
@@ -56,8 +49,6 @@ const values = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20]
 
 const matches = values.filter(predicate) // [6,8,9,10,12,14]
 ```
-
-[edit this predicate!](https://skiano.github.io/predication/#/numbers?predicate=ewoJYW5kOiBbCgkJe2x0OiAxNX0sCgkgIHtub3Q6IHtsdDogNX19LAoJCXtvcjogWwoJCQl7bW9kOiAyfSwKCQkJe21vZDogM30KCQldfQoJXQp9)
 
 ### Working with objects
 
@@ -231,9 +222,4 @@ registerPredicate('noi', c => v => !objectIncludesString(v, c));
 
 ... (how validation handles bad that values)
 
-### Possible Todos for version 1.0
 
-* Matching ‘Filtration’ helpers
-* Travis CI
-* stricter lint rules
-* Demo site
