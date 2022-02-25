@@ -9,7 +9,13 @@ import {
   registerPredicate,
   removePredicate,
 } from '../src/index.mjs';
+
+import exampleTests from './examples.mjs';
+import validationTests from './validation.mjs';
 import evaluationTests from './evaluation.mjs';
+import predicationTests from './predication.mjs';
+import registrationTests from './registration.mjs';
+
 
 // The basic API
 assert(evaluation instanceof Function, 'exports evaluation');
@@ -31,14 +37,20 @@ assert.deepEqual(listPredicates(), [
 ], 'exports default predicates');
 
 const suites = [
-  evaluationTests
+  { name: 'EVALUATION', tests: evaluationTests },
+  { name: 'PREDICATION', tests: predicationTests },
+  { name: 'REGISTRATION', tests: registrationTests },
+  { name: 'VALIDATION', tests: validationTests },
+  { name: 'EXAMPLES', tests: exampleTests },
 ];
 
 console.log('\nRUNNING TESTS\n');
 
 let failures = 0;
-suites.forEach((suite) => {
-  suite.forEach((test) => {
+suites.forEach(({ name, tests }) => {
+  console.log(name);
+  tests.forEach((test, i) => {
+    test.name = test.name || `test ${i}`;
     try {
       test.execute();
       console.log(chalk.green(`✓ ${test.name}`));
@@ -48,6 +60,7 @@ suites.forEach((suite) => {
       failures++;
     }
   });
+  console.log('');
 });
 
 if (failures) {
