@@ -1,7 +1,6 @@
 import assert from 'assert';
 import { predication } from '../src/predication.mjs';
 
-
 export default [
   {
     name: 'validation',
